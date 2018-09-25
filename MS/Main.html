@@ -1,0 +1,147 @@
+<html>
+
+<head>
+
+    <link rel="stylesheet" type="text/css" href="Stylez.css">
+    <script src="Scriptz.js"></script> 
+
+
+</head>
+
+
+<body>   
+
+    <div class="mainArea"> <!--mainArea Start-->
+
+        <div class="formArea"> <!--formArea Div Start-->
+
+            <div class="formDataArea"> <!--formDataArea Start-->
+                <div class="formTitleLine">
+                    <div>Building Maintenance Activity Report</div>
+                </div>
+
+                <div class="switchBtnLine">
+                    <!-- <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span> -->
+                    </label>
+                </div>
+
+                <div class="workTitleLine">
+                    <div id="WorkTitle"class="workTitleDT">Work Title</div>
+                    <input class="workTitleInput" type="text" id="wTitleBox"> <!--INPUT-->
+                    <div id="Type1"class="typeDT">Type</div>
+                    <select class="type1Input" id="type1Box">    <!--INPUT-->
+                        <option disabled selected></option>
+                        <option>PM</option> 
+                        <option>RM</option>
+                    </select>
+
+                    <select class="type2Input" id="type2Box"> <!--INPUT-->
+                        <option disabled selected></option>
+                        <option>VI</option>
+                        <option>R&S</option>
+                        <option>RP</option>
+                        <option>HK</option>
+                        <option>UC</option>
+                        <option>PT</option>
+                        <option>SL</option>
+                    </select>
+                    
+                </div>
+
+                <div class="descriptionLine">
+                    <div id="Description"class="descriptionDT">Description</div>
+                    <textarea id="descriptionBox"rows="5" cols="50" class="item2"></textarea> <!--INPUT-->
+                </div>
+
+                <div class="locationLine">
+                    <div id="Location" class="locationDT">Location</div>     
+                    <input id="locationBox"class="locationBox"type="text"> <!--INPUT-->
+                    <div id="Status"class="statusDT">Status</div> 
+                    <select id="statusBox"class="statusBox"> <!--INPUT-->
+                        <option disabled selected></option>
+                        <option>Open</option> 
+                        <option>Closed</option>
+                    </select>
+                        
+                </div>
+
+                <div class="companyLine">
+                    <div id="Company" class="companyDT">Company</div>
+                    <input id="companyBox"class="companyBox" type="text"> <!--INPUT-->
+                    <div id="SAP#"class="sapDT">SAP#</div> 
+                    <input id="sapBox"class="sapBox" type="text"> <!--INPUT-->
+                </div>
+
+                <div class="requestByLine">
+                    <div id="RequestBy"class="requestByDT">Request By</div> 
+                    <input id="requestbyBox"class="requestByBox" type="text"> <!--INPUT-->
+                    <div id="RequestDate"class="requestDateDT">Request Date</div>
+                    <input id="requestdateBox"class="requestDateBox"type="Date"> <!--INPUT-->
+                </div>
+            
+                <div class="closedByLine">
+                    <div id="ClosedBy"class="closedByDT">Closed By</div> 
+                    <input id="closedbyBox"class="closedByBox" type="text"><!--INPUT-->
+                    <div id="CompletionDate"class="completionDateDT">Completion Date</div>
+                    <input id="completiondateBox"class="completionDateBox" type="date"> <!--INPUT-->
+                </div>
+            </div> <!--formDataArea End-->
+
+
+        
+            <div class="formBtnArea"> <!--formBtnArea Start-->
+        
+                <input id="searchButton"class="ovalButton" type="button" value="SEARCH" onclick="retrieve()">
+                <input id="editButton"class="ovalButton" type="button" value="EDIT">
+                <input id="resetButton"class="ovalButton" type="button" value="RESET"onclick="Reset()">
+                <input id="deleteButton"class="ovalButton" type="button" value="DELETE">
+                <input id="saveButton"class="ovalButton" type="button" value="SAVE" onclick="Validation()">
+                <input id="testButton"class="ovalButton" type="button" value="TEST" onclick="testing()">
+        
+            </div> <!--formBtnArea End-->
+
+        </div> <!--formArea Div End-->
+        
+    </div> <!--mainArea End-->
+
+    <div class="alertDivision">
+        <div id="alertMsg"class="alertMsg">Debugging error</div>
+    </div>
+
+    <div id="outputDivision"class="outputDivision">
+
+        <div id="wTitleOutput"class="wTitleOutput">Work title</div>
+        <div id="type1Output" class="type1Output">Type1</div>
+        <div id="type2Output" class="type2Output">Type 2</div>
+        <div id="descOutput" class="descOutput">Description</div>
+        <div id="locOutput" class="locOutput">Location</div>
+        <div id="statOutput" class="statOutput">Status</div>
+        <div id="comOutput" class="comOutput">Company</div>
+        <div id="sapOutput" class="sapOutput">SAP#</div>
+        <div id="reqbyOutput" class="reqByOutput">Request By</div>
+        <div id="reqDateOutput" class="reqDateOutput">Request Date</div>
+        <div id="closedByOutput" class="closedByOutput">Closed by</div>
+        <div id="compDateOutput" class="compDateOutput">Comlete Date</div>
+        
+        
+        <!-- <div id="wTitleOutput"class="wTitleOutput">Work title</div>
+        <div id="type1Output" class="type1Output">Type1</div>
+        <div id="type2Output" class="type2Output">Type 2</div>
+        <div id="descOutput" class="descOutput">Description</div>
+        <div id="locOutput" class="locOutput">Location</div>
+        <div id="statOutput" class="statOutput">Status</div>
+        <div id="comOutput" class="comOutput">Company</div>
+        <div id="sapOutput" class="sapOutput">SAP#</div>
+        <div id="reqbyOutput" class="reqByOutput">Request By</div>
+        <div id="reqDateOutput" class="reqDateOutput">Request Date</div>
+        <div id="closedByOutput" class="closedByOutput">Closed by</div>
+        <div id="compDateOutput" class="compDateOutput">Comlete Date</div> -->
+
+    </div>
+
+</body>
+
+
+</html>

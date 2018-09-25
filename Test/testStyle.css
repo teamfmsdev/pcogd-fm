@@ -1,0 +1,90 @@
+body{
+    background-color: black;
+    position: absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+}
+.wrapper{
+    /* background-color:green; */
+    display:grid;
+    grid-template-rows: auto;
+    grid-row-gap:10px;
+    /* border:5px solid white; */
+    
+    /* justify-content: center; */
+}
+
+.formWrapper{
+    display:grid;
+    /* border:5px solid red; */
+    justify-content: center;
+    grid-column-gap: 50px;
+    grid-row-gap:10px;
+    /* color:white; */
+}
+
+.btnWrapper{
+    /* border: 1px solid red; */
+    justify-self: center;
+}
+
+.outputWrapper{
+    display:grid;
+    grid-template-columns: repeat(3,auto);
+    justify-content: space-evenly;
+    /* justify-content:space-around; */
+    /* background-color: red; */
+    /* border:1px solid white; */
+}
+
+.outputguide{
+    /* grid-template-columns: 100px 100px 100px; */
+    /* border:2px solid red; */
+    color:white;
+    border:1px solid green;
+    /* text-decoration-color: white; */
+    /* background-color: lightgreen; */
+    justify-content: stretch;
+
+}
+
+.name{
+    /* display:grid; */
+    grid-row:1/1;
+    color:white;
+}
+
+.nameBox{
+    /* display:grid; */
+    grid-column: 2/2;
+    grid-row:1/1;
+}
+.age{
+    /* display:grid; */
+    grid-row:2/2;
+    color:white;;
+}
+
+.ageBox{
+    /* display:grid; */
+    grid-column: 2/2;
+    grid-row: 2/2
+}
+
+.gender{
+    /* display:grid; */
+    grid-row:3/3;
+    color:white;
+}
+
+.genderBox{
+    /* display:grid; */
+    grid-column:2/2;
+    grid-row:3/3;
+}
+
+.outputField{
+    color:white;
+}
