@@ -242,8 +242,11 @@ textarea {
     /* gap: 5px; */
     /* border:1px solid green; */
     justify-content: stretch;
-    /* border:1px solid white; */
+    border:1px solid white;
     /* grid-auto-rows: 50px; */
     justify-items:stretch;
 }
 
+#x0y0:hover{
+    background-color: green;
+}

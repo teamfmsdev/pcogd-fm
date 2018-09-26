@@ -1,6 +1,7 @@
 var jsonResponse = "";
 var select=[[]];
 
+
 function testing(){
     var formData = {
         wTitle:document.getElementById("wTitleBox").value,
@@ -211,7 +212,8 @@ function retrieve(){
                     node[y] = document.createElement("div");
                     node[y].appendChild(textnode[y]);
                     node[y].className="outputDivision";
-                    node[y].setAttribute("Id","x"+x+"y"+y);
+                    node[y].setAttribute("id","x"+x+"y"+y);
+                    node[y].addEventListener("mouseover",mouseOverSelect);
                     jsonOutput.appendChild(node[y]);
                     select[x].push([document.getElementById("x"+x+"y"+y)]);
                 }
@@ -229,13 +231,22 @@ function retrieve(){
 }
 
 
-
-for (x=0;x<jsonResponse.length;x++){
-    
-
-}
+// var rows=[[]]
 
 function mouseOverSelect(){
+
+    var rows=[[]];
+
+    for(x=0;x<jsonResponse.length;x++){
+        for(y=0;y<12;y++){
+            rows[x].push([document.getElementById("x"+x+"y"+y)]);
+        }
+        if (rows.length!=jsonResponse.length){
+            rows.push([]);
+        }
+    }
+
+        
 
 
 }
