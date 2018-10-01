@@ -242,11 +242,25 @@ textarea {
     /* gap: 5px; */
     /* border:1px solid green; */
     justify-content: stretch;
-    border:1px solid white;
+    /* border:1px solid white; */
     /* grid-auto-rows: 50px; */
     justify-items:stretch;
 }
 
-#x0y0:hover{
-    background-color: green;
+.outputTable{
+    color:white;
 }
+
+tr:hover{
+    background-color: rgb(9, 153, 197);
+}
+.selected{
+    background-color: rgb(9, 153, 197);
+}
+.outputTable tr th{
+    background-color: black;
+}
+
+/* tr:onclick{
+    background-color: blue;
+} */

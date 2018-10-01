@@ -201,53 +201,64 @@ function retrieve(){
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {            
             jsonResponse = JSON.parse(xmlhttp.responseText);
-            var jsonOutput=document.getElementById("outputDivision");
-            var node= [];
+            var tableOutput=document.getElementById("outputTable");
+            var rowNode=[];
+            var colNode= [];
             var textnode=[];
-
             for(x=0;x<jsonResponse.length;x++){
-                
-                for(y=0;y<12;y++){
+                rowNode[x] = document.createElement("tr");
+                rowNode[x].setAttribute("id",jsonResponse[x][0]); // Row column    
+                rowNode[x].addEventListener("click",function(){edit(this)});
+// Y = 1 BECAUSE WE DONT WANT TO SELECT ROW COLUMN IN TABLE
+                for(y=1;y<13;y++){
                     textnode[y] = document.createTextNode(jsonResponse[x][y]);
-                    node[y] = document.createElement("div");
-                    node[y].appendChild(textnode[y]);
-                    node[y].className="outputDivision";
-                    node[y].setAttribute("id","x"+x+"y"+y);
-                    node[y].addEventListener("mouseover",mouseOverSelect);
-                    jsonOutput.appendChild(node[y]);
-                    select[x].push([document.getElementById("x"+x+"y"+y)]);
+                    colNode[y] = document.createElement("td");
+                    colNode[y].appendChild(textnode[y]);
+                    // colNode[y].setAttribute("id","x"+x+"y"+y);
+                    rowNode[x].appendChild(colNode[y]);
+                    
                 }
-                // select.push([]);
-                if (select.length!=jsonResponse.length){
-                    select.push([]);
-                }
+                tableOutput.appendChild(rowNode[x]);
+             
+
             }
 
         }
         }
-    xmlhttp.open("POST", "serverInteraction.php", true);
+    xmlhttp.open("POST", "serverInteraction.php", false);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(submission);
 }
 
 
-// var rows=[[]]
-
-function mouseOverSelect(){
-
-    var rows=[[]];
-
-    for(x=0;x<jsonResponse.length;x++){
-        for(y=0;y<12;y++){
-            rows[x].push([document.getElementById("x"+x+"y"+y)]);
-        }
-        if (rows.length!=jsonResponse.length){
-            rows.push([]);
-        }
+function edit(elem){
+    if (elem.className=="selected"){
+        elem.className="";
+    }else{
+        elem.className="selected";
+    }
+    
+    var table=document.getElementById("outputTable");
+    var alertMsg = document.getElementById("alertMsg");
+    var msg ="";
+    var dataBoxes=[document.getElementById("wTitleBox"),
+    document.getElementById("type1Box"),
+    document.getElementById("type2Box"),
+    document.getElementById("descriptionBox"),
+    document.getElementById("locationBox"),
+    document.getElementById("statusBox"),
+    document.getElementById("companyBox"),
+    document.getElementById("sapBox"),
+    document.getElementById("requestbyBox"),
+    document.getElementById("requestdateBox"),
+    document.getElementById("closedbyBox"),
+    document.getElementById("completiondateBox")]
+    for(y=0;y<13;y++){
+        dataBoxes[y].value=elem.childNodes[y].innerText;
+    // FIX THIS ONCE WE HAVE A PROPER WORKING SEARCH
     }
 
-        
+    
 
-
-}
+}   
 

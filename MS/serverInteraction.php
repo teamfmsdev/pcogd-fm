@@ -36,7 +36,7 @@ function save(){
     if (!$con){
         die ("Connection cannot be established". mysqli_connect_error($con));
     }
-
+    
     $sql ="INSERT INTO `main`(`Work Title`, `Type 1`, `Type 2`, `Description`, `Location`, `Status`,
      `Company`, `SAP#`, `Request By`, `Request Date`, `Closed By`, `Completion Date`)
      VALUES ('$wTitle','$type1','$type2','$desc','$loca','$stats','$comp','$sapB','$reqB',
@@ -44,6 +44,7 @@ function save(){
     
     if (mysqli_query($con,$sql)){
         echo "New record insert success ";
+        
     }else{
         echo "Fail to insert ";
     }
@@ -70,6 +71,8 @@ function retrieve(){
     }
 
     $sql="SELECT * FROM main ";
+
+    // CHANGE SQL TO REFLECT WHAT USER INPUT RATHER THAN RETRIEVE ALL
 
     $result=mysqli_query($con,$sql);    
         
