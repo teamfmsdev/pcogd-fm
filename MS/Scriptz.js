@@ -1,6 +1,9 @@
 var jsonResponse = "";
 var select=[[]];
 
+document.addEventListener("DOMContentLoaded", function(){editButton = document.getElementById("editButton");});
+
+// editButton = document.getElementById("editButton");
 
 function testing(){
     var formData = {
@@ -208,7 +211,7 @@ function retrieve(){
             for(x=0;x<jsonResponse.length;x++){
                 rowNode[x] = document.createElement("tr");
                 rowNode[x].setAttribute("id",jsonResponse[x][0]); // Row column    
-                rowNode[x].addEventListener("click",function(){edit(this)});
+                rowNode[x].addEventListener("click",function(){passOver(this)});
 // Y = 1 BECAUSE WE DONT WANT TO SELECT ROW COLUMN IN TABLE
                 for(y=1;y<13;y++){
                     textnode[y] = document.createTextNode(jsonResponse[x][y]);
@@ -232,11 +235,11 @@ function retrieve(){
 
 
 function edit(elem){
-    if (elem.className=="selected"){
-        elem.className="";
-    }else{
-        elem.className="selected";
-    }
+    // if (elem.className=="selected"){
+    //     elem.className="";
+    // }else{
+    //     elem.className="selected";
+    // }
     
     var table=document.getElementById("outputTable");
     var alertMsg = document.getElementById("alertMsg");
@@ -256,9 +259,19 @@ function edit(elem){
     for(y=0;y<13;y++){
         dataBoxes[y].value=elem.childNodes[y].innerText;
     // FIX THIS ONCE WE HAVE A PROPER WORKING SEARCH
+    }    
+} 
+
+function passOver(elem){
+    if (elem.className=="selected"){
+        elem.className="";
+    }else{
+        elem.className="selected";
     }
-
     
+    editButton.onclick=function(){edit(elem)};
 
-}   
+    // editButton.addEventListener("Click",function(){edit(elem)});
+    
+}
 

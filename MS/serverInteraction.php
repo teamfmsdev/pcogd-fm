@@ -82,6 +82,7 @@ function retrieve(){
         }
     
         echo json_encode($jsonData);
+        
 }
 
 
