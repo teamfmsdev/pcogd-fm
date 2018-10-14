@@ -254,9 +254,9 @@ textarea {
 tr:hover{
     background-color: rgb(9, 153, 197);
 }
-.selected{
+/* .selected{
     background-color: rgb(9, 153, 197);
-}
+} */
 .outputTable tr th{
     background-color: black;
 }

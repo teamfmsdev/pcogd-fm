@@ -1,7 +1,16 @@
 var jsonResponse = "";
 var select=[[]];
+var editArg ;
+var elemRow;
 
+// TOGGLE BUTTON FOR NEW AND UPDATE 
+// Will modify editArg to 1 when toggled to UPDATE
+// Will modify editArg to 0 when toggled to New
+
+
+//Declaring global VAR for buttons when HTML page loaded
 document.addEventListener("DOMContentLoaded", function(){editButton = document.getElementById("editButton");});
+document.addEventListener("DOMContentLoaded", function(){deleteButton = document.getElementById("deleteButton");});
 
 // editButton = document.getElementById("editButton");
 
@@ -37,14 +46,36 @@ function testing(){
     // document.getElementById("alertMsg").innerHTML = formData.wTitle;
 }
 
+
+// Reset inputBoxes of form
 function Reset(){
-    document.getElementById("formDataArea").reset();
+    var formData = {
+        0:document.getElementById("wTitleBox"),
+        1:document.getElementById("type1Box"),
+        2:document.getElementById("type2Box"),
+        3:document.getElementById("descriptionBox"),
+        4:document.getElementById("locationBox"),
+        5:document.getElementById("statusBox"),
+        6:document.getElementById("companyBox"),     
+        7:document.getElementById("sapBox"),
+        8:document.getElementById("requestbyBox"),
+        9:document.getElementById("requestdateBox"),
+        10:document.getElementById("closedbyBox"),
+        11:document.getElementById("completiondateBox")
+    };
+
+    for(y=0;y<12;y++){
+        formData[y].value="";
+    }
+
 }
 
+// Trim user input of white spaces
 function myTrim(subj) {
     return subj.replace(/^\s+|\s+$/gm,'');
 }
 
+// Form validation for checking empty field
 function Validation(){
 var formData = {
     wTitle:document.getElementById("wTitleBox").value,
@@ -146,11 +177,17 @@ if (dateComparing[1] < dateComparing[0]){
 
 if (alertMsg!=""){
     document.getElementById("alertMsg").innerHTML=alertMsg;
-}else{
+}else if(alertMsg=="" && editArg==""){
     Save(formData);
-}
+}else if(alertMsg=="" && editArg==1){
+    Update(formData);
+    // editArg="";
 }
 
+
+}
+
+//Save new entry from user input, receive validated formInput from validation()
 function Save(objData){
     var callArg = "save";
     var submission = 
@@ -174,6 +211,7 @@ function Save(objData){
     xmlhttp.send(submission);
 }
 
+//Retrieve *all record from SQL DB
 function retrieve(){
     var formData = {
         wTitle:document.getElementById("wTitleBox").value,
@@ -225,25 +263,73 @@ function retrieve(){
              
 
             }
-
+            // console.log(document.getElementById("4").childNodes[3].innerText);
         }
         }
     xmlhttp.open("POST", "serverInteraction.php", false);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(submission);
 }
+//Update specified record by passOver()
+function Update(){
+    // GET form value
+
+    var formData = {
+        0:document.getElementById("wTitleBox").value,
+        1:document.getElementById("type1Box").value,
+        2:document.getElementById("type2Box").value,
+        3:document.getElementById("descriptionBox").value,
+        4:document.getElementById("locationBox").value,
+        5:document.getElementById("statusBox").value,
+        6:document.getElementById("companyBox").value,     
+        7:document.getElementById("sapBox").value,
+        8:document.getElementById("requestbyBox").value,
+        9:document.getElementById("requestdateBox").value,
+        10:document.getElementById("closedbyBox").value,
+        11:document.getElementById("completiondateBox").value
+    };
+    //Call argument for PHP script
+    var callArg = "Update";
+    var xmlhttp = new XMLHttpRequest;
+
+    //Data to be submit to PHP server
+
+    var submission = 
+    "wTitle="+formData[0]+"&type1=" 
+    +formData[1]+"&type2="+formData[2]
+    +"&desc="+formData[3]+"&loca="+formData[4]
+    +"&stats="+formData[5]+"&comp="+formData[6]
+    +"&sapB="+formData[7]+"&reqB="+formData[8]
+    +"&reqD="+formData[9]+"&clos="+formData[10]
+    +"&comple="+formData[11]+"&callArg="+callArg+"&dataID="+elemRow.id;
+
+    xmlhttp.onreadystatechange=function(){
+        if(xmlhttp.readyState==4 && xmlhttp.status==200){
+        //    console.log(xmlhttp.responseText);
+           document.getElementById("alertMsg").innerHTML=xmlhttp.responseText;
+           var rowAjaxUpdate=document.getElementById(elemRow.id);
+           for(y=0;y<12;y++){
+                rowAjaxUpdate.childNodes[y].innerText=formData[y];
+           }
+        }
+    }
+
+    xmlhttp.open("POST", "serverInteraction.php", false);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(submission);
 
 
+}
+
+// Populate input form
 function edit(elem){
-    // if (elem.className=="selected"){
-    //     elem.className="";
-    // }else{
-    //     elem.className="selected";
-    // }
     
-    var table=document.getElementById("outputTable");
-    var alertMsg = document.getElementById("alertMsg");
-    var msg ="";
+    // var table=document.getElementById("outputTable");
+    // var alertMsg = document.getElementById("alertMsg");
+    // var msg ="";
+ 
+    editArg = 1;
+
     var dataBoxes=[document.getElementById("wTitleBox"),
     document.getElementById("type1Box"),
     document.getElementById("type2Box"),
@@ -256,21 +342,52 @@ function edit(elem){
     document.getElementById("requestdateBox"),
     document.getElementById("closedbyBox"),
     document.getElementById("completiondateBox")]
-    for(y=0;y<13;y++){
+
+    //Fill input boxes with selected row data
+    for(y=0;y<12;y++){
         dataBoxes[y].value=elem.childNodes[y].innerText;
     // FIX THIS ONCE WE HAVE A PROPER WORKING SEARCH
     }    
+
 } 
 
+//Delete specified record by passOver()
+function deleteRecord(elem){
+    var table= document.getElementById("outputTable");
+    var rowRemoved=document.getElementById(elem.id);
+    table.removeChild(rowRemoved);
+
+    var xmlhttp = new XMLHttpRequest;
+    var callArg = "deleteRecord";
+    var submission="dataID="+elem.id+"&callArg="+callArg;
+
+    xmlhttp.onreadystatechange = function(){
+
+        if(xmlhttp.readyState==4 && xmlhttp.status==200){
+            document.getElementById("alertMsg").innerHTML=xmlhttp.responseText;
+        }
+
+    }
+
+    xmlhttp.open("POST", "serverInteraction.php", false);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(submission);
+
+}
+
+//Pass clicked element to required function
 function passOver(elem){
+
     if (elem.className=="selected"){
         elem.className="";
     }else{
         elem.className="selected";
     }
     
+    elemRow=elem;
     editButton.onclick=function(){edit(elem)};
-
+    deleteButton.onclick=function(){deleteRecord(elem)};
+    console.log(elem);
     // editButton.addEventListener("Click",function(){edit(elem)});
     
 }
