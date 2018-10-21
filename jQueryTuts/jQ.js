@@ -12,6 +12,8 @@ var counter=0;
 // Var to check if first table has been created
 var firstInit=false;
 
+var createTableNodesRT=0;
+
 function changeText(){
 
     $("#text1").text("This value has changed");
@@ -39,7 +41,7 @@ function changeText(){
 
     //Add new 'click' event that call other function
     $("#doSomethingBtn").click(function(){
-        createDankGif();
+        createTableNodes();
     });
 }
 
@@ -70,6 +72,29 @@ function createTableNodes(){
     // Counter for defining div id and keeping track of the nodes
     counter+=1;
 
+    // Create input for text if function never been called
+    if (createTableNodesRT==0){
+        var node = $("<input/>",{
+            "type" : "text",
+            "id" : "targetTable"
+            
+        });
+        
+        $(".frthArea").append(node);
+
+        var node = $("<input/>",{
+            "type":"button",
+            "id":"targetBtn",
+            "value":"Traverse",
+            "style":"margin-top:10px;margin-bottom:10px;",
+            "onclick":"traversal()"
+        });
+        $(".frthArea").append(node);
+
+
+
+    }
+
     // Defining div to be appended
     var node = $("<div/>",{
         "id":counter,
@@ -87,5 +112,21 @@ if(firstInit==true){
     $(".frthArea").append(node);
     firstInit=true;
 }
+
+createTableNodesRT+=1;
+    
+}
+
+function traversal(){
+
+    var targetBtn = $("#targetBtn");
+    var targetTable = $("#targetTable");
+
+    var parentNode = $("#"+targetTable.val()).parent();
+    var parentsNode = $("#"+targetTable.val()).parents();
+
+    // $("#targetTable").before("Direct parent of element "+targetTable.val()+" is element "+parentNode.attr("id")+"<br>");
+
+    console.log(parentsNode);
     
 }

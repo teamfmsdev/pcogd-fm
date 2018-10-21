@@ -1,7 +1,11 @@
 var jsonResponse = "";
 var select=[[]];
-var editArg ;
+var editArg=0 ;
 var elemRow;
+
+$(document).ready(function(){
+    changeAction();
+});
 
 // TOGGLE BUTTON FOR NEW AND UPDATE 
 // Will modify editArg to 1 when toggled to UPDATE
@@ -15,35 +19,20 @@ document.addEventListener("DOMContentLoaded", function(){deleteButton = document
 // editButton = document.getElementById("editButton");
 
 function testing(){
-    var formData = {
-        wTitle:document.getElementById("wTitleBox").value,
-        type1:document.getElementById("type1Box").value,
-        type2:document.getElementById("type2Box").value,
-        desc:document.getElementById("descriptionBox").value,
-        loca:document.getElementById("locationBox").value,
-        comp:document.getElementById("companyBox").value,
-        stats:document.getElementById("statusBox").value,
-        sapB:document.getElementById("sapBox").value,
-        reqB:document.getElementById("requestbyBox").value,
-        reqD:document.getElementById("requestdateBox").value,
-        clos:document.getElementById("closedbyBox").value,
-        comple:document.getElementById("completiondateBox").value
-    };
 
-    formData.wTitle=myTrim(formData.wTitle);
-    formData.type1=myTrim(formData.type1);
-    formData.type2=myTrim(formData.type2);
-    formData.desc=myTrim(formData.desc);
-    formData.loca=myTrim(formData.loca);
-    formData.comp=myTrim(formData.comp);
-    formData.stats=myTrim(formData.stats);
-    formData.sapB=myTrim(formData.sapB);
-    formData.reqB=myTrim(formData.reqB);
-    formData.reqD=myTrim(formData.reqD);
-    formData.clos=myTrim(formData.clos);
-    formData.comple=myTrim(formData.comple);
+    var callArg = "Mail";
+    xmlhttp = new XMLHttpRequest;
+    var submission = "callArg="+callArg;
+    xmlhttp.onreadystatechange=function(){
+        if (xmlhttp.readyState== 4 && xmlhttp.status==200){
+            var alertMsg = document.getElementById("alertMsg");
+            alertMsg.innerHTML = xmlhttp.responseText;
+        }
+    }
 
-    // document.getElementById("alertMsg").innerHTML = formData.wTitle;
+    xmlhttp.open("POST","ServerInteraction.php",false);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(submission);
 }
 
 
@@ -177,7 +166,7 @@ if (dateComparing[1] < dateComparing[0]){
 
 if (alertMsg!=""){
     document.getElementById("alertMsg").innerHTML=alertMsg;
-}else if(alertMsg=="" && editArg==""){
+}else if(alertMsg=="" && editArg=="0"){
     Save(formData);
 }else if(alertMsg=="" && editArg==1){
     Update(formData);
@@ -306,8 +295,13 @@ function Update(){
     xmlhttp.onreadystatechange=function(){
         if(xmlhttp.readyState==4 && xmlhttp.status==200){
         //    console.log(xmlhttp.responseText);
-           document.getElementById("alertMsg").innerHTML=xmlhttp.responseText;
+
+            // Status message from server
+            document.getElementById("alertMsg").innerHTML=xmlhttp.responseText;
+
            var rowAjaxUpdate=document.getElementById(elemRow.id);
+
+           // Update Current displayed table to match with updated data
            for(y=0;y<12;y++){
                 rowAjaxUpdate.childNodes[y].innerText=formData[y];
            }
@@ -322,13 +316,12 @@ function Update(){
 }
 
 // Populate input form
-function edit(elem){
+function populateForm(elem){
     
     // var table=document.getElementById("outputTable");
     // var alertMsg = document.getElementById("alertMsg");
     // var msg ="";
  
-    editArg = 1;
 
     var dataBoxes=[document.getElementById("wTitleBox"),
     document.getElementById("type1Box"),
@@ -375,6 +368,31 @@ function deleteRecord(elem){
 
 }
 
+function changeAction(){
+
+    // Checkbox variable
+    var checkBox = $("#checkBox");
+
+    
+    // Check if checkbox is clicked
+    if(checkBox.prop("checked")==true){
+        editArg = 1;
+        $("#editButton").removeAttr("disabled");
+        $("#searchButton").removeAttr("disabled");
+        $("#deleteButton").removeAttr("disabled");
+        console.log("checkbox is checked ");
+    }else{
+        $("#editButton").attr("disabled","disabled");
+        $("#searchButton").attr("disabled","disabled");
+        $("#deleteButton").attr("disabled","disabled");
+        editArg = 0;
+        console.log("checkbox not checked");
+    }
+
+}
+
+
+
 //Pass clicked element to required function
 function passOver(elem){
 
@@ -385,7 +403,7 @@ function passOver(elem){
     }
     
     elemRow=elem;
-    editButton.onclick=function(){edit(elem)};
+    editButton.onclick=function(){populateForm(elem)};
     deleteButton.onclick=function(){deleteRecord(elem)};
     console.log(elem);
     // editButton.addEventListener("Click",function(){edit(elem)});

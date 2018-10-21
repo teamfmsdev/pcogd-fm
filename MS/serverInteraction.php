@@ -18,6 +18,8 @@ if($callArg=="save"){
     deleteRecord();
 }elseif($callArg=="Update"){
     Update();
+}elseif($callArg=="Mail"){
+    mailTest();
 }
 
 function deleteRecord(){
@@ -138,7 +140,16 @@ function retrieve(){
         die ("Connection cannot be established". mysqli_connect_error($con));
     }
 
-    $sql="SELECT * FROM main ";
+    // $sql="SELECT * FROM `main`";
+
+    $sql= "SELECT * FROM `main` WHERE (`Work Title` LIKE '%$wTitle%' AND `Type 1` LIKE '%$type1%' AND `Type 2` LIKE '%$type2' AND `Description` LIKE '%$desc%'
+            AND `Location` LIKE '%$loca%' AND `Status` LIKE '%$stats%' AND `Company` LIKE '%$comp%' AND `SAP#` LIKE '%$sapB%' AND `Request By` LIKE '%$reqB%'
+            AND `Request Date` LIKE '%$reqD%' AND `Closed By` LIKE '%$clos%' AND `Completion Date` LIKE '%$compl%' )";
+
+    // $sql="SELECT * FROM `main` WHERE (`Work Title` Like '%$wTitle%' AND `Type 1` Like '%$type1%' AND `Type 2` Like '%$type2%' AND 
+    // `Description` Like '%$desc%' AND `Location` Like '%$loca%' AND `Company` Like '%$comp%' And `%SAP#%` Like '%$sapB%') ";
+
+
 
     // CHANGE SQL TO REFLECT WHAT USER INPUT RATHER THAN RETRIEVE ALL
 

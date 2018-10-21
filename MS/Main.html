@@ -1,7 +1,7 @@
 <html>
 
 <head>
-
+    <script src="jquery-3.3.1.js"></script>
     <link rel="stylesheet" type="text/css" href="Stylez.css">
     <script src="Scriptz.js"></script> 
 
@@ -21,10 +21,16 @@
                 </div>
 
                 <div class="switchBtnLine">
-                    <!-- <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider round"></span> -->
+                    <div>New</div>
+
+                    <label class="switch">
+                    <input id="checkBox" type="checkbox" onclick="changeAction()">
+                    <span class="slider round"></span>
                     </label>
+
+                    <!-- <input type="checkbox" id="testCheckBox" onclick="changeAction()"> -->
+
+                    <div>Update</div>
                 </div>
 
                 <div class="workTitleLine">
@@ -94,11 +100,11 @@
             <div class="formBtnArea"> <!--formBtnArea Start-->
         
                 <input id="searchButton"class="ovalButton" type="button" value="SEARCH" onclick="retrieve()">
-                <input id="editButton"class="ovalButton" type="button" value="EDIT">
+                <input id="editButton"class="ovalButton" type="button" value="EDIT" >
                 <input id="resetButton"class="ovalButton" type="button" value="RESET"onclick="Reset()">
                 <input id="deleteButton"class="ovalButton" type="button" value="DELETE">
                 <input id="saveButton"class="ovalButton" type="button" value="SAVE" onclick="Validation()">
-                <input id="testButton"class="ovalButton" type="button" value="TEST" onclick="testing()">
+                <!-- <input id="testButton"class="ovalButton" type="button" value="TEST" onclick="testing()"> -->
         
             </div> <!--formBtnArea End-->
 
@@ -112,18 +118,6 @@
 
     <div id="outputDivision"class="outputDivision">
 
-        <!-- <div id="wTitleOutput"class="wTitleOutput">Work title</div>
-        <div id="type1Output" class="type1Output">Type1</div>
-        <div id="type2Output" class="type2Output">Type 2</div>
-        <div id="descOutput" class="descOutput">Description</div>
-        <div id="locOutput" class="locOutput">Location</div>
-        <div id="statOutput" class="statOutput">Status</div>
-        <div id="comOutput" class="comOutput">Company</div>
-        <div id="sapOutput" class="sapOutput">SAP#</div>
-        <div id="reqbyOutput" class="reqByOutput">Request By</div>
-        <div id="reqDateOutput" class="reqDateOutput">Request Date</div>
-        <div id="closedByOutput" class="closedByOutput">Closed by</div>
-        <div id="compDateOutput" class="compDateOutput">Comlete Date</div> -->
         
         <table id="outputTable" class="outputTable" border="1" >
 
