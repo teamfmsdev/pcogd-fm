@@ -1,9 +1,16 @@
+<!DOCTYPE html>
+
+
+
+
 <html>
 
 <head>
     <script src="jquery-3.3.1.js"></script>
     <link rel="stylesheet" type="text/css" href="Stylez.css">
-    <script src="Scriptz.js"></script> 
+    <script src="Scriptz.js"></script>
+    <link rel="stylesheet" type="text/css" href="fullPageJs/src/fullpage.css" /> 
+    <script src="fullPageJs/src/fullpage.js"></script>
 
 
 </head>
@@ -11,14 +18,26 @@
 
 <body>   
 
+
+
+
+
+<div id="header" class="header">
+
+    <div class="headerText">PCOGD Facilities Management  </div>
+
+</div>
+
+
+<div class="mainAreaWrapper">
     <div class="mainArea"> <!--mainArea Start-->
 
         <div class="formArea"> <!--formArea Div Start-->
 
             <div class="formDataArea"> <!--formDataArea Start-->
-                <div class="formTitleLine">
+                <!-- <div class="formTitleLine">
                     <div>Building Maintenance Activity Report</div>
-                </div>
+                </div> -->
 
                 <div class="switchBtnLine">
                     <div>New</div>
@@ -69,6 +88,7 @@
                         <option disabled selected></option>
                         <option>Open</option> 
                         <option>Closed</option>
+                        <option>In Progress</option>
                     </select>
                         
                 </div>
@@ -101,9 +121,9 @@
         
                 <input id="searchButton"class="ovalButton" type="button" value="SEARCH" onclick="retrieve()">
                 <input id="editButton"class="ovalButton" type="button" value="EDIT" >
-                <input id="resetButton"class="ovalButton" type="button" value="RESET"onclick="Reset()">
                 <input id="deleteButton"class="ovalButton" type="button" value="DELETE">
                 <input id="saveButton"class="ovalButton" type="button" value="SAVE" onclick="Validation()">
+                <input id="resetButton"class="ovalButton" type="button" value="RESET"onclick="Reset()">
                 <!-- <input id="testButton"class="ovalButton" type="button" value="TEST" onclick="testing()"> -->
         
             </div> <!--formBtnArea End-->
@@ -112,17 +132,20 @@
         
     </div> <!--mainArea End-->
 
+</div>
+
     <div class="alertDivision">
-        <div id="alertMsg"class="alertMsg">Debugging error</div>
+        <div id="alertMsg"class="alertMsg"></div>
     </div>
+
 
     <div id="outputDivision"class="outputDivision">
 
         
         <table id="outputTable" class="outputTable" border="1" >
 
-            <tr>
-                <th>Work title</th>
+            <tr >
+                <th >Work title</th>
                 <th>Type 1</th>
                 <th>Type 2</th>
                 <th>Description</th>
@@ -139,6 +162,10 @@
         </table>
 
     </div>
+
+
+
+</div>
 
 </body>
 

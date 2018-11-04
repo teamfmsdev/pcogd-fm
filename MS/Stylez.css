@@ -2,26 +2,71 @@ body{
     display:grid;
     background-color: black;
     grid-template-rows: repeat(3,auto);
+    background-image: url("image/mainBg2.jpg");
+    background-color: #cccccc;
+    font-family: 'Cambria',  Georgia, Times, Times New Roman, serif;
+    /* font-weight: bold; */
+    
 }
 
 .mainArea {
 display: grid;
-/* border: 2px solid white; */
-/* grid-template-columns: auto; */
-/* width: 40%; */
-/* padding: 25px; */
-/* background-color: #94bde5;    */
-/* margin: auto;  */
-/* justify-content: space-evenly; */
+
 }
+
+.mainAreaWrapper{
+    background-color: rgba(255, 255, 255, 0.116);
+    /* margin-top: 20px; */
+    /* margin: auto; */
+    /* border-radius: 50px; */
+    /* width :75%; */
+ border-radius: 25px;
+}
+
+.header{
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    height: 75px;
+    background-color: rgba(68, 67, 67, 0.562);
+    border-radius: 25px;
+    /* background: rgba(255,255,255,0.5); */
+    box-shadow: 1px 1px 10px black;
+    margin-bottom: 20px;
+}
+
+.header div{
+    color:rgb(212, 233, 215);
+    font-size: 50px;
+    font-weight: bold;
+ 
+  
+
+}
+
+
 
 .formArea{
     display:grid;
-    background-color: #94bde5;   
+    background-color: rgb(0, 177, 169);   
     justify-self:center;
     padding:50px;
     grid-template-rows: auto auto;
+    border-radius: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    box-shadow: 1px 1px 50px black;
+
 }
+
+.formArea div{
+    font-weight: bold;
+}
+
+/* .formArea:hover{
+    box-shadow: 1px 1px 50px grey;
+    
+} */
 
 .formDataArea{
     display: grid;
@@ -34,14 +79,14 @@ display: grid;
     display:grid;
     grid-template-rows: auto;
     justify-self: center;
-    /* border:1px solid red; */
+
     margin-bottom: 20px;
 }
 
 .switchBtnLine{
     display:grid;
     grid-template-columns: auto auto auto;
-    /* border:5px solid red; */
+
 }
 
 
@@ -50,21 +95,21 @@ display: grid;
 
 .workTitleLine  {
     display:grid;
-    /* border: 1.5px solid blue; */
+
     grid-template-columns: 100px 200px 250px 50px 50px;
 }
 
 .workTitleDT{
     display:grid;
    grid-column: 1/1;
-   /* border: 1px solid red; */
+
    grid-row: 1/1;
 }
 .workTitleInput{
     display:grid;
     grid-column: 2/2;
     grid-row: 1/1;
-    background-color:#8e8e8d;   
+
 }
 .typeDT{
     display:grid;
@@ -72,31 +117,26 @@ display: grid;
     grid-row: 1/1;
     justify-self: end;
     padding-right:10px;
-    /* border:1px solid red; */
+ 
 }
 .type1Input{
     display:grid;
-    background-color:#8e8e8d;   
     grid-column: 4/5;
     grid-row: 1/1;
-    /* width:25px; */
-    /* border:1px solid red; */
+
 }
 .type2Input{
     display:grid;
     grid-column: 5/5;
     grid-row: 1/1;
-    background-color:#8e8e8d;   
-    /* width:25px; */
-    /* border:1px solid red; */
+
 
 }
 
 .descriptionLine{
     display:grid;
     grid-template-columns: 100px 550px;
-    /* grid-template-rows: 100px; */
-    /* border:1px solid red; */
+
 }
 
 .descriptionDT{
@@ -107,15 +147,11 @@ display: grid;
 
 textarea {
     resize:none;
-    background-color:#8e8e8d;   
+    
 }
 
 
-/* .Line4 > .item2{
-    display:grid;
-    grid-column: 2/2;
-    grid-row: 1/span 2;
-} */
+
 
 .locationLine{
     display:grid;
@@ -124,7 +160,7 @@ textarea {
 
     .locationBox {
         display:grid;
-        background-color:#8e8e8d;
+
         
     }
     .statusDT{
@@ -135,7 +171,7 @@ textarea {
 
     .statusBox {
         display:grid;
-        background-color:#8e8e8d;
+
         
     }
 
@@ -145,7 +181,7 @@ textarea {
 }
     .companyBox {
         display:grid;
-        background-color:#8e8e8d;   
+
     }
     .sapDT {
         display:grid;
@@ -154,33 +190,25 @@ textarea {
 
     .sapBox{
         display:grid;
-        background-color:#8e8e8d;   
+
     }
 
 .requestByLine{
     display:grid;
     grid-template-columns:100px 200px 150px 200px;
-    /* grid-template-rows:  */
-    /* border:5px solid red; */
-    /* border:2px solid red; */
+
 
 }
     .requestByBox {
         display:grid;
-        background-color:#8e8e8d;
-        /* border:5px solid red; */
-        /* height:20px; */
+
     }
     .requestDateDT{
         display:grid;
         justify-self: center;
-        /* border:1px solid red; */
+
     }
-    .requestDateBox{
-        /* display:inline-grid; */
-        background-color:#8e8e8d;
-        /* height:20px; */
-    }
+
 
 
 .closedByLine{
@@ -192,12 +220,10 @@ textarea {
     }
     .closedByBox {
         display:grid;
-        background-color:#8e8e8d;
+
     }
 
-    .completionDateBox {   
-        background-color:#8e8e8d;
-    }
+  
     .completionDateDT {
         justify-self: center;    
     }
@@ -207,20 +233,29 @@ textarea {
     margin-top:25px;
     display:grid;
     grid-template-columns: repeat(7,auto);
-    /* justify-items: center; */
+
     justify-content: center;
-    /* border:1px solid black; */
+
 }
 
 .ovalButton{
     font-size: 15px;
     border-radius: 50px;
-    background-color:lightblue;
+    background-color:rgb(25, 46, 31);
+    width: 100px;
+    height: 40px;
+    color:white;
+
+    font-weight: bold;
+}
+
+.ovalButton:hover{
+    box-shadow: 5px 5px 10px rgb(42, 66, 88)
 }
 
 .alertDivision{
     display: grid;
-    grid-row: 2/2;
+    /* grid-row: 2/2; */
     
 }
 .alertMsg{
@@ -229,41 +264,53 @@ textarea {
     justify-content: center;
     color:white;
     margin-bottom:50px;
-    /* border:1px solid white; */
+    margin-top: 10px;
+
     
 }
 
 .outputDivision{
-    /* margin-top:50px; */
+
     color:white;
     display:grid;
-    /* grid-row:3/3; */
+
     grid-template-columns: repeat(12,auto);
-    /* gap: 5px; */
-    /* border:1px solid green; */
-    justify-content: stretch;
-    /* border:1px solid white; */
-    /* grid-auto-rows: 50px; */
-    justify-items:stretch;
+
+    justify-content: center;
+ 
+    justify-items:center;
+
 }
 
 .outputTable{
     color:white;
+    width: 1500px;
+
+}
+
+.outputTable td{
+    color:white;
+    width: auto;
+}
+
+tr{
+    background-color:  rgb(24, 87, 82); 
+}
+tr:nth-child(even){
+    background-color: rgb(38, 131, 123);
 }
 
 tr:hover{
-    background-color: rgb(9, 153, 197);
-}
-/* .selected{
-    background-color: rgb(9, 153, 197);
-} */
-.outputTable tr th{
-    background-color: black;
+    background-color: rgb(0, 184, 168);
 }
 
-/* tr:onclick{
-    background-color: blue;
-} */
+
+
+.outputTable tr th{
+    background-color: rgb(29, 27, 25);
+}
+
+
 
 .switchBtnLine{
     margin-bottom:10px;
@@ -337,3 +384,21 @@ tr:hover{
   .slider.round:before {
     border-radius: 50%;
   } 
+
+input{
+      background-color: rgb(100, 98, 98);
+      color:white;
+      font-weight: 600;
+  }
+
+select{
+    background-color: rgb(100, 98, 98);
+    color:white;
+    font-weight: 600;
+}
+
+textarea{
+    background-color: rgb(100, 98, 98);
+    color:white;
+    font-weight: 600;
+}

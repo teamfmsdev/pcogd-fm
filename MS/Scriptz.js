@@ -5,6 +5,10 @@ var elemRow;
 
 $(document).ready(function(){
     changeAction();
+    $("#requestdateBox").val(new Date().toDateInputValue());
+    $("#requestdateBox").html(new Date().toDateInputValue());
+    
+    // document.getElementById("requestdateBox").value = new Date().toDateInputValue();
 });
 
 // TOGGLE BUTTON FOR NEW AND UPDATE 
@@ -57,6 +61,7 @@ function Reset(){
         formData[y].value="";
     }
 
+    $("#alertMsg").text("");
 }
 
 // Trim user input of white spaces
@@ -232,6 +237,8 @@ function retrieve(){
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {            
             jsonResponse = JSON.parse(xmlhttp.responseText);
             var tableOutput=document.getElementById("outputTable");
+            //Remove all except first row
+            $('#outputTable tr:not(:first)').remove();
             var rowNode=[];
             var colNode= [];
             var textnode=[];
@@ -377,14 +384,14 @@ function changeAction(){
     // Check if checkbox is clicked
     if(checkBox.prop("checked")==true){
         editArg = 1;
-        $("#editButton").removeAttr("disabled");
-        $("#searchButton").removeAttr("disabled");
-        $("#deleteButton").removeAttr("disabled");
+        $("#editButton").show();
+        $("#searchButton").show();
+        $("#deleteButton").show();
         console.log("checkbox is checked ");
     }else{
-        $("#editButton").attr("disabled","disabled");
-        $("#searchButton").attr("disabled","disabled");
-        $("#deleteButton").attr("disabled","disabled");
+        $("#editButton").hide();
+        $("#searchButton").hide();
+        $("#deleteButton").hide();
         editArg = 0;
         console.log("checkbox not checked");
     }
