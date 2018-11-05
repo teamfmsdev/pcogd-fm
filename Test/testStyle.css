@@ -64,25 +64,29 @@ body{
 .age{
     /* display:grid; */
     grid-row:2/2;
-    color:white;;
+    color:white;
+    position: relative;
 }
 
 .ageBox{
     /* display:grid; */
     grid-column: 2/2;
-    grid-row: 2/2
+    grid-row: 2/2;
+    position: relative;
 }
 
 .gender{
     /* display:grid; */
     grid-row:3/3;
     color:white;
+    /* position: absolute; */
 }
 
 .genderBox{
     /* display:grid; */
     grid-column:2/2;
     grid-row:3/3;
+    /* position: absolute; */
 }
 
 .outputField{

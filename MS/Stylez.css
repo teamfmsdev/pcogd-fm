@@ -3,7 +3,6 @@ body{
     background-color: black;
     grid-template-rows: repeat(3,auto);
     background-image: url("image/mainBg2.jpg");
-    background-color: #cccccc;
     font-family: 'Cambria',  Georgia, Times, Times New Roman, serif;
     /* font-weight: bold; */
     
@@ -16,11 +15,7 @@ display: grid;
 
 .mainAreaWrapper{
     background-color: rgba(255, 255, 255, 0.116);
-    /* margin-top: 20px; */
-    /* margin: auto; */
-    /* border-radius: 50px; */
-    /* width :75%; */
- border-radius: 25px;
+    border-radius: 25px;
 }
 
 .header{
@@ -30,7 +25,6 @@ display: grid;
     height: 75px;
     background-color: rgba(68, 67, 67, 0.562);
     border-radius: 25px;
-    /* background: rgba(255,255,255,0.5); */
     box-shadow: 1px 1px 10px black;
     margin-bottom: 20px;
 }
@@ -44,37 +38,6 @@ display: grid;
 
 }
 
-
-
-.formArea{
-    display:grid;
-    background-color: rgb(0, 177, 169);   
-    justify-self:center;
-    padding:50px;
-    grid-template-rows: auto auto;
-    border-radius: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    box-shadow: 1px 1px 50px black;
-
-}
-
-.formArea div{
-    font-weight: bold;
-}
-
-/* .formArea:hover{
-    box-shadow: 1px 1px 50px grey;
-    
-} */
-
-.formDataArea{
-    display: grid;
-    justify-items: center;
-    grid-template-rows: repeat(7,auto);
-}
-
-
 .formTitleLine{
     display:grid;
     grid-template-rows: auto;
@@ -83,180 +46,8 @@ display: grid;
     margin-bottom: 20px;
 }
 
-.switchBtnLine{
-    display:grid;
-    grid-template-columns: auto auto auto;
-
-}
-
-
-
-
-
-.workTitleLine  {
-    display:grid;
-
-    grid-template-columns: 100px 200px 250px 50px 50px;
-}
-
-.workTitleDT{
-    display:grid;
-   grid-column: 1/1;
-
-   grid-row: 1/1;
-}
-.workTitleInput{
-    display:grid;
-    grid-column: 2/2;
-    grid-row: 1/1;
-
-}
-.typeDT{
-    display:grid;
-    grid-column: 3/3;
-    grid-row: 1/1;
-    justify-self: end;
-    padding-right:10px;
- 
-}
-.type1Input{
-    display:grid;
-    grid-column: 4/5;
-    grid-row: 1/1;
-
-}
-.type2Input{
-    display:grid;
-    grid-column: 5/5;
-    grid-row: 1/1;
-
-
-}
-
-.descriptionLine{
-    display:grid;
-    grid-template-columns: 100px 550px;
-
-}
-
-.descriptionDT{
-    display:grid;
-    grid-column: 1/1;
-    grid-row: 1/1;
-}
-
-textarea {
-    resize:none;
-    
-}
-
-
-
-
-.locationLine{
-    display:grid;
-    grid-template-columns:100px 200px 150px 200px;
-}
-
-    .locationBox {
-        display:grid;
-
-        
-    }
-    .statusDT{
-        display:grid;
-        justify-self: center;
-        
-    }
-
-    .statusBox {
-        display:grid;
-
-        
-    }
-
-.companyLine{
-    display:grid;
-    grid-template-columns:100px 200px 150px 200px;
-}
-    .companyBox {
-        display:grid;
-
-    }
-    .sapDT {
-        display:grid;
-        justify-self: center;
-    }
-
-    .sapBox{
-        display:grid;
-
-    }
-
-.requestByLine{
-    display:grid;
-    grid-template-columns:100px 200px 150px 200px;
-
-
-}
-    .requestByBox {
-        display:grid;
-
-    }
-    .requestDateDT{
-        display:grid;
-        justify-self: center;
-
-    }
-
-
-
-.closedByLine{
-    display:grid;
-    grid-template-columns:100px 200px 150px 200px;
-}
-    .closedByDT {
-        display:grid;
-    }
-    .closedByBox {
-        display:grid;
-
-    }
-
-  
-    .completionDateDT {
-        justify-self: center;    
-    }
-
-
-.formBtnArea{
-    margin-top:25px;
-    display:grid;
-    grid-template-columns: repeat(7,auto);
-
-    justify-content: center;
-
-}
-
-.ovalButton{
-    font-size: 15px;
-    border-radius: 50px;
-    background-color:rgb(25, 46, 31);
-    width: 100px;
-    height: 40px;
-    color:white;
-
-    font-weight: bold;
-}
-
-.ovalButton:hover{
-    box-shadow: 5px 5px 10px rgb(42, 66, 88)
-}
-
 .alertDivision{
-    display: grid;
-    /* grid-row: 2/2; */
-    
+    display: grid;    
 }
 .alertMsg{
     grid-template-rows: auto;
@@ -265,19 +56,13 @@ textarea {
     color:white;
     margin-bottom:50px;
     margin-top: 10px;
-
-    
 }
 
 .outputDivision{
-
     color:white;
     display:grid;
-
     grid-template-columns: repeat(12,auto);
-
     justify-content: center;
- 
     justify-items:center;
 
 }
@@ -285,7 +70,6 @@ textarea {
 .outputTable{
     color:white;
     width: 1500px;
-
 }
 
 .outputTable td{
@@ -305,7 +89,6 @@ tr:hover{
 }
 
 
-
 .outputTable tr th{
     background-color: rgb(29, 27, 25);
 }
@@ -314,6 +97,8 @@ tr:hover{
 
 .switchBtnLine{
     margin-bottom:10px;
+    display:grid;
+    /* grid-row:8/8; */
 }
 .switchBtnLine div{
     margin-left:10px;
@@ -401,4 +186,8 @@ textarea{
     background-color: rgb(100, 98, 98);
     color:white;
     font-weight: 600;
+}
+
+.selected{
+    background-color: rgb(245, 0, 0);
 }

@@ -143,3 +143,16 @@ function validation(){
         save(formData);
     }
 }
+
+function hideToggle(){
+
+    $(".age").animate({opacity:"0"},"slow");
+    $("#age").animate({opacity:"0"},"slow");
+
+    $(selector).fadeIn();
+    // $(".age").toggle();
+    // $("#age").toggle();
+
+    // $(".age").hide();
+    // $("#age").hide();
+}
