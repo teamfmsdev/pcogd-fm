@@ -1,152 +1,175 @@
 <!DOCTYPE html>
 
-
-
-
 <html>
 
 <head>
     <script src="jquery-3.3.1.js"></script>
     <link rel="stylesheet" type="text/css" href="Stylez.css">
     <script src="Scriptz.js"></script>
-    <link rel="stylesheet" type="text/css" href="fullPageJs/src/fullpage.css" /> 
+    <link rel="stylesheet" type="text/css" href="fullPageJs/src/fullpage.css" />
     <script src="fullPageJs/src/fullpage.js"></script>
     <link rel="stylesheet" type="text/css" href="formStyle.css">
+    <link rel="stylesheet" type="text/css" href="devArea.css">
 
 
 </head>
 
 
-<body>   
+<body>
 
 
 
 
 
-<div id="header" class="header">
+    <div id="header" class="header">
 
-    <div class="headerText">PCOGD Facilities Management  </div>
+        <div class="headerText">PCOGD Facilities Management </div>
 
-</div>
-
-
-<div class="mainAreaWrapper">
-    <div class="mainArea"> <!--mainArea Start-->
-
-        <div class="formArea"> <!--formArea Div Start-->
-
-            <div class="formDataArea"> <!--formDataArea Start-->
-                <!-- <div class="formTitleLine">
-                    <div>Building Maintenance Activity Report</div>
-                </div> -->
-
-                <div class="switchBtnLine">
-                    <div>New</div>
-
-                    <label class="switch">
-                    <input id="checkBox" type="checkbox" onclick="changeAction()">
-                    <span class="slider round"></span>
-                    </label>
-
-                    <!-- <input type="checkbox" id="testCheckBox" onclick="changeAction()"> -->
-
-                    <div>Update</div>
-                </div>
-
-                <div class="workTitleLine">
-                    <div id="WorkTitle"class="workTitleDT">*Work Title</div>
-                    <input class="workTitleInput" type="text" id="wTitleBox"> <!--INPUT-->
-                    <div id="Type1"class="typeDT">*Type</div>
-                    <select class="type1Input" id="type1Box">    <!--INPUT-->
-                        <option disabled selected></option>
-                        <option>PM</option> 
-                        <option>RM</option>
-                    </select>
-
-                    <select class="type2Input" id="type2Box"> <!--INPUT-->
-                        <option disabled selected></option>
-                        <option>VI</option>
-                        <option>R&S</option>
-                        <option>RP</option>
-                        <option>HK</option>
-                        <option>UC</option>
-                        <option>PT</option>
-                        <option>SL</option>
-                    </select>
-                    
-                </div>
-
-                <div class="descriptionLine">
-                    <div id="Description"class="descriptionDT">*Description</div>
-                    <textarea id="descriptionBox"rows="5" cols="50" class="item2"></textarea> <!--INPUT-->
-                </div>
-
-                <div class="locationLine">
-                    <div id="Location" class="locationDT">*Location</div>     
-                    <input id="locationBox"class="locationBox"type="text"> <!--INPUT-->
-                    <div id="Status"class="statusDT">Status</div> 
-                    <select id="statusBox"class="statusBox" value="Open"> <!--INPUT-->
-                        <option disabled selected></option>
-                        <option selected="selected">New</option> 
-                        <option>Closed</option>
-                        <option>In Progress</option>
-                    </select>
-                        
-                </div>
-
-                <div class="companyLine">
-                    <div id="Company" class="companyDT">Company</div>
-                    <input id="companyBox"class="companyBox" type="text"> <!--INPUT-->
-                    <div id="SAP#"class="sapDT">SAP#</div> 
-                    <input id="sapBox"class="sapBox" type="text"> <!--INPUT-->
-                </div>
-
-                <div class="requestByLine">
-                    <div id="RequestBy"class="requestByDT">*Request By</div> 
-                    <input id="requestbyBox"class="requestByBox" type="text"> <!--INPUT-->
-                    <div id="RequestDate"class="requestDateDT">Request Date</div>
-                    <input id="requestdateBox"class="requestDateBox"type="Date"> <!--INPUT-->
-                </div>
-            
-                <div class="closedByLine">
-                    <div id="ClosedBy"class="closedByDT">Closed By</div> 
-                    <input id="closedbyBox"class="closedByBox" type="text"><!--INPUT-->
-                    <div id="CompletionDate"class="completionDateDT">Completion Date</div>
-                    <input id="completiondateBox"class="completionDateBox" type="date"> <!--INPUT-->
-                </div>
-            </div> <!--formDataArea End-->
-
-
-        
-            <div class="formBtnArea"> <!--formBtnArea Start-->
-        
-                <input id="searchButton"class="ovalButton" type="button" value="SEARCH" onclick="retrieve()">
-                <input id="editButton"class="ovalButton" type="button" value="EDIT" >
-                <input id="deleteButton"class="ovalButton" type="button" value="DELETE">
-                <input id="saveButton"class="ovalButton" type="button" value="ENTER" onclick="Validation()">
-                <input id="resetButton"class="ovalButton" type="button" value="RESET"onclick="Reset()">
-                <!-- <input id="testButton"class="ovalButton" type="button" value="TEST" onclick="testing()"> -->
-        
-            </div> <!--formBtnArea End-->
-
-        </div> <!--formArea Div End-->
-        
-    </div> <!--mainArea End-->
-
-</div>
-
-    <div class="alertDivision">
-        <div id="alertMsg"class="alertMsg"></div>
     </div>
 
 
-    <div id="outputDivision"class="outputDivision">
+    <div class="mainAreaWrapper">
+        <div class="mainArea">
+            <!--mainArea Start-->
 
-        
-        <table id="outputTable" class="outputTable" border="1" >
+            <div class="formArea">
+                <!--formArea Div Start-->
 
-            <tr >
-                <th >Work title</th>
+                <div class="formDataArea">
+                    <!--formDataArea Start-->
+                    <!-- <div class="formTitleLine">
+                    <div>Building Maintenance Activity Report</div>
+                </div> -->
+
+                    <div class="switchBtnLine">
+                        <div>New</div>
+
+                        <label class="switch">
+                            <input id="checkBox" type="checkbox" onclick="changeAction()">
+                            <span class="slider round"></span>
+                        </label>
+
+                        <!-- <input type="checkbox" id="testCheckBox" onclick="changeAction()"> -->
+
+                        <div>Update</div>
+                        <input type="button" class="devButton" value="Developer's" onclick="devAreaToggle()">
+
+                    </div>
+
+                    <div class="workTitleLine">
+                        <div id="WorkTitle" class="workTitleDT">*Work Title</div>
+                        <input class="workTitleInput" type="text" id="wTitleBox">
+                        <!--INPUT-->
+                        <div id="Type1" class="typeDT">*Type</div>
+                        <select class="type1Input" id="type1Box">
+                            <!--INPUT-->
+                            <option disabled selected></option>
+                            <option>PM</option>
+                            <option>RM</option>
+                        </select>
+
+                        <select class="type2Input" id="type2Box">
+                            <!--INPUT-->
+                            <option disabled selected></option>
+                            <option>VI</option>
+                            <option>R&S</option>
+                            <option>RP</option>
+                            <option>HK</option>
+                            <option>UC</option>
+                            <option>PT</option>
+                            <option>SL</option>
+                        </select>
+
+                    </div>
+
+                    <div class="descriptionLine">
+                        <div id="Description" class="descriptionDT">*Description</div>
+                        <textarea id="descriptionBox" rows="5" cols="50" class="item2"></textarea>
+                        <!--INPUT-->
+                    </div>
+
+                    <div class="locationLine">
+                        <div id="Location" class="locationDT">*Location</div>
+                        <input id="locationBox" class="locationBox" type="text">
+                        <!--INPUT-->
+                        <div id="Status" class="statusDT">Status</div>
+                        <select id="statusBox" class="statusBox" value="Open">
+                            <!--INPUT-->
+                            <option disabled selected></option>
+                            <option selected="selected">New</option>
+                            <option>Closed</option>
+                            <option>In Progress</option>
+                        </select>
+
+                    </div>
+
+                    <div class="companyLine">
+                        <div id="Company" class="companyDT">Company</div>
+                        <input id="companyBox" class="companyBox" type="text">
+                        <!--INPUT-->
+                        <div id="SAP#" class="sapDT">SAP#</div>
+                        <input id="sapBox" class="sapBox" type="text">
+                        <!--INPUT-->
+                    </div>
+
+                    <div class="requestByLine">
+                        <div id="RequestBy" class="requestByDT">*Request By</div>
+                        <input id="requestbyBox" class="requestByBox" type="text">
+                        <!--INPUT-->
+                        <div id="RequestDate" class="requestDateDT">Request Date</div>
+                        <input id="requestdateBox" class="requestDateBox" type="Date">
+                        <!--INPUT-->
+                    </div>
+
+                    <div class="closedByLine">
+                        <div id="ClosedBy" class="closedByDT">Closed By</div>
+                        <input id="closedbyBox" class="closedByBox" type="text">
+                        <!--INPUT-->
+                        <div id="CompletionDate" class="completionDateDT">Completion Date</div>
+                        <input id="completiondateBox" class="completionDateBox" type="date">
+                        <!--INPUT-->
+                    </div>
+                </div>
+                <!--formDataArea End-->
+
+
+
+                <div class="formBtnArea">
+                    <!--formBtnArea Start-->
+
+                    <input id="searchButton" class="ovalButton" type="button" value="SEARCH" onclick="retrieve()">
+                    <input id="editButton" class="ovalButton" type="button" value="EDIT">
+                    <input id="deleteButton" class="ovalButton" type="button" value="DELETE">
+                    <input id="saveButton" class="ovalButton" type="button" value="ENTER" onclick="Validation()">
+                    <input id="resetButton" class="ovalButton" type="button" value="RESET" onclick="Reset()">
+                    <!-- <input id="testButton"class="ovalButton" type="button" value="TEST" onclick="testing()"> -->
+
+                </div>
+                <!--formBtnArea End-->
+
+            </div>
+            <!--formArea Div End-->
+            <div id="devArea" class="devArea">
+
+                <div>Developer</div>
+            </div>
+        </div>
+        <!--mainArea End-->
+
+    </div>
+
+    <div class="alertDivision">
+        <div id="alertMsg" class="alertMsg"></div>
+    </div>
+
+
+    <div id="outputDivision" class="outputDivision">
+
+
+        <table id="outputTable" class="outputTable" border="1">
+
+            <tr>
+                <th>Work title</th>
                 <th>Type 1</th>
                 <th>Type 2</th>
                 <th>Description</th>
@@ -166,7 +189,7 @@
 
 
 
-</div>
+    </div>
 
 </body>
 

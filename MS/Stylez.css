@@ -1,193 +1,198 @@
-body{
-    display:grid;
-    background-color: black;
-    grid-template-rows: repeat(3,auto);
-    background-image: url("image/mainBg2.jpg");
-    font-family: 'Cambria',  Georgia, Times, Times New Roman, serif;
-    /* font-weight: bold; */
-    
+body {
+  display: grid;
+  background-color: black;
+  grid-template-rows: repeat(3, auto);
+
+  /* background-image: url("image/mainBg2.jpg"); */
+  font-family: "Cambria", Georgia, Times, Times New Roman, serif;
+  /* font-weight: bold; */
 }
 
 .mainArea {
-display: grid;
-
+  display: grid;
+  /* justify-items: right; */
+  justify-items: center;
+  /* grid-template-columns: 800px 200px; */
 }
 
-.mainAreaWrapper{
-    background-color: rgba(255, 255, 255, 0.116);
-    border-radius: 25px;
+.mainAreaWrapper {
+  background-color: rgba(255, 255, 255, 0.116);
+  border-radius: 25px;
 }
 
-.header{
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    height: 75px;
-    background-color: rgba(68, 67, 67, 0.562);
-    border-radius: 25px;
-    box-shadow: 1px 1px 10px black;
-    margin-bottom: 20px;
+.header {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: 75px;
+  background-color: rgba(68, 67, 67, 0.562);
+  border-radius: 25px;
+  box-shadow: 1px 1px 10px black;
+  margin-bottom: 20px;
 }
 
-.header div{
-    color:rgb(212, 233, 215);
-    font-size: 50px;
-    font-weight: bold;
- 
-  
-
+.header div {
+  color: rgb(212, 233, 215);
+  font-size: 50px;
+  font-weight: bold;
 }
 
-.formTitleLine{
-    display:grid;
-    grid-template-rows: auto;
-    justify-self: center;
+.formTitleLine {
+  display: grid;
+  grid-template-rows: auto;
+  justify-self: center;
 
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
-.alertDivision{
-    display: grid;    
+.alertDivision {
+  display: grid;
 }
-.alertMsg{
-    grid-template-rows: auto;
-    display:grid;
-    justify-content: center;
-    color:white;
-    margin-bottom:50px;
-    margin-top: 10px;
-}
-
-.outputDivision{
-    color:white;
-    display:grid;
-    grid-template-columns: repeat(12,auto);
-    justify-content: center;
-    justify-items:center;
-
+.alertMsg {
+  grid-template-rows: auto;
+  display: grid;
+  justify-content: center;
+  color: white;
+  margin-bottom: 50px;
+  margin-top: 10px;
 }
 
-.outputTable{
-    color:white;
-    width: 1500px;
+.outputDivision {
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(12, auto);
+  justify-content: center;
+  justify-items: center;
 }
 
-.outputTable td{
-    color:white;
-    width: auto;
+.outputTable {
+  color: white;
+  width: 1500px;
 }
 
-tr{
-    background-color:  rgb(24, 87, 82); 
-}
-tr:nth-child(even){
-    background-color: rgb(38, 131, 123);
+.outputTable td {
+  color: white;
+  width: auto;
 }
 
-tr:hover{
-    background-color: rgb(0, 184, 168);
+tr {
+  background-color: rgb(24, 87, 82);
+}
+tr:nth-child(even) {
+  background-color: rgb(38, 131, 123);
 }
 
-
-.outputTable tr th{
-    background-color: rgb(29, 27, 25);
+tr:hover {
+  background-color: rgb(0, 184, 168);
 }
 
-
-
-.switchBtnLine{
-    margin-bottom:10px;
-    display:grid;
-    /* grid-row:8/8; */
-}
-.switchBtnLine div{
-    margin-left:10px;
-    margin-right:10px;
-    font-weight: bold;
+.outputTable tr th {
+  background-color: rgb(29, 27, 25);
 }
 
-
- /* The switch - the box around the slider */
- .switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 20px;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 1;
-    width: 0;
-    height: 0;
-  }
-  
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #2196F3;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 26px;
-    left: 0px;
-    bottom: 0px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  } 
-
-input{
-      background-color: rgb(100, 98, 98);
-      color:white;
-      font-weight: 600;
-  }
-
-select{
-    background-color: rgb(100, 98, 98);
-    color:white;
-    font-weight: 600;
+.switchBtnLine div {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-weight: bold;
 }
 
-textarea{
-    background-color: rgb(100, 98, 98);
-    color:white;
-    font-weight: 600;
+.devButton {
+  grid-column: 4/4;
+  justify-self: right;
 }
 
-.selected{
-    background-color: rgb(245, 0, 0);
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+}
+
+.switchBtnLine label {
+  justify-self: center;
+  align-self: end;
+}
+.switchBtnLine div:first-child {
+  justify-self: right;
+}
+.switchBtnLine div:nth-child(3) {
+  justify-self: left;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 1;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2196f3;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 26px;
+  left: 0px;
+  bottom: 0px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+input {
+  background-color: rgb(100, 98, 98);
+  color: white;
+  font-weight: 600;
+}
+
+select {
+  background-color: rgb(100, 98, 98);
+  color: white;
+  font-weight: 600;
+}
+
+textarea {
+  background-color: rgb(100, 98, 98);
+  color: white;
+  font-weight: 600;
+}
+
+.selected {
+  background-color: rgb(245, 0, 0);
 }
