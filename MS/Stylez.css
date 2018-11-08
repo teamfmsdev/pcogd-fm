@@ -12,7 +12,7 @@ body {
   display: grid;
   /* justify-items: right; */
   justify-items: center;
-  /* grid-template-columns: 800px 200px; */
+  grid-template-columns: 1200px 500px;
 }
 
 .mainAreaWrapper {
@@ -78,9 +78,13 @@ body {
 tr {
   background-color: rgb(24, 87, 82);
 }
-tr:nth-child(even) {
-  background-color: rgb(38, 131, 123);
+
+tr:selected {
+  background-color: rgb(255, 255, 255);
 }
+/* tr:nth-child(even) {
+  background-color: rgb(38, 131, 123);
+} */
 
 tr:hover {
   background-color: rgb(0, 184, 168);

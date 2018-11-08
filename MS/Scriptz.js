@@ -622,3 +622,55 @@ function devAreaToggle() {
     );
   }
 }
+
+function randomizer(id, min, max) {
+  var val = "";
+  var selectedId = id;
+  if (id.attr("id") == $("#type1Box").attr("id")) {
+    var alpha = ["PM", "RM"];
+    // var randomLength = Math.floor(Math.random() * alpha.length) - 1;
+    $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
+  } else if (id.attr("id") == $("#type2Box").attr("id")) {
+    var alpha = ["VI", "R&S", "RP", "HK", "UC", "PT", "SL"];
+    // var randomLength = Math.floor(Math.random() * alpha.length) - 1;
+    $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
+  } else if (id.attr("id") == $("#statusBox").attr("id")) {
+    var alpha = ["New", "Closed", "In Progress"];
+    // var randomLength = Math.floor(Math.random() * alpha.length);
+    $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
+  } else {
+    var alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+    var alphaSplit = Array.from(alpha);
+    var randomLength = Math.floor(Math.random() * (max - min)) + min;
+    for (i = 0; i < randomLength; i++) {
+      val += alphaSplit[Math.floor(Math.random() * alphaSplit.length)];
+      // $(id).val(alphaSplit[Math.floor(Math.random() * alphaSplit.length)]);
+      $(id).val(val);
+    }
+  }
+}
+
+function randomFill() {
+  var formData = [
+    $("#wTitleBox"),
+    $("#type1Box"),
+    $("#type2Box"),
+    $("#descriptionBox"),
+    $("#locationBox"),
+    $("#statusBox"),
+    $("#companyBox"),
+    $("#sapBox"),
+    $("#requestbyBox")
+    // 9: $("#requestdateBox")
+  ];
+
+  for (j = 0; j < formData.length; j++) {
+    switch (j) {
+      case 3:
+        randomizer(formData[j], 20, 50);
+        break;
+      default:
+        randomizer(formData[j], 5, 20);
+    }
+  }
+}

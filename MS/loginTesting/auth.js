@@ -23,11 +23,28 @@ function auth() {
     type: "POST",
     data: data,
     success: function(result) {
-      console.log(result);
+      alert(result.accessToken);
     },
     error: function(result) {
       console.log(result.responseJSON);
-      alert(result.responseJSON.errorCode);
+      alert(
+        result.responseJSON.errorCode + "\n" + result.responseJSON.errorMessage
+      );
     }
   });
+}
+
+function authClientSide() {
+  var username = $("#username").val();
+  var password = $("#password").val();
+
+  sessionStorage.setItem("userId", username);
+  sessionStorage.setItem("pw", password);
+
+  // windows.location.href = "authPage.html";
+
+  location.href = "authPage.html";
+
+  // console.log(sessionStorage.getItem("userId"));
+  // console.log(sessionStorage.getItem("pw"));
 }
