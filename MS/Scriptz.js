@@ -3,6 +3,8 @@ var select = [[]];
 var editArg = 0;
 var elemRow;
 
+// Set Completion date to NULL || EMPTY SPACE FOR NEW ENTRY
+
 $(document).ready(function() {
   setDefaultDate();
 
@@ -80,11 +82,15 @@ function Reset() {
     11: document.getElementById("completiondateBox")
   };
 
-  if ($("#requestdateBox").prop("readonly", true)) {
-    $("#requestdateBox").prop("readonly", false);
+  // if ($("#requestdateBox").prop("readonly", true)) {
+  //   $("#requestdateBox").prop("readonly", false);
+  // }
+
+  if ($("#requestboyBox").attr("disabled", true)) {
   }
 
   for (y = 0; y < 12; y++) {
+    // if(y==8 && $("#requestbyBox").attr("disabled"))
     formData[y].value = "";
   }
 
@@ -114,19 +120,34 @@ function Validation() {
   };
 
   // Alert determination variable
+  // var alertId = {
+  //   0: "Work title is empty \n",
+  //   1: "Type 1 is empty \n",
+  //   2: "Type 2 is empty \n",
+  //   3: " Description is empty \n",
+  //   4: "Location is empty \n",
+  //   5: "Company is empty \n",
+  //   6: "Status is empty \n",
+  //   7: "SAP number is empty \n",
+  //   8: "Request by is empty \n",
+  //   9: "Request date is empty \n",
+  //   10: "Closed by is empty \n",
+  //   11: "Completion date is empty \n"
+  // };
+
   var alertId = {
-    0: "Work title is empty \n",
-    1: "Type 1 is empty \n",
-    2: "Type 2 is empty \n",
-    3: " Description is empty \n",
-    4: "Location is empty \n",
-    5: "Company is empty \n",
-    6: "Status is empty \n",
-    7: "SAP number is empty \n",
-    8: "Request by is empty \n",
-    9: "Request date is empty \n",
-    10: "Closed by is empty \n",
-    11: "Completion date is empty \n"
+    0: "Please fill up field with asterisk \n",
+    1: "Please fill up field with asterisk \n",
+    2: "Please fill up field with asterisk \n",
+    3: "Please fill up field with asterisk \n ",
+    4: "Please fill up field with asterisk \n",
+    5: "Please fill up field with asterisk \n ",
+    6: "Please fill up field with asterisk \n",
+    7: "Please fill up field with asterisk \n",
+    8: "Please fill up field with asterisk \n",
+    9: "Please fill up field with asterisk \n",
+    10: '"Closed by" field cannot be empty for closed record \n',
+    11: '"Completion date" field cannot be empty for closed record\n'
   };
 
   // Trimming UserInput // LEARN HOW TO LOOP
@@ -134,7 +155,7 @@ function Validation() {
   for (i = 0; i < 12; i++) {
     formData[i] = myTrim(formData[i]);
   }
-  formData.type2 = encodeURIComponent(formData.type2);
+  formData[2] = encodeURIComponent(formData[2]);
 
   var alertMsg = "";
 
@@ -152,7 +173,7 @@ function Validation() {
       }
     } else {
       if (formData[i] == "") {
-        alertMsg += alertId[i];
+        alertMsg = alertId[i];
       }
     }
   }
@@ -164,7 +185,7 @@ function Validation() {
     dateComparing.push(Date.parse(formData[11]));
 
     if (dateComparing[1] < dateComparing[0]) {
-      alertMsg += "End date is smaller than start date";
+      alertMsg += "Error: Completion date is earlier than request date";
     }
   }
 
@@ -209,6 +230,10 @@ function Save(objData) {
     objData[11] +
     "&callArg=" +
     callArg;
+
+  // if (objData[11] == "") {
+  //   objData[11] = null;
+  // }
 
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -380,30 +405,52 @@ function populateForm(elem) {
   // var table=document.getElementById("outputTable");
   // var alertMsg = document.getElementById("alertMsg");
   // var msg ="";
-
   var dataBoxes = [
-    document.getElementById("wTitleBox"),
-    document.getElementById("type1Box"),
-    document.getElementById("type2Box"),
-    document.getElementById("descriptionBox"),
-    document.getElementById("locationBox"),
-    document.getElementById("statusBox"),
-    document.getElementById("companyBox"),
-    document.getElementById("sapBox"),
-    document.getElementById("requestbyBox"),
-    document.getElementById("requestdateBox"),
-    document.getElementById("closedbyBox"),
-    document.getElementById("completiondateBox")
+    $("#wTitleBox"),
+    $("#type1Box"),
+    $("#type2Box"),
+    $("#descriptionBox"),
+    $("#locationBox"),
+    $("#statusBox"),
+    $("#companyBox"),
+    $("#sapBox"),
+    $("#requestbyBox"),
+    $("#requestdateBox"),
+    $("#closedbyBox"),
+    $("#completiondateBox")
   ];
+  // var dataBoxes = [
+  //   document.getElementById("wTitleBox"),
+  //   document.getElementById("type1Box"),
+  //   document.getElementById("type2Box"),
+  //   document.getElementById("descriptionBox"),
+  //   document.getElementById("locationBox"),
+  //   document.getElementById("statusBox"),
+  //   document.getElementById("companyBox"),
+  //   document.getElementById("sapBox"),
+  //   document.getElementById("requestbyBox"),
+  //   document.getElementById("requestdateBox"),
+  //   document.getElementById("closedbyBox"),
+  //   document.getElementById("completiondateBox")
+  // ];
+
+  var postedElemData = [];
+
+  for (i = 0; i < 12; i++) {
+    postedElemData[i] = elem.childNodes[i].innerText;
+  }
 
   //Fill input boxes with selected row data
   for (y = 0; y < 12; y++) {
-    dataBoxes[y].value = elem.childNodes[y].innerText;
-    // FIX THIS ONCE WE HAVE A PROPER WORKING SEARCH
+    // dataBoxes[y].value = elem.childNodes[y].innerText;
+    // dataBoxes[y].val(elem.childNodes[y].innerText);
+    dataBoxes[y].val(postedElemData[y]);
+    // dataBoxes[y].attr("value", elem.childNodes[y].innerText);
+    console.log(postedElemData[y]);
   }
 
   // Make requestby and date Readonly
-  $("#requestbyBox").prop("readonly", true);
+  $("#requestbyBox").prop("disabled", true);
   $("#requestdateBox").prop("readonly", true);
 }
 
@@ -489,6 +536,7 @@ function changeAction() {
       .css({ visibility: "visible" })
       .animate({ opacity: 1.0 }, "slow");
 
+    // $("#type1Box").childNodes[0].prop("disabled", false);
     // Disable request by box
 
     // $("#requestbyBox").attr("disabled", true);
@@ -563,7 +611,7 @@ function changeAction() {
     setDefaultDate();
 
     // Enabled request by box
-    $("#requestbyBox").prop("readonly", false);
+    $("#requestbyBox").prop("disabled", false);
     // $("#requestbyBox").css({"backgroundColor":"rgb(100, 98, 98)"});
 
     // Enabled request date box
@@ -577,13 +625,17 @@ function changeAction() {
 
 //Pass clicked element to required function
 function passOver(elem) {
-  var table = $("#outputTable");
+  // Check for existing selected element
+  currentSelected = $("#outputTable").find(".select");
 
-  // for(i=0;i<table.length;i++){
-  //     if(table.childNodes[i].className=="selected")
-  // }
+  // If there exist already selected element, remove its class
+  if (currentSelected.length == 1) {
+    currentSelected[0].removeAttribute("class");
+    // $(selector).removeAttr(attributeName);
+  }
 
-  // console.log($("#outputTable").childNodes[4])
+  // Set the new clicked element class to "select"
+  elem.className = "select";
 
   elemRow = elem;
   editButton.onclick = function() {
@@ -592,7 +644,7 @@ function passOver(elem) {
   deleteButton.onclick = function() {
     deleteRecord(elem);
   };
-  console.log(elem);
+  // console.log(elem);
   // editButton.addEventListener("Click",function(){edit(elem)});
 }
 
@@ -628,15 +680,27 @@ function randomizer(id, min, max) {
   var selectedId = id;
   if (id.attr("id") == $("#type1Box").attr("id")) {
     var alpha = ["PM", "RM"];
-    // var randomLength = Math.floor(Math.random() * alpha.length) - 1;
+
     $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
   } else if (id.attr("id") == $("#type2Box").attr("id")) {
     var alpha = ["VI", "R&S", "RP", "HK", "UC", "PT", "SL"];
-    // var randomLength = Math.floor(Math.random() * alpha.length) - 1;
     $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
+    // var alphaRes = alpha[Math.floor(Math.random() * alpha.length)];
+    // alphaRes = encodeURIComponent(alphaRes);
+    // $(id).val(alphaRes);
   } else if (id.attr("id") == $("#statusBox").attr("id")) {
-    var alpha = ["New", "Closed", "In Progress"];
-    // var randomLength = Math.floor(Math.random() * alpha.length);
+    var alpha = ["New", "In Progress"];
+    $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
+  } else if (id.attr("id") == $("#sapBox").attr("id")) {
+    var alpha = "1234567890";
+    var alphaSplit = Array.from(alpha);
+    var randomLength = Math.floor(Math.random() * 5);
+    for (i = 0; i < randomLength; i++) {
+      val += alphaSplit[Math.floor(Math.random() * alphaSplit.length)];
+      $(id).val(val);
+    }
+  } else if (id.attr("id") == $("#requestbyBox").attr("id")) {
+    var alpha = ["Aqil", "Amirul", "Zamri", "Kamarulzaman", "Malina"];
     $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
   } else {
     var alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
@@ -644,7 +708,6 @@ function randomizer(id, min, max) {
     var randomLength = Math.floor(Math.random() * (max - min)) + min;
     for (i = 0; i < randomLength; i++) {
       val += alphaSplit[Math.floor(Math.random() * alphaSplit.length)];
-      // $(id).val(alphaSplit[Math.floor(Math.random() * alphaSplit.length)]);
       $(id).val(val);
     }
   }
@@ -664,13 +727,26 @@ function randomFill() {
     // 9: $("#requestdateBox")
   ];
 
-  for (j = 0; j < formData.length; j++) {
-    switch (j) {
-      case 3:
-        randomizer(formData[j], 20, 50);
-        break;
-      default:
-        randomizer(formData[j], 5, 20);
+  for (t = 0; t < $("#randomizeAmount").val(); t++) {
+    for (j = 0; j < formData.length; j++) {
+      switch (j) {
+        case 3:
+          // Description box
+          randomizer(formData[j], 80, 160);
+          break;
+        case 6:
+          // Company Box
+          randomizer(formData[j], 5, 10);
+          break;
+
+        default:
+          randomizer(formData[j], 5, 15);
+      }
     }
+    // Validation();
   }
+}
+
+function infoAreaToggle() {
+  $("#infoArea").toggle();
 }

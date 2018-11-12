@@ -1,15 +1,16 @@
 .formArea {
   display: grid;
-  background-color: rgb(0, 177, 169);
-  justify-self: right;
+  background-color: rgb(3, 121, 115);
+  justify-self: center;
   /* justify-items: right; */
   padding: 50px;
   grid-template-rows: auto auto;
-  border-radius: 50px;
+  border-radius: 25px;
   margin-top: 50px;
   margin-bottom: 50px;
   /* margin-left: 100px; */
   box-shadow: 1px 1px 50px black;
+  grid-column: 3/3;
 }
 
 .formArea div {
@@ -160,7 +161,7 @@ textarea {
 .ovalButton {
   font-size: 15px;
   border-radius: 50px;
-  background-color: rgb(25, 46, 31);
+  background-color: #293e95;
   width: 100px;
   height: 40px;
   color: white;
@@ -171,10 +172,10 @@ textarea {
   box-shadow: 5px 5px 10px rgb(42, 66, 88);
 }
 
-.requestByBox:read-only {
+/* .requestByBox:read-only {
   color: grey;
 }
 
 .requestByBox:-moz-read-only {
   color: grey;
-}
+} */

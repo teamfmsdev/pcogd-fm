@@ -111,7 +111,9 @@ function save(){
      `Company`, `SAP#`, `Request By`, `Request Date`, `Closed By`, `Completion Date`)
      VALUES ('$wTitle','$type1','$type2','$desc','$loca','$stats','$comp','$sapB','$reqB',
      '$reqD','$clos','$compl')";
-    
+
+     mysqli_prepare($con,$sql);
+
     if (mysqli_query($con,$sql)){
         echo "New record insert success ";
         
@@ -140,11 +142,21 @@ function retrieve(){
         die ("Connection cannot be established". mysqli_connect_error($con));
     }
 
+    
+
     // $sql="SELECT * FROM `main`";
 
+    // TO decide whether SAP is - or not
+if(!empty($sapB)){
     $sql= "SELECT * FROM `main` WHERE (`Work Title` LIKE '%$wTitle%' AND `Type 1` LIKE '%$type1%' AND `Type 2` LIKE '%$type2' AND `Description` LIKE '%$desc%'
-            AND `Location` LIKE '%$loca%' AND `Status` LIKE '%$stats%' AND `Company` LIKE '%$comp%' AND `SAP#` LIKE '%$sapB%' AND `Request By` LIKE '%$reqB%'
-            AND `Request Date` LIKE '%$reqD%' AND `Closed By` LIKE '%$clos%' AND `Completion Date` LIKE '%$compl%' )";
+    AND `Location` LIKE '%$loca%' AND `Status` LIKE '%$stats%' AND `Company` LIKE '%$comp%' AND `SAP#` LIKE '%$sapB%' AND `Request By` LIKE '%$reqB%'
+    AND `Request Date` LIKE '%$reqD%' AND `Closed By` LIKE '%$clos%' AND `Completion Date` LIKE '%$compl%' )";
+}else if(empty($sapB)){
+    $sql= "SELECT * FROM `main` WHERE (`Work Title` LIKE '%$wTitle%' AND `Type 1` LIKE '%$type1%' AND `Type 2` LIKE '%$type2' AND `Description` LIKE '%$desc%'
+    AND `Location` LIKE '%$loca%' AND `Status` LIKE '%$stats%' AND `Company` LIKE '%$comp%' AND `SAP#`!='-' AND `Request By` LIKE '%$reqB%'
+    AND `Request Date` LIKE '%$reqD%' AND `Closed By` LIKE '%$clos%' AND `Completion Date` LIKE '%$compl%' )";
+}
+   
 
     // $sql="SELECT * FROM `main` WHERE (`Work Title` Like '%$wTitle%' AND `Type 1` Like '%$type1%' AND `Type 2` Like '%$type2%' AND 
     // `Description` Like '%$desc%' AND `Location` Like '%$loca%' AND `Company` Like '%$comp%' And `%SAP#%` Like '%$sapB%') ";

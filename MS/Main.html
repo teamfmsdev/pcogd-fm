@@ -31,7 +31,17 @@
     <div class="mainAreaWrapper">
         <div class="mainArea">
             <!--mainArea Start-->
-
+            <div id="infoArea" class="infoArea">
+                <div>PM : Preventative Maintenance</div>
+                <div>RM : Reactive Maintenance</div>
+                <div>VI : Visual Inspection</div>
+                <div>R&S: Repair & Service</div>
+                <div>RP : Replace</div>
+                <div>HK : Housekeeping</div>
+                <div>UC : Unclogging</div>
+                <!-- <div>PT: </div> -->
+                <div>SL : Sealing</div>
+            </div>
             <div class="formArea">
                 <!--formArea Div Start-->
 
@@ -52,7 +62,7 @@
                         <!-- <input type="checkbox" id="testCheckBox" onclick="changeAction()"> -->
 
                         <div>Update</div>
-                        <input type="button" class="devButton" value="Developer's" onclick="devAreaToggle()">
+                        <!-- <input type="button" class="devButton" value="Developer's" onclick="devAreaToggle()"> -->
 
                     </div>
 
@@ -92,8 +102,8 @@
                         <div id="Location" class="locationDT">*Location</div>
                         <input id="locationBox" class="locationBox" type="text">
                         <!--INPUT-->
-                        <div id="Status" class="statusDT">Status</div>
-                        <select id="statusBox" class="statusBox" value="Open">
+                        <div id="Status" class="statusDT">*Status</div>
+                        <select id="statusBox" class="statusBox">
                             <!--INPUT-->
                             <option disabled selected></option>
                             <option selected="selected">New</option>
@@ -114,16 +124,31 @@
 
                     <div class="requestByLine">
                         <div id="RequestBy" class="requestByDT">*Request By</div>
-                        <input id="requestbyBox" class="requestByBox" type="text">
+                        <select id="requestbyBox" class="requestByBox" type="text"> 
+                            <option disabled selected></option>
+                            <option>Aqil</option>
+                            <option>Amirul</option>
+                            <option>Zamri</option>
+                            <option>Kamarulzaman</option>
+                            <option>Malina</option>
+                            
+                        </select>
                         <!--INPUT-->
-                        <div id="RequestDate" class="requestDateDT">Request Date</div>
+                        <div id="RequestDate" class="requestDateDT">*Request Date</div>
                         <input id="requestdateBox" class="requestDateBox" type="Date">
                         <!--INPUT-->
                     </div>
 
                     <div class="closedByLine">
                         <div id="ClosedBy" class="closedByDT">Closed By</div>
-                        <input id="closedbyBox" class="closedByBox" type="text">
+                        <select id="closedbyBox" class="closedByBox" type="text">
+                            <option disabled selected></option>
+                            <option>Aqil</option>
+                            <option>Amirul</option>
+                            <option>Zamri</option>
+                            <option>Kamarulzaman</option>
+                            <option>Malina</option>
+                        </select>
                         <!--INPUT-->
                         <div id="CompletionDate" class="completionDateDT">Completion Date</div>
                         <input id="completiondateBox" class="completionDateBox" type="date">
@@ -148,9 +173,11 @@
                 <!--formBtnArea End-->
 
             </div>
+            
             <!--formArea Div End-->
             <div id="devArea" class="devArea">
-                <input type="button" value="Randomize" onclick="randomFill()">
+                <input type="text" id="randomizeAmount" class="randomizeAmount">
+                <input type="button" id="randomizeBtn"value="Randomize" onclick="randomFill()">
                 <div id="devOutput"></div>
             </div>
         </div>
@@ -166,7 +193,7 @@
     <div id="outputDivision" class="outputDivision">
 
 
-        <table id="outputTable" class="outputTable" border="1">
+        <table id="outputTable" class="outputTable">
 
             <tr>
                 <th>Work title</th>
