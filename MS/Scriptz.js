@@ -28,22 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // editButton = document.getElementById("editButton");
 
-function testing() {
-  var callArg = "Mail";
-  xmlhttp = new XMLHttpRequest();
-  var submission = "callArg=" + callArg;
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      var alertMsg = document.getElementById("alertMsg");
-      alertMsg.innerHTML = xmlhttp.responseText;
-    }
-  };
-
-  xmlhttp.open("POST", "ServerInteraction.php", false);
-  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xmlhttp.send(submission);
-}
-
 function setDefaultDate() {
   // Set default request date to today
 
@@ -239,6 +223,7 @@ function Save(objData) {
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
       document.getElementById("alertMsg").innerHTML = xmlhttp.responseText;
+      retrieve();
     }
   };
   xmlhttp.open("POST", "serverInteraction.php", true);
@@ -406,47 +391,69 @@ function populateForm(elem) {
   // var alertMsg = document.getElementById("alertMsg");
   // var msg ="";
   var dataBoxes = [
-    $("#wTitleBox"),
-    $("#type1Box"),
-    $("#type2Box"),
-    $("#descriptionBox"),
-    $("#locationBox"),
-    $("#statusBox"),
-    $("#companyBox"),
-    $("#sapBox"),
-    $("#requestbyBox"),
-    $("#requestdateBox"),
-    $("#closedbyBox"),
-    $("#completiondateBox")
+    $("#wTitleBox"), //0
+    $("#type1Box"), //1
+    $("#type2Box"), //2
+    $("#descriptionBox"), //3
+    $("#locationBox"), //4
+    $("#statusBox"), //5
+    $("#companyBox"), //6
+    $("#sapBox"), //7
+    $("#requestbyBox"), //8
+    $("#requestdateBox"), //9
+    $("#closedbyBox"), //10
+    $("#completiondateBox") // 11
   ];
-  // var dataBoxes = [
-  //   document.getElementById("wTitleBox"),
-  //   document.getElementById("type1Box"),
-  //   document.getElementById("type2Box"),
-  //   document.getElementById("descriptionBox"),
-  //   document.getElementById("locationBox"),
-  //   document.getElementById("statusBox"),
-  //   document.getElementById("companyBox"),
-  //   document.getElementById("sapBox"),
-  //   document.getElementById("requestbyBox"),
-  //   document.getElementById("requestdateBox"),
-  //   document.getElementById("closedbyBox"),
-  //   document.getElementById("completiondateBox")
-  // ];
+  var dropDownBox = {
+    1: "#type1Box",
+    2: "#type2Box",
+    5: "#statusBox",
+    8: "#requestbyBox",
+    10: "#closedbyBox"
+  };
 
   var postedElemData = [];
 
   for (i = 0; i < 12; i++) {
     postedElemData[i] = elem.childNodes[i].innerText;
+    postedElemData[i] = myTrim(postedElemData[i]);
   }
-
+  dataBoxes[9].val(postedElemData[y]);
   //Fill input boxes with selected row data
   for (y = 0; y < 12; y++) {
+    switch (y) {
+      case 1:
+      case 2:
+      case 5:
+      case 8:
+        $(dropDownBox[y] + ' option[value="' + postedElemData[y] + '"]').prop(
+          "selected",
+          true
+        );
+        break;
+      case 10:
+        if (postedElemData == "") {
+          continue;
+        }
+
+      default:
+        dataBoxes[y].val(postedElemData[y]);
+    }
+    //Experimental Solution // DOES NOT WORK
+    // if (y == 1 || y == 2 || y == 5 || y == 8 || y == 10) {
+    //   if (y == 10 && y != "") {
+    //   } else {
+    //     continue;
+    //   }
+    //   // $("#type1Box option[value=RM]").prop("selected", true);
+    // } else {
+    // }
+
     // dataBoxes[y].value = elem.childNodes[y].innerText;
     // dataBoxes[y].val(elem.childNodes[y].innerText);
-    dataBoxes[y].val(postedElemData[y]);
     // dataBoxes[y].attr("value", elem.childNodes[y].innerText);
     console.log(postedElemData[y]);
+    // dataBoxes[y].val('"' + postedElemData[y] + '"');
   }
 
   // Make requestby and date Readonly
@@ -683,7 +690,7 @@ function randomizer(id, min, max) {
 
     $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
   } else if (id.attr("id") == $("#type2Box").attr("id")) {
-    var alpha = ["VI", "R&S", "RP", "HK", "UC", "PT", "SL"];
+    var alpha = ["VI", "RS", "RP", "HK", "UC", "PT", "SL"];
     $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
     // var alphaRes = alpha[Math.floor(Math.random() * alpha.length)];
     // alphaRes = encodeURIComponent(alphaRes);
@@ -732,7 +739,7 @@ function randomFill() {
       switch (j) {
         case 3:
           // Description box
-          randomizer(formData[j], 80, 160);
+          randomizer(formData[j], 200, 200);
           break;
         case 6:
           // Company Box
@@ -743,10 +750,6 @@ function randomFill() {
           randomizer(formData[j], 5, 15);
       }
     }
-    // Validation();
+    Validation();
   }
-}
-
-function infoAreaToggle() {
-  $("#infoArea").toggle();
 }

@@ -4,12 +4,10 @@
 
 <head>
     <script src="jquery-3.3.1.js"></script>
-    <link rel="stylesheet" type="text/css" href="Stylez.css">
     <script src="Scriptz.js"></script>
-    <link rel="stylesheet" type="text/css" href="fullPageJs/src/fullpage.css" />
-    <script src="fullPageJs/src/fullpage.js"></script>
-    <link rel="stylesheet" type="text/css" href="formStyle.css">
-    <link rel="stylesheet" type="text/css" href="devArea.css">
+    <link rel="stylesheet" type="text/css" href="Stylez - Copy.css">
+    <link rel="stylesheet" type="text/css" href="formStyle - Copy.css">
+    <link rel="stylesheet" type="text/css" href="devArea - Copy.css">
 
 
 </head>
@@ -35,7 +33,7 @@
                 <div>PM : Preventative Maintenance</div>
                 <div>RM : Reactive Maintenance</div>
                 <div>VI : Visual Inspection</div>
-                <div>R&S: Repair & Service</div>
+                <div>RS: Repair & Service</div>
                 <div>RP : Replace</div>
                 <div>HK : Housekeeping</div>
                 <div>UC : Unclogging</div>
@@ -74,20 +72,20 @@
                         <select class="type1Input" id="type1Box">
                             <!--INPUT-->
                             <option disabled selected></option>
-                            <option>PM</option>
-                            <option>RM</option>
+                            <option value="PM">PM</option>
+                            <option value="RM">RM</option>
                         </select>
 
                         <select class="type2Input" id="type2Box">
                             <!--INPUT-->
                             <option disabled selected></option>
-                            <option>VI</option>
-                            <option>R&S</option>
-                            <option>RP</option>
-                            <option>HK</option>
-                            <option>UC</option>
-                            <option>PT</option>
-                            <option>SL</option>
+                            <option value="VI">VI</option>
+                            <option value="RS">RS</option>
+                            <option value="RP">RP</option>
+                            <option value="HK">HK</option>
+                            <option value="UC">UC</option>
+                            <option value="PT">PT</option>
+                            <option value="SL">SL</option>
                         </select>
 
                     </div>
@@ -106,9 +104,9 @@
                         <select id="statusBox" class="statusBox">
                             <!--INPUT-->
                             <option disabled selected></option>
-                            <option selected="selected">New</option>
-                            <option>Closed</option>
-                            <option>In Progress</option>
+                            <option selected="selected" value="New">New</option>
+                            <option value="Closed">Closed</option>
+                            <option value="In Progress">In Progress</option>
                         </select>
 
                     </div>
@@ -126,11 +124,11 @@
                         <div id="RequestBy" class="requestByDT">*Request By</div>
                         <select id="requestbyBox" class="requestByBox" type="text"> 
                             <option disabled selected></option>
-                            <option>Aqil</option>
-                            <option>Amirul</option>
-                            <option>Zamri</option>
-                            <option>Kamarulzaman</option>
-                            <option>Malina</option>
+                            <option value="Aqil">Aqil</option>
+                            <option value="Amirul">Amirul</option>
+                            <option value="Zamri">Zamri</option>
+                            <option value="Kamarulzaman">Kamarulzaman</option>
+                            <option value="Malina">Malina</option>
                             
                         </select>
                         <!--INPUT-->
@@ -143,11 +141,11 @@
                         <div id="ClosedBy" class="closedByDT">Closed By</div>
                         <select id="closedbyBox" class="closedByBox" type="text">
                             <option disabled selected></option>
-                            <option>Aqil</option>
-                            <option>Amirul</option>
-                            <option>Zamri</option>
-                            <option>Kamarulzaman</option>
-                            <option>Malina</option>
+                            <option value="Aqil">Aqil</option>
+                            <option value="Amirul">Amirul</option>
+                            <option value="Zamri">Zamri</option>
+                            <option value="Kamarulzaman">Kamarulzaman</option>
+                            <option value="Malina">Malina</option>
                         </select>
                         <!--INPUT-->
                         <div id="CompletionDate" class="completionDateDT">Completion Date</div>
