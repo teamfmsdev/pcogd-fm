@@ -3,13 +3,16 @@
 <html>
 
 <head>
-    <script src="jquery-3.3.1.js"></script>
-    <script src="Scriptz.js"></script>
-    <link rel="stylesheet" type="text/css" href="Stylez - Copy.css">
-    <link rel="stylesheet" type="text/css" href="formStyle - Copy.css">
-    <link rel="stylesheet" type="text/css" href="devArea - Copy.css">
-
-
+    <script src="src/jquery-3.3.1.js"></script>
+    <script src="src/globalVar.js"></script>
+    <script src="src/docReady.js"></script>
+    <script src="src/interactionMethods.js"></script>
+    <script src="src/helperMethods.js"></script>
+    <script src="src/Scriptz.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="style/Stylez.css" >
+    <link rel="stylesheet" type="text/css" href="style/formStyle.css" >
+    <link rel="stylesheet" type="text/css" href="style/devArea.css" >
 </head>
 
 
@@ -37,7 +40,7 @@
                 <div>RP : Replace</div>
                 <div>HK : Housekeeping</div>
                 <div>UC : Unclogging</div>
-                <!-- <div>PT: </div> -->
+                <div>PT : Painting</div>    
                 <div>SL : Sealing</div>
             </div>
             <div class="formArea">
@@ -61,7 +64,7 @@
 
                         <div>Update</div>
                         <!-- <input type="button" class="devButton" value="Developer's" onclick="devAreaToggle()"> -->
-
+                        <input id="helpBtn" class="helpBtn" type="button" value="Help" onclick="helpAreaToggle()">
                     </div>
 
                     <div class="workTitleLine">
