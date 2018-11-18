@@ -4,6 +4,29 @@
 
 // Reset inputBoxes of form
 function Reset() {
+  if (editArg == 1) {
+    if ($("#resetButton").val() == "CANCEL") {
+      $("#resetButton").val("RESET");
+    }
+
+    if ($("#deleteButton").css("display") == "block") {
+      $("#deleteButton").hide("slow");
+    }
+
+    if ($("#saveButton").css("display") == "block") {
+      $("#saveButton").hide("slow");
+    }
+
+    if ($("#editButton").css("display") == "none") {
+      $("#editButton").show("slow");
+    }
+  }
+
+  var currentSelected = $("#outputTable").find(".select");
+
+  if (currentSelected.length == 1) {
+    currentSelected[0].removeAttribute("class");
+  }
   var formData = {
     0: $("#wTitleBox"),
     1: $("#type1Box"),
@@ -158,7 +181,9 @@ function Validation() {
   } else if (alertMsg == "" && editArg == "0") {
     Save(formData);
   } else if (alertMsg == "" && editArg == 1) {
-    Update(formData);
+    if (confirm("Confirm to edit this entry?")) {
+      Update(formData);
+    }
     // editArg="";
   }
 }
@@ -273,8 +298,8 @@ function retrieve() {
         rowNode[x].addEventListener("click", function() {
           passOver(this);
         });
-        // Y = 1 BECAUSE WE DONT WANT TO SELECT ROW COLUMN IN TABLE
-        for (y = 1; y < 13; y++) {
+        // Y = 1 BECAUSE WE DONT WANT TO SELECT "ROW" COLUMN IN DATABASE
+        for (y = 0; y < 13; y++) {
           textnode[y] = document.createTextNode(jsonResponse[x][y]);
           colNode[y] = document.createElement("td");
           colNode[y].appendChild(textnode[y]);
@@ -295,18 +320,18 @@ function Update() {
   // GET form value
 
   var formData = {
-    0: document.getElementById("wTitleBox").value,
-    1: document.getElementById("type1Box").value,
-    2: document.getElementById("type2Box").value,
-    3: document.getElementById("descriptionBox").value,
-    4: document.getElementById("locationBox").value,
-    5: document.getElementById("statusBox").value,
-    6: document.getElementById("companyBox").value,
-    7: document.getElementById("sapBox").value,
-    8: document.getElementById("requestbyBox").value,
-    9: document.getElementById("requestdateBox").value,
-    10: document.getElementById("closedbyBox").value,
-    11: document.getElementById("completiondateBox").value
+    1: document.getElementById("wTitleBox").value,
+    2: document.getElementById("type1Box").value,
+    3: document.getElementById("type2Box").value,
+    4: document.getElementById("descriptionBox").value,
+    5: document.getElementById("locationBox").value,
+    6: document.getElementById("statusBox").value,
+    7: document.getElementById("companyBox").value,
+    8: document.getElementById("sapBox").value,
+    9: document.getElementById("requestbyBox").value,
+    10: document.getElementById("requestdateBox").value,
+    11: document.getElementById("closedbyBox").value,
+    12: document.getElementById("completiondateBox").value
   };
   //Call argument for PHP script
   var callArg = "Update";
@@ -316,29 +341,29 @@ function Update() {
 
   var submission =
     "wTitle=" +
-    formData[0] +
-    "&type1=" +
     formData[1] +
-    "&type2=" +
+    "&type1=" +
     formData[2] +
-    "&desc=" +
+    "&type2=" +
     formData[3] +
-    "&loca=" +
+    "&desc=" +
     formData[4] +
-    "&stats=" +
+    "&loca=" +
     formData[5] +
-    "&comp=" +
+    "&stats=" +
     formData[6] +
-    "&sapB=" +
+    "&comp=" +
     formData[7] +
-    "&reqB=" +
+    "&sapB=" +
     formData[8] +
-    "&reqD=" +
+    "&reqB=" +
     formData[9] +
-    "&clos=" +
+    "&reqD=" +
     formData[10] +
-    "&comple=" +
+    "&clos=" +
     formData[11] +
+    "&comple=" +
+    formData[12] +
     "&callArg=" +
     callArg +
     "&dataID=" +
@@ -354,7 +379,9 @@ function Update() {
       var rowAjaxUpdate = document.getElementById(elemRow.id);
 
       // Update Current displayed table to match with updated data
-      for (y = 0; y < 12; y++) {
+      // Start with 1 cause exclude FM NO
+      //
+      for (y = 1; y < 13; y++) {
         rowAjaxUpdate.childNodes[y].innerText = formData[y];
       }
     }
@@ -389,5 +416,15 @@ function deleteRecord(elem) {
       "application/x-www-form-urlencoded"
     );
     xmlhttp.send(submission);
+  }
+
+  if (
+    $("#deleteButton").css("display") == "block" &&
+    $("#saveButton").css("display") == "block" &&
+    $("#editButton").css("display") == "none"
+  ) {
+    $("#deleteButton").hide("slow");
+    $("#saveButton").hide("slow");
+    $("#editButton").show("slow");
   }
 }

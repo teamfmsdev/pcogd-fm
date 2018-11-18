@@ -99,12 +99,26 @@ function randomFill() {
 //Pass clicked element to required function
 function passOver(elem) {
   // Check for existing selected element
-  currentSelected = $("#outputTable").find(".select");
+  var currentSelected = $("#outputTable").find(".select");
 
-  // If there exist already selected element, remove its class
+  // If there exist already selected element
   if (currentSelected.length == 1) {
-    currentSelected[0].removeAttribute("class");
-    // $(selector).removeAttr(attributeName);
+    // If there is a called to "edit" event already
+    if (
+      editArg == 1 &&
+      $("#deleteButton").css("display") == "block" &&
+      $("#saveButton").css("display") == "block"
+    ) {
+      // If we click other element during "EDIT"-ing
+      if (currentSelected[0].id != elem.id) {
+        // Assign elem as the currently existing clicked element
+        elem = currentSelected[0];
+      }
+      // currentSelected[0].removeAttribute("class");
+      // elem = $("#" + elem.id)[0];
+    } else {
+      currentSelected[0].removeAttribute("class");
+    }
   }
 
   // Set the new clicked element class to "select"
@@ -112,6 +126,17 @@ function passOver(elem) {
 
   elemRow = elem;
   editButton.onclick = function() {
+    if ($("#deleteButton").css("display") == "none") {
+      $("#deleteButton").show("slow");
+    }
+    if ($("#saveButton").css("display") == "none") {
+      $("#saveButton").show("slow");
+    }
+    if ($("#editButton").css("display") == "block") {
+      $("#editButton").hide("slow");
+    }
+
+    $("#resetButton").val("CANCEL");
     populateForm(elem);
   };
   deleteButton.onclick = function() {

@@ -6,7 +6,17 @@ $(document).ready(function() {
     visibility: "hidden"
   });
 
-  changeAction();
+  // changeAction();
+  Reset();
+  if ($("#editButton").css("display") == "block") {
+    $("#editButton").hide("slow");
+  }
+  if ($("#searchButton").css("display") == "block") {
+    $("#searchButton").hide("slow");
+  }
+  if ($("#deleteButton").css("display") == "block") {
+    $("#deleteButton").hide("slow");
+  }
 
   // document.getElementById("requestdateBox").value = new Date().toDateInputValue();
 });

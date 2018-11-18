@@ -18,8 +18,6 @@ if($callArg=="save"){
     deleteRecord();
 }elseif($callArg=="Update"){
     Update();
-}elseif($callArg=="Mail"){
-    mailTest();
 }
 
 function deleteRecord(){

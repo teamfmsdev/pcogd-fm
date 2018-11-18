@@ -11,40 +11,17 @@ function changeAction() {
   if (checkBox.prop("checked") == true) {
     editArg = 1;
 
-    // Animated Show
-    $("#editButton")
-      .css({ display: "block" })
-      .animate(
-        {
-          opacity: 1,
-          height: 40,
-          width: 100
-        },
-        "slow"
-      );
+    if ($("#editButton").css("display") == "none") {
+      $("#editButton").show("slow");
+    }
+    if ($("#searchButton").css("display") == "none") {
+      $("#searchButton").show("slow");
+    }
+    if ($("#saveButton").css("display") == "block") {
+      $("#saveButton").hide("slow");
+    }
 
-    $("#searchButton")
-      .css({ display: "block" })
-      .animate(
-        {
-          opacity: 1,
-          height: 40,
-          width: 100
-        },
-        "slow"
-      );
-
-    $("#deleteButton")
-      .css({ display: "block" })
-      .animate(
-        {
-          opacity: 1,
-          height: 40,
-          width: 100
-        },
-        "slow"
-      );
-
+    // $("#editButton").toggle("slow");
     // Set status to ""
     $("#statusBox").val("");
     $("#requestdateBox").val("");
@@ -60,42 +37,19 @@ function changeAction() {
   }
   // If it is NEW
   else {
-    // Animated Hide
-    $("#editButton").animate(
-      {
-        opacity: 0,
-        height: 0,
-        width: 0
-      },
-      "slow",
-      function() {
-        $("#editButton").css({ display: "none" });
-      }
-    );
-
-    $("#searchButton").animate(
-      {
-        opacity: 0,
-        height: 0,
-        width: 0
-      },
-      "slow",
-      function() {
-        $("#searchButton").css({ display: "none" });
-      }
-    );
-
-    $("#deleteButton").animate(
-      {
-        opacity: 0,
-        height: 0,
-        width: 0
-      },
-      "slow",
-      function() {
-        $("#deleteButton").css({ display: "none" });
-      }
-    );
+    editArg = 0;
+    if ($("#editButton").css("display") == "block") {
+      $("#editButton").hide("slow");
+    }
+    if ($("#searchButton").css("display") == "block") {
+      $("#searchButton").hide("slow");
+    }
+    if ($("#deleteButton").css("display") == "block") {
+      $("#deleteButton").hide("slow");
+    }
+    if ($("#saveButton").css("display") == "none") {
+      $("#saveButton").show("slow");
+    }
 
     // Hide Line 7
     $(".closedByLine").animate({ opacity: 0 }, "slow", function() {
@@ -120,8 +74,7 @@ function changeAction() {
     $("#requestdateBox").prop("readonly", false);
     // $("#requestdateBox").css({"backgroundColor":"rgb(100, 98, 98)"});
 
-    editArg = 0;
-    console.log("checkbox not checked");
+    // console.log("checkbox not checked");
   }
 }
 
@@ -161,48 +114,53 @@ function populateForm(elem) {
   // var table=document.getElementById("outputTable");
   // var alertMsg = document.getElementById("alertMsg");
   // var msg ="";
-  var dataBoxes = [
-    $("#wTitleBox"), //0
-    $("#type1Box"), //1
-    $("#type2Box"), //2
-    $("#descriptionBox"), //3
-    $("#locationBox"), //4
-    $("#statusBox"), //5
-    $("#companyBox"), //6
-    $("#sapBox"), //7
-    $("#requestbyBox"), //8
-    $("#requestdateBox"), //9
-    $("#closedbyBox"), //10
-    $("#completiondateBox") // 11
-  ];
+
+  var dataBoxes = {
+    1: $("#wTitleBox"), //0
+    2: $("#type1Box"), //1
+    3: $("#type2Box"), //2
+    4: $("#descriptionBox"), //3
+    5: $("#locationBox"), //4
+    6: $("#statusBox"), //5
+    7: $("#companyBox"), //6
+    8: $("#sapBox"), //7
+    9: $("#requestbyBox"), //8
+    10: $("#requestdateBox"), //9
+    11: $("#closedbyBox"), //10
+    12: $("#completiondateBox") // 11
+  };
   var dropDownBox = {
-    1: "#type1Box",
-    2: "#type2Box",
-    5: "#statusBox",
-    8: "#requestbyBox",
-    10: "#closedbyBox"
+    2: "#type1Box",
+    3: "#type2Box",
+    6: "#statusBox",
+    9: "#requestbyBox",
+    11: "#closedbyBox"
   };
 
   var postedElemData = [];
 
-  for (i = 0; i < 12; i++) {
+  for (i = 0; i < 13; i++) {
     postedElemData[i] = elem.childNodes[i].innerText;
     postedElemData[i] = myTrim(postedElemData[i]);
   }
-  dataBoxes[9].val(postedElemData[y]);
+  // dataBoxes[9].val(postedElemData[y]);
   //Fill input boxes with selected row data
-  for (y = 0; y < 12; y++) {
+  for (y = 1; y < 13; y++) {
     switch (y) {
-      case 1:
       case 2:
-      case 5:
-      case 8:
+
+      case 3:
+
+      case 6:
+
+      case 9:
+        // $(dropDownBox[y]).val(postedElemData[y]);
         $(dropDownBox[y] + ' option[value="' + postedElemData[y] + '"]').prop(
           "selected",
           true
         );
         break;
-      case 10:
+      case 11:
         if (postedElemData == "") {
           continue;
         }
@@ -210,24 +168,87 @@ function populateForm(elem) {
       default:
         dataBoxes[y].val(postedElemData[y]);
     }
-    //Experimental Solution // DOES NOT WORK
-    // if (y == 1 || y == 2 || y == 5 || y == 8 || y == 10) {
-    //   if (y == 10 && y != "") {
-    //   } else {
-    //     continue;
-    //   }
-    //   // $("#type1Box option[value=RM]").prop("selected", true);
-    // } else {
-    // }
-
-    // dataBoxes[y].value = elem.childNodes[y].innerText;
-    // dataBoxes[y].val(elem.childNodes[y].innerText);
-    // dataBoxes[y].attr("value", elem.childNodes[y].innerText);
-    console.log(postedElemData[y]);
-    // dataBoxes[y].val('"' + postedElemData[y] + '"');
   }
 
   // Make requestby and date Readonly
   $("#requestbyBox").prop("disabled", true);
   $("#requestdateBox").prop("readonly", true);
+}
+
+// Depreciated hide/show toggle
+function animateToggle() {
+  // If it is UPDATE
+  if (checkBox.prop("checked") == true) {
+    $("#editButton")
+      .css({ display: "block" })
+      .animate(
+        {
+          opacity: 1,
+          height: 40,
+          width: 100
+        },
+        "slow"
+      );
+
+    $("#searchButton")
+      .css({ display: "block" })
+      .animate(
+        {
+          opacity: 1,
+          height: 40,
+          width: 100
+        },
+        "slow"
+      );
+
+    $("#deleteButton")
+      .css({ display: "block" })
+      .animate(
+        {
+          opacity: 1,
+          height: 40,
+          width: 100
+        },
+        "slow"
+      );
+  }
+  // If it is NEW
+  else {
+    // Animated Hide
+    $("#editButton").animate(
+      {
+        opacity: 0,
+        height: 0,
+        width: 0
+      },
+      "slow",
+      function() {
+        $("#editButton").css({ display: "none" });
+      }
+    );
+
+    $("#searchButton").animate(
+      {
+        opacity: 0,
+        height: 0,
+        width: 0
+      },
+      "slow",
+      function() {
+        $("#searchButton").css({ display: "none" });
+      }
+    );
+
+    $("#deleteButton").animate(
+      {
+        opacity: 0,
+        height: 0,
+        width: 0
+      },
+      "slow",
+      function() {
+        $("#deleteButton").css({ display: "none" });
+      }
+    );
+  }
 }

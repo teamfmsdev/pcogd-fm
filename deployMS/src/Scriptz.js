@@ -4,6 +4,29 @@
 
 // Reset inputBoxes of form
 function Reset() {
+  if (editArg == 1) {
+    if ($("#resetButton").val() == "CANCEL") {
+      $("#resetButton").val("RESET");
+    }
+
+    if ($("#deleteButton").css("display") == "block") {
+      $("#deleteButton").hide("slow");
+    }
+
+    if ($("#saveButton").css("display") == "block") {
+      $("#saveButton").hide("slow");
+    }
+
+    if ($("#editButton").css("display") == "none") {
+      $("#editButton").show("slow");
+    }
+  }
+
+  var currentSelected = $("#outputTable").find(".select");
+
+  if (currentSelected.length == 1) {
+    currentSelected[0].removeAttribute("class");
+  }
   var formData = {
     0: $("#wTitleBox"),
     1: $("#type1Box"),
@@ -158,7 +181,9 @@ function Validation() {
   } else if (alertMsg == "" && editArg == "0") {
     Save(formData);
   } else if (alertMsg == "" && editArg == 1) {
-    Update(formData);
+    if (confirm("Confirm to edit this entry?")) {
+      Update(formData);
+    }
     // editArg="";
   }
 }
