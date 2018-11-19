@@ -418,6 +418,7 @@ function deleteRecord(elem) {
     xmlhttp.send(submission);
   }
 
+  // Hide
   if (
     $("#deleteButton").css("display") == "block" &&
     $("#saveButton").css("display") == "block" &&

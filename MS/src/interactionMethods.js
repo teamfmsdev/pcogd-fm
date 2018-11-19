@@ -21,6 +21,14 @@ function changeAction() {
       $("#saveButton").hide("slow");
     }
 
+    if ($("#sapChoice").css("display") == "none") {
+      $("#sapChoice").show("slow");
+      $("#sapBox").css({ gridColumn: "5/6" });
+      $("#sapBox").animate({ width: "94px", marginRight: "100px" });
+
+      // $("#sapBox").animate({ width: "94px" });
+    }
+
     // $("#editButton").toggle("slow");
     // Set status to ""
     $("#statusBox").val("");
@@ -49,6 +57,15 @@ function changeAction() {
     }
     if ($("#saveButton").css("display") == "none") {
       $("#saveButton").show("slow");
+    }
+    // Hide SAP choices box
+    if ($("#sapChoice").css("display") == "block") {
+      $("#sapChoice").hide("slow", function() {
+        $("#sapBox").animate({
+          width: "194px"
+        });
+        $("#sapBox").attr("disabled", false);
+      });
     }
 
     // Hide Line 7
@@ -173,6 +190,16 @@ function populateForm(elem) {
   // Make requestby and date Readonly
   $("#requestbyBox").prop("disabled", true);
   $("#requestdateBox").prop("readonly", true);
+}
+
+function sapChoiceChange() {
+  if ($("#sapChoice").prop("selectedIndex") == 4) {
+    $("#sapBox").animate({ width: "94px" });
+    $("#sapBox").attr("disabled", false);
+  } else {
+    $("#sapBox").val("");
+    $("#sapBox").attr("disabled", true);
+  }
 }
 
 // Depreciated hide/show toggle
