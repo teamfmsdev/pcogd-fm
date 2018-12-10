@@ -46,6 +46,11 @@ function Reset() {
   if ($("#requestbyBox").prop("disabled") == true) {
     $("#requestbyBox").prop("disabled", false);
   }
+
+  if ($("#sapChoice").prop("disabled") == true) {
+    $("#sapChoice").prop("disabled", false);
+  }
+
   if ($("#requestdateBox").prop("readonly") == true) {
     $("#requestdateBox").prop("readonly", false);
   }
@@ -85,6 +90,7 @@ function Reset() {
         formData[y].val("");
     }
   }
+  $("#sapChoice").prop("selectedIndex", 0);
   $("#alertMsg").text("");
 }
 
@@ -227,7 +233,6 @@ function Save(objData) {
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
       document.getElementById("alertMsg").innerHTML = xmlhttp.responseText;
-      retrieve();
       Reset();
     }
   };
@@ -247,6 +252,7 @@ function retrieve() {
     comp: document.getElementById("companyBox").value,
     stats: document.getElementById("statusBox").value,
     sapB: document.getElementById("sapBox").value,
+    sapC: document.getElementById("sapChoice").value,
     reqB: document.getElementById("requestbyBox").value,
     reqD: document.getElementById("requestdateBox").value,
     clos: document.getElementById("closedbyBox").value,
@@ -271,6 +277,8 @@ function retrieve() {
     formData.stats +
     "&sapB=" +
     formData.sapB +
+    "&sapC=" +
+    formData.sapC +
     "&reqB=" +
     formData.reqB +
     "&reqD=" +
@@ -384,6 +392,7 @@ function Update() {
       for (y = 1; y < 13; y++) {
         rowAjaxUpdate.childNodes[y].innerText = formData[y];
       }
+      Reset();
     }
   };
 
@@ -428,4 +437,5 @@ function deleteRecord(elem) {
     $("#saveButton").hide("slow");
     $("#editButton").show("slow");
   }
+  Reset();
 }

@@ -4,48 +4,55 @@ function changeAction() {
   var checkBox = $("#checkBox");
 
   // openDevArea();
-  // Check if checkbox is clicked
-  // Show only required buttons for each state ; NEW/UPDATE
 
-  // If it is UPDATE
+  // Check if checkbox(New or Update Toggle) is ticked , and will show only required buttons for each state.
+
+  // If checkbox is UPDATE
   if (checkBox.prop("checked") == true) {
+    // Global var
     editArg = 1;
 
+    // Show edit and search button
     if ($("#editButton").css("display") == "none") {
       $("#editButton").show("slow");
     }
     if ($("#searchButton").css("display") == "none") {
       $("#searchButton").show("slow");
     }
+    // Hide save button
     if ($("#saveButton").css("display") == "block") {
       $("#saveButton").hide("slow");
     }
-
+    // Show SAP Choices box
     if ($("#sapChoice").css("display") == "none") {
-      $("#sapChoice").show("slow");
-      $("#sapBox").css({ gridColumn: "5/6" });
-      $("#sapBox").animate({ width: "94px", marginRight: "100px" });
-
-      // $("#sapBox").animate({ width: "94px" });
+      $("#sapBox").animate({ width: "94px" }, function() {
+        $("#sapChoice").show("slow");
+        $("#sapBox").css({ gridColumn: "5/5" });
+      });
     }
 
-    // $("#editButton").toggle("slow");
-    // Set status to ""
+    // Set status and request date textbox string to empty
     $("#statusBox").val("");
     $("#requestdateBox").val("");
 
-    // Show Line 7
+    // Show Line 7 (Closed by Line)
     $(".closedByLine")
       .css({ visibility: "visible" })
       .animate({ opacity: 1.0 }, "slow");
 
+    // Call reset function to empty the form
     Reset();
 
-    $("#sapBox").val("-");
+    // Set SAP# textbox string to display "-"
+    // $("#sapBox").val("-");
+    $("#sapChoice").prop("selectedIndex", 2);
   }
-  // If it is NEW
+  // If checkbox is NEW
   else {
+    // Global var
     editArg = 0;
+
+    // Hide edit, search and delete button
     if ($("#editButton").css("display") == "block") {
       $("#editButton").hide("slow");
     }
@@ -55,12 +62,15 @@ function changeAction() {
     if ($("#deleteButton").css("display") == "block") {
       $("#deleteButton").hide("slow");
     }
+
+    // Show save button
     if ($("#saveButton").css("display") == "none") {
       $("#saveButton").show("slow");
     }
     // Hide SAP choices box
     if ($("#sapChoice").css("display") == "block") {
       $("#sapChoice").hide("slow", function() {
+        $("#sapBox").css({ gridColumn: "4/5" });
         $("#sapBox").animate({
           width: "194px"
         });
@@ -187,14 +197,17 @@ function populateForm(elem) {
     }
   }
 
+  $("#sapChoice").prop("selectedIndex", 0);
+
   // Make requestby and date Readonly
+  $("#sapChoice").prop("disabled", true);
   $("#requestbyBox").prop("disabled", true);
   $("#requestdateBox").prop("readonly", true);
 }
 
 function sapChoiceChange() {
-  if ($("#sapChoice").prop("selectedIndex") == 4) {
-    $("#sapBox").animate({ width: "94px" });
+  if ($("#sapChoice").prop("selectedIndex") == 1) {
+    $("#sapBox").val("");
     $("#sapBox").attr("disabled", false);
   } else {
     $("#sapBox").val("");

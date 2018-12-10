@@ -130,6 +130,7 @@ function retrieve(){
     $comp = $_POST['comp'];
     $stats = $_POST['stats'];
     $sapB = $_POST['sapB'];
+    $sapC = $_POST['sapC'];
     $reqB = $_POST['reqB'];
     $reqD = $_POST['reqD'];
     $clos = $_POST['clos'];
@@ -145,13 +146,24 @@ function retrieve(){
     // $sql="SELECT * FROM `main`";
 
     // TO decide whether SAP is - or not
-if(!empty($sapB)){
+if($sapC == "No"){
     $sql= "SELECT * FROM `main` WHERE (`Work Title` LIKE '%$wTitle%' AND `Type 1` LIKE '%$type1%' AND `Type 2` LIKE '%$type2' AND `Description` LIKE '%$desc%'
-    AND `Location` LIKE '%$loca%' AND `Status` LIKE '%$stats%' AND `Company` LIKE '%$comp%' AND `SAP#` LIKE '%$sapB%' AND `Request By` LIKE '%$reqB%'
+    AND `Location` LIKE '%$loca%' AND `Status` LIKE '%$stats%' AND `Company` LIKE '%$comp%' AND `SAP#` = '-' AND `Request By` LIKE '%$reqB%'
     AND `Request Date` LIKE '%$reqD%' AND `Closed By` LIKE '%$clos%' AND `Completion Date` LIKE '%$compl%' )";
-}else if(empty($sapB)){
+}else if($sapC == "Yes"){
+    if($sapB == ""){
+        $sql= "SELECT * FROM `main` WHERE (`Work Title` LIKE '%$wTitle%' AND `Type 1` LIKE '%$type1%' AND `Type 2` LIKE '%$type2' AND `Description` LIKE '%$desc%'
+        AND `Location` LIKE '%$loca%' AND `Status` LIKE '%$stats%' AND `Company` LIKE '%$comp%' AND `SAP#` != '-' AND `Request By` LIKE '%$reqB%'
+        AND `Request Date` LIKE '%$reqD%' AND `Closed By` LIKE '%$clos%' AND `Completion Date` LIKE '%$compl%' )";
+    }else if($sapB != ""){
+        $sql= "SELECT * FROM `main` WHERE (`Work Title` LIKE '%$wTitle%' AND `Type 1` LIKE '%$type1%' AND `Type 2` LIKE '%$type2' AND `Description` LIKE '%$desc%'
+        AND `Location` LIKE '%$loca%' AND `Status` LIKE '%$stats%' AND `Company` LIKE '%$comp%' AND `SAP#` LIKE '%$sapB%' AND `Request By` LIKE '%$reqB%'
+        AND `Request Date` LIKE '%$reqD%' AND `Closed By` LIKE '%$clos%' AND `Completion Date` LIKE '%$compl%' )";
+    }
+    
+}else if($sapC == ""){
     $sql= "SELECT * FROM `main` WHERE (`Work Title` LIKE '%$wTitle%' AND `Type 1` LIKE '%$type1%' AND `Type 2` LIKE '%$type2' AND `Description` LIKE '%$desc%'
-    AND `Location` LIKE '%$loca%' AND `Status` LIKE '%$stats%' AND `Company` LIKE '%$comp%' AND `SAP#`!='-' AND `Request By` LIKE '%$reqB%'
+    AND `Location` LIKE '%$loca%' AND `Status` LIKE '%$stats%' AND `Company` LIKE '%$comp%' AND `Request By` LIKE '%$reqB%'
     AND `Request Date` LIKE '%$reqD%' AND `Closed By` LIKE '%$clos%' AND `Completion Date` LIKE '%$compl%' )";
 }
    

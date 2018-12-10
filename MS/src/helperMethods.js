@@ -126,18 +126,24 @@ function passOver(elem) {
 
   elemRow = elem;
   editButton.onclick = function() {
-    if ($("#deleteButton").css("display") == "none") {
-      $("#deleteButton").show("slow");
-    }
-    if ($("#saveButton").css("display") == "none") {
-      $("#saveButton").show("slow");
-    }
-    if ($("#editButton").css("display") == "block") {
-      $("#editButton").hide("slow");
-    }
+    currentSelected = $("#outputTable").find(".select");
+    if (currentSelected.length != 0) {
+      // Show delete and save button while hiding the edit button
+      if ($("#deleteButton").css("display") == "none") {
+        $("#deleteButton").show("slow");
+      }
+      if ($("#saveButton").css("display") == "none") {
+        $("#saveButton").show("slow");
+      }
+      if ($("#editButton").css("display") == "block") {
+        $("#editButton").hide("slow");
+      }
 
-    $("#resetButton").val("CANCEL");
-    populateForm(elem);
+      $("#resetButton").val("CANCEL");
+      populateForm(elem);
+    } else {
+      alert("Please click a record to edit");
+    }
   };
   deleteButton.onclick = function() {
     deleteRecord(elem);
