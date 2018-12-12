@@ -215,6 +215,61 @@ function sapChoiceChange() {
   }
 }
 
+function uiControlReset() {
+  // 1 algo
+  // If system is on update mode, hide delete and save button, while showing update button.
+  if (editArg == 1) {
+    if ($("#resetButton").val() == "CANCEL") {
+      $("#resetButton").val("RESET");
+    }
+
+    if ($("#deleteButton").css("display") == "block") {
+      $("#deleteButton").hide("slow");
+    }
+
+    if ($("#saveButton").css("display") == "block") {
+      $("#saveButton").hide("slow");
+    }
+
+    if ($("#editButton").css("display") == "none") {
+      $("#editButton").show("slow");
+    }
+  }
+  // 2 algo
+  // Deselect selected row if it exist
+  var currentSelected = $("#outputTable").find(".select");
+
+  if (currentSelected.length == 1) {
+    currentSelected[0].removeAttribute("class");
+  }
+
+  // 3 algo
+  // Make Request by, request date and sapChoice enabled again
+  if ($("#requestbyBox").prop("disabled") == true) {
+    $("#requestbyBox").prop("disabled", false);
+  }
+
+  if ($("#sapChoice").prop("disabled") == true) {
+    $("#sapChoice").prop("disabled", false);
+  }
+
+  if ($("#requestdateBox").prop("readonly") == true) {
+    $("#requestdateBox").prop("readonly", false);
+  }
+}
+
+function uiControlDelete() {
+  if (
+    $("#deleteButton").css("display") == "block" &&
+    $("#saveButton").css("display") == "block" &&
+    $("#editButton").css("display") == "none"
+  ) {
+    $("#deleteButton").hide("slow");
+    $("#saveButton").hide("slow");
+    $("#editButton").show("slow");
+  }
+}
+
 // Depreciated hide/show toggle
 function animateToggle() {
   // If it is UPDATE

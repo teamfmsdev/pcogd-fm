@@ -4,7 +4,7 @@ body {
   background-color: black;
   grid-template-rows: repeat(3, auto);
   -ms-grid-rows: repeat(3, auto);
-  background-image: url("image/mainBg2.jpg");
+  background-image: url("../image/mainBg2.jpg");
   font-family: "Cambria", Georgia, Times, Times New Roman, serif;
   /* font-weight: bold; */
 }

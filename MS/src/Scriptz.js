@@ -4,29 +4,8 @@
 
 // Reset inputBoxes of form
 function Reset() {
-  if (editArg == 1) {
-    if ($("#resetButton").val() == "CANCEL") {
-      $("#resetButton").val("RESET");
-    }
+  uiControlReset();
 
-    if ($("#deleteButton").css("display") == "block") {
-      $("#deleteButton").hide("slow");
-    }
-
-    if ($("#saveButton").css("display") == "block") {
-      $("#saveButton").hide("slow");
-    }
-
-    if ($("#editButton").css("display") == "none") {
-      $("#editButton").show("slow");
-    }
-  }
-
-  var currentSelected = $("#outputTable").find(".select");
-
-  if (currentSelected.length == 1) {
-    currentSelected[0].removeAttribute("class");
-  }
   var formData = {
     0: $("#wTitleBox"),
     1: $("#type1Box"),
@@ -42,20 +21,7 @@ function Reset() {
     11: $("#completiondateBox")
   };
 
-  // Make Request by and date enabled again
-  if ($("#requestbyBox").prop("disabled") == true) {
-    $("#requestbyBox").prop("disabled", false);
-  }
-
-  if ($("#sapChoice").prop("disabled") == true) {
-    $("#sapChoice").prop("disabled", false);
-  }
-
-  if ($("#requestdateBox").prop("readonly") == true) {
-    $("#requestdateBox").prop("readonly", false);
-  }
-
-  // Loop through all form user input box
+  // Loop through all form user input box and clear field
   for (y = 0; y < 12; y++) {
     switch (y) {
       case 5:
@@ -63,7 +29,7 @@ function Reset() {
         if (editArg == 1) {
           formData[y].val("");
         }
-        //Makew "New" as selected
+        //Make "New" as selected
         else {
           formData[y][0][1].selected = true;
         }
@@ -97,76 +63,57 @@ function Reset() {
 // Form validation for checking empty field
 function Validation() {
   var formData = {
-    0: document.getElementById("wTitleBox").value,
-    1: document.getElementById("type1Box").value,
-    2: document.getElementById("type2Box").value,
-    3: document.getElementById("descriptionBox").value,
-    4: document.getElementById("locationBox").value,
-    5: document.getElementById("companyBox").value,
-    6: document.getElementById("statusBox").value,
-    7: document.getElementById("sapBox").value,
-    8: document.getElementById("requestbyBox").value,
-    9: document.getElementById("requestdateBox").value,
-    10: document.getElementById("closedbyBox").value,
-    11: document.getElementById("completiondateBox").value
+    0: $("#wTitleBox").val(),
+    1: $("#type1Box").val(),
+    2: $("#type2Box").val(),
+    3: $("#descriptionBox").val(),
+    4: $("#locationBox").val(),
+    5: $("#companyBox").val(),
+    6: $("#statusBox").val(),
+    7: $("#sapBox").val(),
+    8: $("#requestbyBox").val(),
+    9: $("#requestdateBox").val(),
+    10: $("#closedbyBox").val(),
+    11: $("#completiondateBox").val()
   };
 
-  // Alert determination variable
-  // var alertId = {
-  //   0: "Work title is empty \n",
-  //   1: "Type 1 is empty \n",
-  //   2: "Type 2 is empty \n",
-  //   3: " Description is empty \n",
-  //   4: "Location is empty \n",
-  //   5: "Company is empty \n",
-  //   6: "Status is empty \n",
-  //   7: "SAP number is empty \n",
-  //   8: "Request by is empty \n",
-  //   9: "Request date is empty \n",
-  //   10: "Closed by is empty \n",
-  //   11: "Completion date is empty \n"
-  // };
-
-  var alertId = {
-    0: "Please fill up field with asterisk \n",
-    1: "Please fill up field with asterisk \n",
-    2: "Please fill up field with asterisk \n",
-    3: "Please fill up field with asterisk \n ",
-    4: "Please fill up field with asterisk \n",
-    5: "Please fill up field with asterisk \n ",
-    6: "Please fill up field with asterisk \n",
-    7: "Please fill up field with asterisk \n",
-    8: "Please fill up field with asterisk \n",
-    9: "Please fill up field with asterisk \n",
-    10: '"Closed by" field cannot be empty for closed record \n',
-    11: '"Completion date" field cannot be empty for closed record\n'
-  };
-
-  // Trimming UserInput // LEARN HOW TO LOOP
-
+  // Trimming UserInput
   for (i = 0; i < 12; i++) {
-    formData[i] = myTrim(formData[i]);
+    // Avoid trimming if NULL
+    if (formData[i] == null) {
+      continue;
+    } else {
+      formData[i] = myTrim(formData[i]);
+    }
   }
-  formData[2] = encodeURIComponent(formData[2]);
 
   var alertMsg = "";
 
-  // Error Message Appending
-  // EXCEPT for item 5 7
-  // EXCEPT for item 10 11 IF status = "CLOSED"
+  var defAlert = "Please fill up field with asterisk \n";
+  var closedAlert =
+    "Closed by and completion date field cannot be empty for closed record";
 
+  // Error Message Appending EXCEPT for item 5 7
+  // and EXCEPT for item 10 11 If status = "CLOSED"
   for (i = 0; i < 12; i++) {
-    if (i == 5 || i == 7) continue;
-    else if (i == 10 || i == 11) {
-      if (formData[6] == "Closed") {
-        if (formData[i] == "") {
-          alertMsg += alertId[i];
+    switch (i) {
+      case 5:
+      case 7:
+        continue;
+      case 10:
+      case 11:
+        if (
+          formData[6] == "Closed" &&
+          (formData[i] == "" || formData[i] == null)
+        ) {
+          if (alertMsg.includes(closedAlert) == false) {
+            alertMsg += closedAlert;
+          }
         }
-      }
-    } else {
-      if (formData[i] == "") {
-        alertMsg = alertId[i];
-      }
+      default:
+        if (alertMsg.includes(defAlert) == false) {
+          alertMsg += defAlert;
+        }
     }
   }
 
@@ -183,14 +130,12 @@ function Validation() {
 
   if (alertMsg != "") {
     alert(alertMsg);
-    // document.getElementById("alertMsg").innerHTML=alertMsg;
   } else if (alertMsg == "" && editArg == "0") {
     Save(formData);
   } else if (alertMsg == "" && editArg == 1) {
     if (confirm("Confirm to edit this entry?")) {
       Update(formData);
     }
-    // editArg="";
   }
 }
 
@@ -427,15 +372,7 @@ function deleteRecord(elem) {
     xmlhttp.send(submission);
   }
 
-  // Hide
-  if (
-    $("#deleteButton").css("display") == "block" &&
-    $("#saveButton").css("display") == "block" &&
-    $("#editButton").css("display") == "none"
-  ) {
-    $("#deleteButton").hide("slow");
-    $("#saveButton").hide("slow");
-    $("#editButton").show("slow");
-  }
+  // Hide delete and save button and reset form
+  uiControlDelete();
   Reset();
 }
