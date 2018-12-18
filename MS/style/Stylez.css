@@ -107,7 +107,7 @@ th:nth-child(1) {
 
 /* Type */
 th:nth-child(4),
-th:nth-child(5) {
+th:nth-child(3) {
   width: 2.6%;
   max-width: 4%;
 }

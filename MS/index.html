@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="style/Stylez.css" >
     <link rel="stylesheet" type="text/css" href="style/formStyle.css" >
     <link rel="stylesheet" type="text/css" href="style/devArea.css" >
+    <link rel="stylesheet" type="text/css" href="style/userInfoArea.css" >
 </head>
 
 
@@ -132,15 +133,16 @@
 
                     <div class="requestByLine">
                         <div id="RequestBy" class="requestByDT">*Request By</div>
-                        <select id="requestbyBox" class="requestByBox" type="text"> 
-                            <option disabled selected></option>
+                        <input type="text" id="requestbyBox" class="requestByBox">
+                        <!-- <select id="requestbyBox" class="requestByBox" type="text"> 
+                            <option id="defReqByOption" disable selected></option>
                             <option value="Aqil">Aqil</option>
                             <option value="Amirul">Amirul</option>
                             <option value="Zamri">Zamri</option>
                             <option value="Kamarulzaman">Kamarulzaman</option>
                             <option value="Malina">Malina</option>
                             
-                        </select>
+                        </select> -->
                         <!--INPUT-->
                         <div id="RequestDate" class="requestDateDT">*Request Date</div>
                         <input id="requestdateBox" class="requestDateBox" type="Date">
@@ -182,12 +184,19 @@
 
             </div>
             
+            <div id="userInfoArea" class="userInfoArea">
+                <label>Name:</label> <label id="userName">a</label>
+                <label>Department:</label> <label id="userDept">b</label>
+                <label>Email:</label><label id="userEmail">c</label>
+                
+            </div>
+
             <!--formArea Div End-->
-            <div id="devArea" class="devArea">
+            <!-- <div id="devArea" class="devArea">
                 <input type="text" id="randomizeAmount" class="randomizeAmount">
                 <input type="button" id="randomizeBtn"value="Randomize" onclick="randomFill()">
                 <div id="devOutput"></div>
-            </div>
+            </div> -->
         </div>
         <!--mainArea End-->
 

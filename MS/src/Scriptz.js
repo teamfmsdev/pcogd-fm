@@ -108,11 +108,15 @@ function Validation() {
         ) {
           if (alertMsg.includes(closedAlert) == false) {
             alertMsg += closedAlert;
+            break;
           }
+          break;
         }
       default:
-        if (alertMsg.includes(defAlert) == false) {
-          alertMsg += defAlert;
+        if (formData[i] == "" || formData[i] == null) {
+          if (alertMsg.includes(defAlert) == false) {
+            alertMsg += defAlert;
+          }
         }
     }
   }
