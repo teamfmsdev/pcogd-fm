@@ -23,11 +23,11 @@ function authLogin(id, pw) {
     dataType: "text",
     success: function(data, textStatus, XHR) {
       data = JSON.parse(data);
-      sessionStorage.setItem("Name", data[0]["Name"]);
-      sessionStorage.setItem("Dept", data[0]["Department"]);
-      sessionStorage.setItem("Email", data[0]["Email"]);
-      sessionStorage.setItem("Admin", data[0]["Admin"]);
-      sessionStorage.setItem("Id", data[0]["Username"]);
+      // sessionStorage.setItem("Name", data[0]["Name"]);
+      // sessionStorage.setItem("Dept", data[0]["Department"]);
+      // sessionStorage.setItem("Email", data[0]["Email"]);
+      // sessionStorage.setItem("Admin", data[0]["Admin"]);
+      // sessionStorage.setItem("Id", data[0]["Username"]);
       location.replace("index.html");
     }
   });

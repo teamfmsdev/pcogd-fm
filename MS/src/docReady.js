@@ -1,15 +1,12 @@
 $(document).ready(function() {
   Reset();
   // If user is not admin or user not logged in
-  if (
-    sessionStorage.getItem("Admin") == "No" ||
-    sessionStorage.getItem("Admin") == null
-  ) {
+  if (Cookies.get("Admin") == "No" || Cookies.get("Admin") == null) {
     $("#checkBox").prop("disabled", true);
-    $("#requestbyBox").val(sessionStorage.getItem("Name"));
+    $("#requestbyBox").val(decodeURIComponent(Cookies.get("Name")));
   } else {
     $("#checkBox").prop("disabled", false);
-    $("#requestbyBox").val(sessionStorage.getItem("Name"));
+    $("#requestbyBox").val(decodeURIComponent(Cookies.get("Name")));
   }
   setDefaultDate();
 
@@ -44,8 +41,8 @@ $(document).ready(function() {
     sapChoiceChange();
   });
 
-  $("#userName").text(sessionStorage.getItem("Name"));
-  $("#userDept").text(sessionStorage.getItem("Dept"));
-  $("#userEmail").text(sessionStorage.getItem("Email"));
+  $("#userName").text(Cookies.get("Name"));
+  $("#userDept").text(Cookies.get("Dept"));
+  $("#userEmail").text(Cookies.get("Email"));
   // document.getElementById("requestdateBox").value = new Date().toDateInputValue();
 });
