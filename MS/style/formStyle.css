@@ -190,6 +190,7 @@ textarea {
 
 .sapChoice {
   grid-column: 4/5;
+  /* display: none; */
 }
 
 /* LINE 6 */
@@ -254,6 +255,7 @@ textarea {
   height: 40px;
   color: white;
   font-weight: bold;
+  /* display: none; */
 }
 
 .ovalButton:hover {

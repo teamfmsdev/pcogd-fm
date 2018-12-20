@@ -336,4 +336,5 @@ textarea {
   font-weight: 650;
   text-align: left;
   color: black;
+  display: none;
 }

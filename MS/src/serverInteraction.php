@@ -41,23 +41,23 @@ function deleteRecord(){
 }
 
 function Update(){
-
-    $wTitle =$_POST['wTitle'];
-    $type1 = $_POST['type1'];
-    $type2 = $_POST['type2'];
-    $desc = $_POST['desc'];
-    $loca = $_POST['loca'];
-    $comp = $_POST['comp'];
-    $stats = $_POST['stats'];
-    $sapB = $_POST['sapB'];
-    $reqB = $_POST['reqB'];
-    $reqD = $_POST['reqD'];
-    $clos = $_POST['clos'];
-    $compl = $_POST['comple'];
-    $callArg = $_POST['callArg'];
-    $dataID = $_POST['dataID'];
-
     $con=mysqli_connect("localhost","root","","test");
+    $wTitle =mysqli_real_escape_string($con,$_POST['wTitle']);
+    $type1 = mysqli_real_escape_string($con,$_POST['type1']);
+    $type2 = mysqli_real_escape_string($con,$_POST['type2']);
+    $desc = mysqli_real_escape_string($con,$_POST['desc']);
+    $loca = mysqli_real_escape_string($con,$_POST['loca']);
+    $comp = mysqli_real_escape_string($con,$_POST['comp']);
+    $stats = mysqli_real_escape_string($con,$_POST['stats']);
+    $sapB = mysqli_real_escape_string($con,$_POST['sapB']);
+    $reqB = mysqli_real_escape_string($con,$_POST['reqB']);
+    $reqD = mysqli_real_escape_string($con,$_POST['reqD']);
+    $clos = mysqli_real_escape_string($con,$_POST['clos']);
+    $compl = mysqli_real_escape_string($con,$_POST['comple']);
+    $callArg = mysqli_real_escape_string($con,$_POST['callArg']);
+    $dataID = mysqli_real_escape_string($con,$_POST['dataID']);
+
+  
     if (!$con){
         die ("Connection cannot be established". mysqli_connect_error($con));
     }
@@ -86,21 +86,21 @@ function Update(){
 }
 
 function save(){
-
-    $wTitle =$_POST['wTitle'];
-    $type1 = $_POST['type1'];
-    $type2 = $_POST['type2'];
-    $desc = $_POST['desc'];
-    $loca = $_POST['loca'];
-    $comp = $_POST['comp'];
-    $stats = $_POST['stats'];
-    $sapB = $_POST['sapB'];
-    $reqB = $_POST['reqB'];
-    $reqD = $_POST['reqD'];
-    $clos = $_POST['clos'];
-    $compl = $_POST['comple'];
-    $callArg = $_POST['callArg'];
     $con=mysqli_connect("localhost","root","","test");
+    $wTitle =mysqli_real_escape_string($con,$_POST['wTitle']);
+    $type1 = mysqli_real_escape_string($con,$_POST['type1']);
+    $type2 = mysqli_real_escape_string($con,$_POST['type2']);
+    $desc = mysqli_real_escape_string($con,$_POST['desc']);
+    $loca = mysqli_real_escape_string($con,$_POST['loca']);
+    $comp = mysqli_real_escape_string($con,$_POST['comp']);
+    $stats = mysqli_real_escape_string($con,$_POST['stats']);
+    $sapB = mysqli_real_escape_string($con,$_POST['sapB']);
+    $reqB = mysqli_real_escape_string($con,$_POST['reqB']);
+    $reqD = mysqli_real_escape_string($con,$_POST['reqD']);
+    $clos = mysqli_real_escape_string($con,$_POST['clos']);
+    $compl = mysqli_real_escape_string($con,$_POST['comple']);
+    $callArg = mysqli_real_escape_string($con,$_POST['callArg']);
+    
     if (!$con){
         die ("Connection cannot be established". mysqli_connect_error($con));
     }
@@ -110,33 +110,35 @@ function save(){
      VALUES ('$wTitle','$type1','$type2','$desc','$loca','$stats','$comp','$sapB','$reqB',
      '$reqD','$clos','$compl')";
 
-     mysqli_prepare($con,$sql);
+    // $sql = mysqli_prepare($con,$sql);
 
     if (mysqli_query($con,$sql)){
         echo "New record insert success ";
         
     }else{
-        echo "Fail to insert ";
+        echo " Fail to insert ";
     }
 }   
 
 function retrieve(){
-
-    $wTitle =$_POST['wTitle'];
-    $type1 = $_POST['type1'];
-    $type2 = $_POST['type2'];
-    $desc = $_POST['desc'];
-    $loca = $_POST['loca'];
-    $comp = $_POST['comp'];
-    $stats = $_POST['stats'];
-    $sapB = $_POST['sapB'];
-    $sapC = $_POST['sapC'];
-    $reqB = $_POST['reqB'];
-    $reqD = $_POST['reqD'];
-    $clos = $_POST['clos'];
-    $compl = $_POST['comple'];
-    $callArg = $_POST['callArg'];
     $con=mysqli_connect("localhost","root","","test");
+    $wTitle =mysqli_real_escape_string($con,$_POST['wTitle']);
+    $type1 = mysqli_real_escape_string($con,$_POST['type1']);
+    $type2 = mysqli_real_escape_string($con,$_POST['type2']);
+    $desc = mysqli_real_escape_string($con,$_POST['desc']);
+    $loca = mysqli_real_escape_string($con,$_POST['loca']);
+    $comp = mysqli_real_escape_string($con,$_POST['comp']);
+    $stats = mysqli_real_escape_string($con,$_POST['stats']);
+    $sapB = mysqli_real_escape_string($con,$_POST['sapB']);
+
+    $sapC = mysqli_real_escape_string($con,$_POST['sapC']);
+    
+    $reqB = mysqli_real_escape_string($con,$_POST['reqB']);
+    $reqD = mysqli_real_escape_string($con,$_POST['reqD']);
+    $clos = mysqli_real_escape_string($con,$_POST['clos']);
+    $compl = mysqli_real_escape_string($con,$_POST['comple']);
+    $callArg = mysqli_real_escape_string($con,$_POST['callArg']);
+    
     if (!$con){
         die ("Connection cannot be established". mysqli_connect_error($con));
     }

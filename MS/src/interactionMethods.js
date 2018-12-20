@@ -44,8 +44,10 @@ function changeAction() {
     Reset();
 
     // Set SAP# textbox string to display "-"
-    // $("#sapBox").val("-");
-    $("#sapChoice").prop("selectedIndex", 2);
+    $("#sapChoice").prop("selectedIndex", 0);
+
+    // Remove statusBox attached event for "NEW" mode
+    $("#statusBox").off();
   }
   // If checkbox is NEW
   else {
@@ -101,7 +103,9 @@ function changeAction() {
     $("#requestdateBox").prop("readonly", false);
     // $("#requestdateBox").css({"backgroundColor":"rgb(100, 98, 98)"});
 
-    // console.log("checkbox not checked");
+    $("#statusBox").change(function() {
+      statusBoxChange();
+    });
   }
 }
 
@@ -212,6 +216,23 @@ function sapChoiceChange() {
   } else {
     $("#sapBox").val("");
     $("#sapBox").attr("disabled", true);
+  }
+}
+
+// Show and hide Line 7 based on "Status" in "NEW" Mode
+function statusBoxChange() {
+  // Show Line 7 if "Closed" is selected
+  if ($("#statusBox").prop("selectedIndex") == 4) {
+    $(".closedByLine")
+      .css({ visibility: "visible" })
+      .animate({ opacity: 1.0 }, "slow");
+  } else {
+    // Hide and empty line 7 input box
+    $(".closedByLine").animate({ opacity: 0 }, "slow", function() {
+      $(".closedByLine").css({ visibility: "hidden" });
+    });
+    $("#closedbyBox").val("");
+    $("#completiondateBox").val("");
   }
 }
 

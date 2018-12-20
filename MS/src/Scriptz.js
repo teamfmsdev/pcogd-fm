@@ -77,13 +77,14 @@ function Validation() {
     11: $("#completiondateBox").val()
   };
 
-  // Trimming UserInput
+  // Trimming UserInput and encode URI
   for (i = 0; i < 12; i++) {
     // Avoid trimming if NULL
     if (formData[i] == null) {
-      continue;
+      formData[i] = "";
     } else {
       formData[i] = myTrim(formData[i]);
+      formData[i] = encodeURIComponent(formData[i]);
     }
   }
 
@@ -91,7 +92,7 @@ function Validation() {
 
   var defAlert = "Please fill up field with asterisk \n";
   var closedAlert =
-    "Closed by and completion date field cannot be empty for closed record";
+    "Closed by and completion date field cannot be empty for closed record \n";
 
   // Error Message Appending EXCEPT for item 5 7
   // and EXCEPT for item 10 11 If status = "CLOSED"
@@ -110,6 +111,7 @@ function Validation() {
             alertMsg += closedAlert;
             break;
           }
+        } else {
           break;
         }
       default:
@@ -173,6 +175,8 @@ function Save(objData) {
     objData[11] +
     "&callArg=" +
     callArg;
+
+  // submission = encodeURI(submission);
 
   // if (objData[11] == "") {
   //   objData[11] = null;
@@ -273,23 +277,23 @@ function retrieve() {
   xmlhttp.send(submission);
 }
 //Update specified record by passOver()
-function Update() {
+function Update(formData) {
   // GET form value
 
-  var formData = {
-    1: document.getElementById("wTitleBox").value,
-    2: document.getElementById("type1Box").value,
-    3: document.getElementById("type2Box").value,
-    4: document.getElementById("descriptionBox").value,
-    5: document.getElementById("locationBox").value,
-    6: document.getElementById("statusBox").value,
-    7: document.getElementById("companyBox").value,
-    8: document.getElementById("sapBox").value,
-    9: document.getElementById("requestbyBox").value,
-    10: document.getElementById("requestdateBox").value,
-    11: document.getElementById("closedbyBox").value,
-    12: document.getElementById("completiondateBox").value
-  };
+  // var formData = {
+  //   1: document.getElementById("wTitleBox").value,
+  //   2: document.getElementById("type1Box").value,
+  //   3: document.getElementById("type2Box").value,
+  //   4: document.getElementById("descriptionBox").value,
+  //   5: document.getElementById("locationBox").value,
+  //   6: document.getElementById("statusBox").value,
+  //   7: document.getElementById("companyBox").value,
+  //   8: document.getElementById("sapBox").value,
+  //   9: document.getElementById("requestbyBox").value,
+  //   10: document.getElementById("requestdateBox").value,
+  //   11: document.getElementById("closedbyBox").value,
+  //   12: document.getElementById("completiondateBox").value
+  // };
   //Call argument for PHP script
   var callArg = "Update";
   var xmlhttp = new XMLHttpRequest();
@@ -298,29 +302,29 @@ function Update() {
 
   var submission =
     "wTitle=" +
-    formData[1] +
+    formData[0] +
     "&type1=" +
-    formData[2] +
+    formData[1] +
     "&type2=" +
-    formData[3] +
+    formData[2] +
     "&desc=" +
-    formData[4] +
+    formData[3] +
     "&loca=" +
-    formData[5] +
+    formData[4] +
     "&stats=" +
-    formData[6] +
+    formData[5] +
     "&comp=" +
-    formData[7] +
+    formData[6] +
     "&sapB=" +
-    formData[8] +
+    formData[7] +
     "&reqB=" +
-    formData[9] +
+    formData[8] +
     "&reqD=" +
-    formData[10] +
+    formData[9] +
     "&clos=" +
-    formData[11] +
+    formData[10] +
     "&comple=" +
-    formData[12] +
+    formData[11] +
     "&callArg=" +
     callArg +
     "&dataID=" +
@@ -338,8 +342,8 @@ function Update() {
       // Update Current displayed table to match with updated data
       // Start with 1 cause exclude FM NO
       //
-      for (y = 1; y < 13; y++) {
-        rowAjaxUpdate.childNodes[y].innerText = formData[y];
+      for (y = 1; y <= 12; y++) {
+        rowAjaxUpdate.childNodes[y].innerText = formData[y - 1];
       }
       Reset();
     }

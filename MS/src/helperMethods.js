@@ -24,6 +24,62 @@ function myTrim(subj) {
   return subj.replace(/^\s+|\s+$/gm, "");
 }
 
+//Pass clicked element to required function
+function passOver(elem) {
+  // Check for existing selected element
+  var currentSelected = $("#outputTable").find(".select");
+
+  // If there exist already selected element
+  if (currentSelected.length == 1) {
+    // If there is a called to "edit" event already
+    if (
+      editArg == 1 &&
+      $("#deleteButton").css("display") == "block" &&
+      $("#saveButton").css("display") == "block"
+    ) {
+      // If we click other element during "EDIT"-ing
+      if (currentSelected[0].id != elem.id) {
+        // Assign elem as the currently existing clicked element
+        elem = currentSelected[0];
+      }
+      // currentSelected[0].removeAttribute("class");
+      // elem = $("#" + elem.id)[0];
+    } else {
+      currentSelected[0].removeAttribute("class");
+    }
+  }
+
+  // Set the new clicked element class to "select"
+  elem.className = "select";
+
+  elemRow = elem;
+  editButton.onclick = function() {
+    currentSelected = $("#outputTable").find(".select");
+    if (currentSelected.length != 0) {
+      // Show delete and save button while hiding the edit button
+      if ($("#deleteButton").css("display") == "none") {
+        $("#deleteButton").show("slow");
+      }
+      if ($("#saveButton").css("display") == "none") {
+        $("#saveButton").show("slow");
+      }
+      if ($("#editButton").css("display") == "block") {
+        $("#editButton").hide("slow");
+      }
+
+      $("#resetButton").val("CANCEL");
+      populateForm(elem);
+    } else {
+      alert("Please click a record to edit");
+    }
+  };
+  deleteButton.onclick = function() {
+    deleteRecord(elem);
+  };
+  // console.log(elem);
+  // editButton.addEventListener("Click",function(){edit(elem)});
+}
+
 function randomizer(id, min, max) {
   var val = "";
   var selectedId = id;
@@ -94,60 +150,4 @@ function randomFill() {
     }
     Validation();
   }
-}
-
-//Pass clicked element to required function
-function passOver(elem) {
-  // Check for existing selected element
-  var currentSelected = $("#outputTable").find(".select");
-
-  // If there exist already selected element
-  if (currentSelected.length == 1) {
-    // If there is a called to "edit" event already
-    if (
-      editArg == 1 &&
-      $("#deleteButton").css("display") == "block" &&
-      $("#saveButton").css("display") == "block"
-    ) {
-      // If we click other element during "EDIT"-ing
-      if (currentSelected[0].id != elem.id) {
-        // Assign elem as the currently existing clicked element
-        elem = currentSelected[0];
-      }
-      // currentSelected[0].removeAttribute("class");
-      // elem = $("#" + elem.id)[0];
-    } else {
-      currentSelected[0].removeAttribute("class");
-    }
-  }
-
-  // Set the new clicked element class to "select"
-  elem.className = "select";
-
-  elemRow = elem;
-  editButton.onclick = function() {
-    currentSelected = $("#outputTable").find(".select");
-    if (currentSelected.length != 0) {
-      // Show delete and save button while hiding the edit button
-      if ($("#deleteButton").css("display") == "none") {
-        $("#deleteButton").show("slow");
-      }
-      if ($("#saveButton").css("display") == "none") {
-        $("#saveButton").show("slow");
-      }
-      if ($("#editButton").css("display") == "block") {
-        $("#editButton").hide("slow");
-      }
-
-      $("#resetButton").val("CANCEL");
-      populateForm(elem);
-    } else {
-      alert("Please click a record to edit");
-    }
-  };
-  deleteButton.onclick = function() {
-    deleteRecord(elem);
-  };
-  // console.log(elem);
-  // editButton.addEventListener("Click",function(){edit(elem)});
 }
