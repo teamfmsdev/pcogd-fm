@@ -60,36 +60,34 @@ function Reset() {
   $("#alertMsg").text("");
 }
 
-// Form validation for checking empty field
 function Validation() {
-  var formData = {
-    0: $("#wTitleBox").val(),
-    1: $("#type1Box").val(),
-    2: $("#type2Box").val(),
-    3: $("#descriptionBox").val(),
-    4: $("#locationBox").val(),
-    5: $("#companyBox").val(),
-    6: $("#statusBox").val(),
-    7: $("#sapBox").val(),
-    8: $("#requestbyBox").val(),
-    9: $("#requestdateBox").val(),
-    10: $("#closedbyBox").val(),
-    11: $("#completiondateBox").val()
-  };
+  formData = getFormInputs();
 
-  // Trimming UserInput and encode URI
-  for (i = 0; i < 12; i++) {
-    // Avoid trimming if NULL
+  // Trimming input
+  for (var i in formData) {
     if (formData[i] == null) {
       formData[i] = "";
     } else {
       formData[i] = myTrim(formData[i]);
-      formData[i] = encodeURIComponent(formData[i]);
+      // formData[i] = encodeURIComponent(formData[i]);
     }
   }
 
-  var alertMsg = "";
+  var alertMsg = alertValidation(formData);
 
+  if (alertMsg != "") {
+    alert(alertMsg);
+  } else if (alertMsg == "" && editArg == "0") {
+    Save(formData);
+  } else if (alertMsg == "" && editArg == 1) {
+    if (confirm("Confirm to edit this entry?")) {
+      Update(formData);
+    }
+  }
+}
+
+function alertValidation(formData) {
+  var alertMsg = "";
   var defAlert = "Please fill up field with asterisk \n";
   var closedAlert =
     "Closed by and completion date field cannot be empty for closed record \n";
@@ -123,26 +121,19 @@ function Validation() {
     }
   }
 
-  if (editArg == 1) {
+  // Comparing date
+  if (formData["sapC"] == "Closed") {
     var dateComparing = new Array();
 
-    dateComparing.push(Date.parse(formData[9]));
-    dateComparing.push(Date.parse(formData[11]));
+    dateComparing.push(Date.parse(formData["reqD"]));
+    dateComparing.push(Date.parse(formData["comple"]));
 
     if (dateComparing[1] < dateComparing[0]) {
       alertMsg += "Error: Completion date is earlier than request date";
     }
   }
 
-  if (alertMsg != "") {
-    alert(alertMsg);
-  } else if (alertMsg == "" && editArg == "0") {
-    Save(formData);
-  } else if (alertMsg == "" && editArg == 1) {
-    if (confirm("Confirm to edit this entry?")) {
-      Update(formData);
-    }
-  }
+  return alertMsg;
 }
 
 //Save new entry from user input, receive validated formInput from validation()
@@ -159,9 +150,9 @@ function Save(objData) {
     objData[3] +
     "&loca=" +
     objData[4] +
-    "&comp=" +
-    objData[5] +
     "&stats=" +
+    objData[5] +
+    "&comp=" +
     objData[6] +
     "&sapB=" +
     objData[7] +
@@ -189,198 +180,104 @@ function Save(objData) {
       Reset();
     }
   };
-  xmlhttp.open("POST", "src/serverInteraction.php", true);
+  xmlhttp.open("POST", "src/server/save.php", true);
   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xmlhttp.send(submission);
 }
 
 //Retrieve *all record from SQL DB
 function retrieve() {
-  var formData = {
-    wTitle: document.getElementById("wTitleBox").value,
-    type1: document.getElementById("type1Box").value,
-    type2: document.getElementById("type2Box").value,
-    desc: document.getElementById("descriptionBox").value,
-    loca: document.getElementById("locationBox").value,
-    comp: document.getElementById("companyBox").value,
-    stats: document.getElementById("statusBox").value,
-    sapB: document.getElementById("sapBox").value,
-    sapC: document.getElementById("sapChoice").value,
-    reqB: document.getElementById("requestbyBox").value,
-    reqD: document.getElementById("requestdateBox").value,
-    clos: document.getElementById("closedbyBox").value,
-    comple: document.getElementById("completiondateBox").value
-  };
+  formData = getFormInputs();
 
-  var callArg = "retrieve";
-  var submission =
-    "wTitle=" +
-    formData.wTitle +
-    "&type1=" +
-    formData.type1 +
-    "&type2=" +
-    formData.type2 +
-    "&desc=" +
-    formData.desc +
-    "&loca=" +
-    formData.loca +
-    "&comp=" +
-    formData.comp +
-    "&stats=" +
-    formData.stats +
-    "&sapB=" +
-    formData.sapB +
-    "&sapC=" +
-    formData.sapC +
-    "&reqB=" +
-    formData.reqB +
-    "&reqD=" +
-    formData.reqD +
-    "&clos=" +
-    formData.clos +
-    "&comple=" +
-    formData.comple +
-    "&callArg=" +
-    callArg;
+  $.ajax({
+    type: "GET",
+    url: "src/server/retrieve.php",
+    data: formData,
+    success: function(data) {
+      // Delete all except first row
+      $("table tr:not(:first)").remove();
 
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      jsonResponse = JSON.parse(xmlhttp.responseText);
-      var tableOutput = document.getElementById("outputTable");
-      //Remove all except first row
-      $("#outputTable tr:not(:first)").remove();
-      var rowNode = [];
-      var colNode = [];
-      var textnode = [];
-      for (x = 0; x < jsonResponse.length; x++) {
-        rowNode[x] = document.createElement("tr");
-        rowNode[x].setAttribute("id", jsonResponse[x][0]); // Row column
-        rowNode[x].addEventListener("click", function() {
+      var data = JSON.parse(data);
+
+      for (var row in data) {
+        // Create new row
+        $("table").append("<tr>");
+        // Set row id
+        $("tr:last-child").attr("id", data[row]["row"]);
+        // Set row event
+        $("tr:last-child").click(function() {
           passOver(this);
         });
-        // Y = 1 BECAUSE WE DONT WANT TO SELECT "ROW" COLUMN IN DATABASE
-        for (y = 0; y < 13; y++) {
-          textnode[y] = document.createTextNode(jsonResponse[x][y]);
-          colNode[y] = document.createElement("td");
-          colNode[y].appendChild(textnode[y]);
-          // colNode[y].setAttribute("id","x"+x+"y"+y);
-          rowNode[x].appendChild(colNode[y]);
+
+        // Set row data
+        for (var key in data[row]) {
+          $("tr:last-child").append("<td>" + data[row][key]);
         }
-        tableOutput.appendChild(rowNode[x]);
       }
-      // console.log(document.getElementById("4").childNodes[3].innerText);
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log("FAIL");
+      console.log(jqXHR);
+      console.log(textStatus);
+      console.log(errorThrown);
     }
-  };
-  xmlhttp.open("POST", "src/serverInteraction.php", false);
-  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xmlhttp.send(submission);
+  });
 }
 //Update specified record by passOver()
 function Update(formData) {
-  // GET form value
-
-  // var formData = {
-  //   1: document.getElementById("wTitleBox").value,
-  //   2: document.getElementById("type1Box").value,
-  //   3: document.getElementById("type2Box").value,
-  //   4: document.getElementById("descriptionBox").value,
-  //   5: document.getElementById("locationBox").value,
-  //   6: document.getElementById("statusBox").value,
-  //   7: document.getElementById("companyBox").value,
-  //   8: document.getElementById("sapBox").value,
-  //   9: document.getElementById("requestbyBox").value,
-  //   10: document.getElementById("requestdateBox").value,
-  //   11: document.getElementById("closedbyBox").value,
-  //   12: document.getElementById("completiondateBox").value
+  // Temporary keys for matching in loop
+  // var keys = {
+  //   wTitle: "",
+  //   type1: "",
+  //   type2: "",
+  //   desc: "",
+  //   loca: "",
+  //   stats: "",
+  //   comp: "",
+  //   sapB: "",
+  //   reqB: "",
+  //   reqD: "",
+  //   clos: "",
+  //   comple: ""
   // };
-  //Call argument for PHP script
-  var callArg = "Update";
-  var xmlhttp = new XMLHttpRequest();
+  // Take the keys as array
+  keys = Object.keys(formData);
 
-  //Data to be submit to PHP server
+  var data = {};
+  // Set data for submission keys and value
+  for (var x in keys) {
+    data[keys[x]] = formData[x];
+  }
+  //Global clicked row element
+  data["dataID"] = elemRow.id;
 
-  var submission =
-    "wTitle=" +
-    formData[0] +
-    "&type1=" +
-    formData[1] +
-    "&type2=" +
-    formData[2] +
-    "&desc=" +
-    formData[3] +
-    "&loca=" +
-    formData[4] +
-    "&stats=" +
-    formData[5] +
-    "&comp=" +
-    formData[6] +
-    "&sapB=" +
-    formData[7] +
-    "&reqB=" +
-    formData[8] +
-    "&reqD=" +
-    formData[9] +
-    "&clos=" +
-    formData[10] +
-    "&comple=" +
-    formData[11] +
-    "&callArg=" +
-    callArg +
-    "&dataID=" +
-    elemRow.id;
+  $.ajax({
+    type: "GET",
+    url: "src/server/update.php",
+    data: data,
 
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      //    console.log(xmlhttp.responseText);
-
-      // Status message from server
-      document.getElementById("alertMsg").innerHTML = xmlhttp.responseText;
-
-      var rowAjaxUpdate = document.getElementById(elemRow.id);
-
-      // Update Current displayed table to match with updated data
-      // Start with 1 cause exclude FM NO
-      //
-      for (y = 1; y <= 12; y++) {
-        rowAjaxUpdate.childNodes[y].innerText = formData[y - 1];
-      }
-      Reset();
+    success: function(data) {
+      // Display success message
+      $("#alertMsg").text(response);
     }
-  };
-
-  xmlhttp.open("POST", "src/serverInteraction.php", false);
-  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xmlhttp.send(submission);
+  });
 }
 
 //Delete specified record by passOver()
-function deleteRecord(elem) {
-  var table = document.getElementById("outputTable");
-  var rowRemoved = document.getElementById(elem.id);
+function deleteRecord(selectedRow) {
+  if (confirm("Do you want to delete this record?")) {
+    $(selectedRow).remove();
+    var dataID = { dataID: $(selectedRow).attr("id") };
 
-  if (confirm("Are you sure you want to delete this record ?")) {
-    table.removeChild(rowRemoved);
-
-    var xmlhttp = new XMLHttpRequest();
-    var callArg = "deleteRecord";
-    var submission = "dataID=" + elem.id + "&callArg=" + callArg;
-
-    xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        document.getElementById("alertMsg").innerHTML = xmlhttp.responseText;
+    $.ajax({
+      type: "GET",
+      url: "src/server/delete.php",
+      data: dataID,
+      success: function(data) {
+        $("#alertMsg").text(data);
       }
-    };
-
-    xmlhttp.open("POST", "src/serverInteraction.php", false);
-    xmlhttp.setRequestHeader(
-      "Content-type",
-      "application/x-www-form-urlencoded"
-    );
-    xmlhttp.send(submission);
+    });
   }
-
-  // Hide delete and save button and reset form
   uiControlDelete();
   Reset();
 }

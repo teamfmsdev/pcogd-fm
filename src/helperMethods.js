@@ -16,7 +16,7 @@ function setDefaultDate() {
   // $("#requestdateBox").attr("value", today);
 
   $("#requestdateBox").val(today);
-  console.log($("#requestdateBox").val());
+  // console.log($("#requestdateBox").val());
 }
 
 // Trim user input of white spaces
@@ -78,6 +78,26 @@ function passOver(elem) {
   };
   // console.log(elem);
   // editButton.addEventListener("Click",function(){edit(elem)});
+}
+
+function getFormInputs() {
+  var formData = {
+    wTitle: $("#wTitleBox").val(),
+    type1: $("#type1Box").val(),
+    type2: $("#type2Box").val(),
+    desc: $("#descriptionBox").val(),
+    loca: $("#locationBox").val(),
+    stats: $("#statusBox").val(),
+    comp: $("#companyBox").val(),
+    sapB: $("#sapBox").val(),
+    sapC: $("#sapChoice").val(),
+    reqB: $("#requestbyBox").val(),
+    reqD: $("#requestdateBox").val(),
+    clos: $("#closedbyBox").val(),
+    comple: $("#completiondateBox").val()
+  };
+
+  return formData;
 }
 
 function randomizer(id, min, max) {
