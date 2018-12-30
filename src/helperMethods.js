@@ -100,6 +100,174 @@ function getFormInputs() {
   return formData;
 }
 
+function getFormInputsObject() {
+  var formData = {
+    wTitle: $("#wTitleBox"),
+    type1: $("#type1Box"),
+    type2: $("#type2Box"),
+    desc: $("#descriptionBox"),
+    loca: $("#locationBox"),
+    stats: $("#statusBox"),
+    comp: $("#companyBox"),
+    sapB: $("#sapBox"),
+    sapC: $("#sapChoice"),
+    reqB: $("#requestbyBox"),
+    reqD: $("#requestdateBox"),
+    clos: $("#closedbyBox"),
+    comple: $("#completiondateBox")
+  };
+
+  return formData;
+}
+
+function alertValidation(formData) {
+  var alertMsg = "";
+  var defAlert = "Please fill up field with asterisk \n";
+  var closedAlert =
+    "Closed by and completion date field cannot be empty for closed record \n";
+
+  // Error Message Appending EXCEPT for item 5 7
+  // and EXCEPT for item 10 11 If status = "CLOSED"
+  for (var key in formData) {
+    switch (key) {
+      case "comp":
+      case "sapB":
+      case "sapC":
+        continue;
+      case "clos":
+      case "comple":
+        if (
+          formData["stats"] == "Closed" &&
+          (formData[key] == "" || formData[key] == null)
+        ) {
+          if (alertMsg.includes(closedAlert) == false) {
+            alertMsg += closedAlert;
+            break;
+          }
+        } else {
+          break;
+        }
+      default:
+        if (formData[key] == "" || formData[key] == null) {
+          if (alertMsg.includes(defAlert) == false) {
+            alertMsg += defAlert;
+          }
+        }
+    }
+  }
+
+  // Comparing date
+  if (formData["stats"] == "Closed") {
+    var dateComparing = new Array();
+
+    dateComparing.push(Date.parse(formData["reqD"]));
+    dateComparing.push(Date.parse(formData["comple"]));
+
+    if (dateComparing[1] < dateComparing[0] || dateComparing[1] == NaN) {
+      alertMsg += "Error: Completion date is earlier than request date";
+    }
+  }
+
+  return alertMsg;
+}
+
+// Populate input form
+function populateForm(elem) {
+  // var table=document.getElementById("outputTable");
+  // var alertMsg = document.getElementById("alertMsg");
+  // var msg ="";
+
+  var formElement = getFormInputsObject();
+  var tableHeads = getTableHead();
+
+  var dropDownBox = {
+    2: "#type1Box",
+    3: "#type2Box",
+    6: "#statusBox",
+    9: "#requestbyBox",
+    11: "#closedbyBox"
+  };
+
+  var dataToBePass = {};
+
+  // Set dataToBePass as object {"FM No": ""}
+  for (var key in tableHeads) {
+    dataToBePass[tableHeads[key]] = elem.childNodes[key].innerText;
+    dataToBePass[tableHeads[key]] = myTrim(dataToBePass[tableHeads[key]]);
+    // console.log(dataToBePass[tableHeads[key]]);
+  }
+  var altKey = {};
+  // Replacing key name
+  for (var i = 0; i < tableHeads.length; i++) {
+    altKey[i] = tableHeads[i];
+  }
+
+  for (var key in dataToBePass) {
+    switch (key) {
+      case "type1":
+
+      case "type2":
+
+      case "stats":
+
+      case "reqB":
+        $(formElement[y] + ' option[value="' + postedElemData[y] + '"]').prop(
+          "selected",
+          true
+        );
+        break;
+    }
+  }
+
+  // dataBoxes[9].val(postedElemData[y]);
+  //Fill input boxes with selected row data
+  for (y = 1; y < 13; y++) {
+    switch (y) {
+      case 2:
+
+      case 3:
+
+      case 6:
+
+      case 9:
+        // $(dropDownBox[y]).val(postedElemData[y]);
+        $(dropDownBox[y] + ' option[value="' + postedElemData[y] + '"]').prop(
+          "selected",
+          true
+        );
+        break;
+      case 11:
+        if (postedElemData == "") {
+          continue;
+        }
+
+      default:
+        dataBoxes[y].val(postedElemData[y]);
+    }
+  }
+
+  $("#sapChoice").prop("selectedIndex", 0);
+
+  // Make requestby and date Readonly
+  $("#sapChoice").prop("disabled", true);
+  $("#requestbyBox").prop("disabled", true);
+  $("#requestdateBox").prop("readonly", true);
+}
+
+function getTableHead() {
+  // Select all table heads as object
+  var data = document.querySelectorAll("th");
+  var key = {};
+  // set key as object with data as the key
+
+  for (var i in data) {
+    if (data.hasOwnProperty(i)) {
+      key[i] = data[i].textContent;
+    }
+  }
+  return key;
+}
+
 function randomizer(id, min, max) {
   var val = "";
   var selectedId = id;
@@ -128,7 +296,8 @@ function randomizer(id, min, max) {
     var alpha = ["Aqil", "Amirul", "Zamri", "Kamarulzaman", "Malina"];
     $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
   } else {
-    var alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+    var alpha =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&()_+-=[]{}|;':\",./<>?/-+`~";
     var alphaSplit = Array.from(alpha);
     var randomLength = Math.floor(Math.random() * (max - min)) + min;
     for (i = 0; i < randomLength; i++) {

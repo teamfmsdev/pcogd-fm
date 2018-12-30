@@ -53,9 +53,16 @@
 
   $result=mysqli_query($con,$sql);    
       
-    // $jsonData=array();
+    
       while($row = mysqli_fetch_assoc($result)){
-          $jsonData[]=$row;
+          // get $row key
+          $arrKey = array_keys($row);
+          // Loop Through $row using $arrKey as key
+          foreach($arrKey as $key){
+              // Put Line breaks where its due
+              $row[$key]=nl2br($row[$key]);
+          }        
+          $jsonData[]=$row;        
       }
 
       echo json_encode($jsonData);

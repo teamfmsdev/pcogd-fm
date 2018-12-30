@@ -253,3 +253,152 @@ function Validationnn() {
     }
   }
 }
+
+// Reset inputBoxes of form
+function Resett() {
+  uiControlReset();
+
+  var formData = {
+    0: $("#wTitleBox"),
+    1: $("#type1Box"),
+    2: $("#type2Box"),
+    3: $("#descriptionBox"),
+    4: $("#locationBox"),
+    5: $("#statusBox"),
+    6: $("#companyBox"),
+    7: $("#sapBox"),
+    8: $("#requestbyBox"),
+    9: $("#requestdateBox"),
+    10: $("#closedbyBox"),
+    11: $("#completiondateBox")
+  };
+
+  // Loop through all form user input box and clear field
+  for (y = 0; y < 12; y++) {
+    switch (y) {
+      case 5:
+        // Clear field as usual if system is on "UPDATE "
+        if (editArg == 1) {
+          formData[y].val("");
+        }
+        //Make "New" as selected
+        else {
+          formData[y][0][1].selected = true;
+        }
+        break;
+      case 7:
+        if (editArg == 1) {
+          formData[y].val("");
+        } else {
+          formData[y].val("-");
+        }
+        break;
+      case 9:
+        // Clear field as usual if system is on "UPDATE "
+        if (editArg == 1) {
+          formData[y].val("");
+        }
+        // Set reqDate to today
+        else {
+          setDefaultDate();
+        }
+        break;
+      default:
+        // Set value to empty
+        formData[y].val("");
+    }
+  }
+  $("#sapChoice").prop("selectedIndex", 0);
+  // $("#alertMsg").text("");
+}
+
+// Populate input form
+function populateForms(elem) {
+  // var table=document.getElementById("outputTable");
+  // var alertMsg = document.getElementById("alertMsg");
+  // var msg ="";
+
+  var dataBoxes = {
+    1: $("#wTitleBox"), //0
+    2: $("#type1Box"), //1
+    3: $("#type2Box"), //2
+    4: $("#descriptionBox"), //3
+    5: $("#locationBox"), //4
+    6: $("#statusBox"), //5
+    7: $("#companyBox"), //6
+    8: $("#sapBox"), //7
+    9: $("#requestbyBox"), //8
+    10: $("#requestdateBox"), //9
+    11: $("#closedbyBox"), //10
+    12: $("#completiondateBox") // 11
+  };
+  var dropDownBox = {
+    2: "#type1Box",
+    3: "#type2Box",
+    6: "#statusBox",
+    9: "#requestbyBox",
+    11: "#closedbyBox"
+  };
+
+  var postedElemData = [];
+
+  for (i = 0; i < 13; i++) {
+    postedElemData[i] = elem.childNodes[i].innerText;
+    postedElemData[i] = myTrim(postedElemData[i]);
+  }
+  // dataBoxes[9].val(postedElemData[y]);
+  //Fill input boxes with selected row data
+  for (y = 1; y < 13; y++) {
+    switch (y) {
+      case 2:
+
+      case 3:
+
+      case 6:
+
+      case 9:
+        // $(dropDownBox[y]).val(postedElemData[y]);
+        $(dropDownBox[y] + ' option[value="' + postedElemData[y] + '"]').prop(
+          "selected",
+          true
+        );
+        break;
+      case 11:
+        if (postedElemData == "") {
+          continue;
+        }
+
+      default:
+        dataBoxes[y].val(postedElemData[y]);
+    }
+  }
+
+  $("#sapChoice").prop("selectedIndex", 0);
+
+  // Make requestby and date Readonly
+  $("#sapChoice").prop("disabled", true);
+  $("#requestbyBox").prop("disabled", true);
+  $("#requestdateBox").prop("readonly", true);
+}
+
+// $(document).ready(function() {
+// if ($("#editButton").css("display") == "block") {
+//   $("#editButton").hide("slow");
+// }
+// if ($("#searchButton").css("display") == "block") {
+//   $("#searchButton").hide("slow");
+// }
+// if ($("#deleteButton").css("display") == "block") {
+//   $("#deleteButton").hide("slow");
+// }
+// if ($("#sapChoice").css("display") == "block") {
+//   $("#sapChoice").hide("slow", function() {
+//     $("#sapBox").css({
+//       // right: "100px"
+//       // width: "194px"
+//       // gridRow: "1/1",
+//       gridColumn: "4/6"
+//     });
+//   });
+// }
+// });
