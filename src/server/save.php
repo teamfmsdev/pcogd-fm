@@ -6,18 +6,34 @@ foreach ($_GET as $key => $value) {
   $data[$key] = $value;
 }
 
-$sql ="INSERT INTO `main`(`Work Title`, `Type 1`, `Type 2`, `Description`, `Location`, `Status`,
-     `Company`, `SAP#`, `Request By`, `Request Date`, `Closed By`, `Completion Date`)
-     VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
-$stmt=mysqli_prepare($con,$sql);
+$stmt = $con -> prepare("INSERT INTO `main`(`Work Title`, `Type 1`, `Type 2`, 
+`Description`, `Location`, `Status`,
+`Company`, `SAP#`, `Request By`, 
+`Request Date`, `Closed By`, `Completion Date`) 
+VALUES (:wTitle,:type1,:type2,:desc,:loca,:stats,:comp,:sapB,:reqB,:reqD,:clos,:comple)");
 
-call_user_func_array()
+$i=1;
+foreach ($data as $key => $value) {
+  if($key == "sapC"){
+    continue;
+  }else {
+    $stmt-> bindValue($key,$value);
+    $i++;
+  }
+}
 
-// foreach ($data as $key => $value) {
-  mysqli_stmt_bind_param($stmt,"s",$data["Work Title"]);
-// }
 
-echo "hehe";
+try{
+  if($stmt->execute()){
+    echo "Record insert success";
+  }
+  
+}catch(PDOException $e){
+  echo "Record insert fail <br>";
+  echo $e->getmessage();
+}
+
+
 
 ?>

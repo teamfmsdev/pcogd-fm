@@ -1,28 +1,13 @@
 <?php
   require "connection.php";
-  $wTitle =mysqli_real_escape_string($con,$_GET['wTitle']);
-  $type1 = mysqli_real_escape_string($con,$_GET['type1']);
-  $type2 = mysqli_real_escape_string($con,$_GET['type2']);
-  $desc = mysqli_real_escape_string($con,$_GET['desc']);
-  $loca = mysqli_real_escape_string($con,$_GET['loca']);
-  $comp = mysqli_real_escape_string($con,$_GET['comp']);
-  $stats = mysqli_real_escape_string($con,$_GET['stats']);
-  $sapB = mysqli_real_escape_string($con,$_GET['sapB']);
 
-  $sapC = mysqli_real_escape_string($con,$_GET['sapC']);
-
-  $reqB = mysqli_real_escape_string($con,$_GET['reqB']);
-  $reqD = mysqli_real_escape_string($con,$_GET['reqD']);
-  $clos = mysqli_real_escape_string($con,$_GET['clos']);
-  $compl = mysqli_real_escape_string($con,$_GET['comple']);
-
-
-  // #warning
-  // #spaghettiCodesAhead
+foreach ($_GET as $key => $value) {
+    $data[$key]=$value;
+}
 
   // TO decide whether SAP is - or not
 
-    switch($sapC){
+    switch($data["sapC"]){
         case "Yes":
             if($sapB==""){
                 $sapQ="`SAP#` != '-'";
@@ -38,12 +23,34 @@
     }
 
 
-$sql= "SELECT * FROM `main` WHERE (`Work Title` LIKE '%$wTitle%' AND `Type 1` LIKE '%$type1%' AND `Type 2` LIKE '%$type2' AND `Description` LIKE '%$desc%'
-AND `Location` LIKE '%$loca%' AND `Status` LIKE '%$stats%' AND `Company` LIKE '%$comp%' AND $sapQ AND `Request By` LIKE '%$reqB%'
-AND `Request Date` LIKE '%$reqD%' AND `Closed By` LIKE '%$clos%' AND `Completion Date` LIKE '%$compl%' )";
+    $stmt = $con -> prepare("SELECT * FROM `main` WHERE 
+    (`Work Title` LIKE '%:wTitle%' AND `Type 1` LIKE '%:type1%' AND `Type 2` LIKE '%:type2' 
+    AND `Description` LIKE '%:desc%' AND `Location` LIKE '%:loca%' AND `Status` 
+    LIKE '%:stats%' AND `Company` LIKE '%:comp%' AND ? AND `Request By` LIKE '%?%'
+    AND `Request Date` LIKE '%?%' AND `Closed By` LIKE '%?%' AND `Completion Date` 
+    LIKE '%?%' )");
 
+$stmt = mysqli_prepare($con,$sql);
 
-  $result=mysqli_query($con,$sql);    
+mysqli_stmt_bind_param($stmt,"ssssssssssss",
+$data["wTitle"],
+$data["type1"],
+$data["type2"],
+$data["desc"],
+$data["loca"],
+$data["stats"],
+$data["comp"],
+$sapQ,
+$data["reqB"],
+$data["reqD"],
+$data["clos"],
+$data["compl"]);
+
+if (mysqli_stmt_execute($stmt)){
+    echo "Record Insert success";
+  }else{
+    echo "Fail";
+  }
       
     
       while($row = mysqli_fetch_assoc($result)){
