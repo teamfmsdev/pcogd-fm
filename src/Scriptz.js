@@ -5,26 +5,24 @@ function Reset() {
 
   for (var key in formData) {
     switch (key) {
-      case "stats":
+      case "Status":
         // Clear field as usual if system is on "UPDATE "
         if (editArg == 1) {
           formData[key].val("");
         }
         //Make "New" as selected
-        else if (formData[key].prop("selectedIndex") == 4) {
-          formData[key].prop("selectedIndex", 4);
-        } else {
+        else {
           formData[key].prop("selectedIndex", 1);
         }
         break;
-      case "sapB":
+      case "SAP#":
         if (editArg == 1) {
           formData[key].val("");
         } else {
           formData[key].val("-");
         }
         break;
-      case "reqD":
+      case "Request Date":
         // Clear field as usual if system is on "UPDATE "
         if (editArg == 1) {
           formData[key].val("");
@@ -34,7 +32,7 @@ function Reset() {
           setDefaultDate();
         }
         break;
-      case "sapC":
+      case "SAP Choice":
         formData[key].prop("selectedIndex", 0);
         break;
       default:

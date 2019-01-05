@@ -76,45 +76,45 @@ function passOver(elem) {
   // editButton.addEventListener("Click",function(){edit(elem)});
 }
 
-function getFormInputs() {
-  var formData = {
-    wTitle: $("#wTitleBox").val(),
-    type1: $("#type1Box").val(),
-    type2: $("#type2Box").val(),
-    desc: $("#descriptionBox").val(),
-    loca: $("#locationBox").val(),
-    stats: $("#statusBox").val(),
-    comp: $("#companyBox").val(),
-    sapB: $("#sapBox").val(),
-    sapC: $("#sapChoice").val(),
-    reqB: $("#requestbyBox").val(),
-    reqD: $("#requestdateBox").val(),
-    clos: $("#closedbyBox").val(),
-    comple: $("#completiondateBox").val()
-  };
+// function getFormInputs() {
+//   var formData = {
+//     wTitle: $("#wTitleBox").val(),
+//     type1: $("#type1Box").val(),
+//     type2: $("#type2Box").val(),
+//     desc: $("#descriptionBox").val(),
+//     loca: $("#locationBox").val(),
+//     stats: $("#statusBox").val(),
+//     comp: $("#companyBox").val(),
+//     sapB: $("#sapBox").val(),
+//     sapC: $("#sapChoice").val(),
+//     reqB: $("#requestbyBox").val(),
+//     reqD: $("#requestdateBox").val(),
+//     clos: $("#closedbyBox").val(),
+//     comple: $("#completiondateBox").val()
+//   };
 
-  return formData;
-}
+//   return formData;
+// }
 
-function getFormInputsObject() {
-  var formData = {
-    "Work Title": $("#wTitleBox"),
-    "Type 1": $("#type1Box"),
-    "Type 2": $("#type2Box"),
-    Description: $("#descriptionBox"),
-    Location: $("#locationBox"),
-    Status: $("#statusBox"),
-    Company: $("#companyBox"),
-    "SAP#": $("#sapBox"),
-    "SAP Choice": $("#sapChoice"),
-    "Request By": $("#requestbyBox"),
-    "Request Date": $("#requestdateBox"),
-    "Closed By": $("#closedbyBox"),
-    "Completion Date": $("#completiondateBox")
-  };
+// function getFormInputsObject() {
+//   var formData = {
+//     "Work Title": $("#wTitleBox"),
+//     "Type 1": $("#type1Box"),
+//     "Type 2": $("#type2Box"),
+//     Description: $("#descriptionBox"),
+//     Location: $("#locationBox"),
+//     Status: $("#statusBox"),
+//     Company: $("#companyBox"),
+//     "SAP#": $("#sapBox"),
+//     "SAP Choice": $("#sapChoice"),
+//     "Request By": $("#requestbyBox"),
+//     "Request Date": $("#requestdateBox"),
+//     "Closed By": $("#closedbyBox"),
+//     "Completion Date": $("#completiondateBox")
+//   };
 
-  return formData;
-}
+//   return formData;
+// }
 
 function alertValidation(formData) {
   var alertMsg = "";
