@@ -175,7 +175,7 @@ function Update(formData) {
 function deleteRecord(selectedRow) {
   if (confirm("Do you want to delete this record?")) {
     $(selectedRow).remove();
-    var dataID = { dataID: $(selectedRow).attr("id") };
+    var dataID = { dataId: $(selectedRow).attr("id") };
 
     $.ajax({
       type: "GET",
