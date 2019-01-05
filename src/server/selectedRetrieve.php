@@ -17,11 +17,3 @@ foreach ($row as $key => $value) {
 
 echo json_encode($row);
 
-// while ($row=mysqli_fetch_assoc($result)) {
-//     //Assign line break where its due
-//     // foreach ($row as $rowKey => $value) {
-//     //   $row[$rowKey] = nl2br($row[$rowKey]);
-//     // }
-//     $jsonData =$row;
-// }
-// echo json_encode($jsonData);

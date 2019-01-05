@@ -21,17 +21,13 @@ foreach ($data as $key => $value) {
     $i++;
   }
 }
-
-
-try{
-  if($stmt->execute()){
-    echo "Record insert success";
-  }
-  
-}catch(PDOException $e){
-  echo "Record insert fail <br>";
-  echo $e->getmessage();
+if($stmt->execute()){
+  echo "Record insert success";
+}else{
+  echo "Record failed to be inserted";
 }
+
+
 
 
 
