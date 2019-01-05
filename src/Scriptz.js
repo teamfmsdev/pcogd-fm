@@ -119,18 +119,21 @@ function retrieve() {
 
       for (var row in data) {
         // Create new row
-        $("table").append("<tr>");
+        $("<tr>")
+          .appendTo("table")
+          .attr("id", data[row]["row"])
+          .click(function() {
+            passOver(this);
+          });
         // Set row id
-        $("tr:last-child").attr("id", data[row]["row"]);
+        // $("tr:last-child").attr("id", data[row]["row"]);
         // Set row event
-        $("tr:last-child").click(function() {
-          passOver(this);
-        });
+        // $("tr:last-child").click(function() {});
 
         // Set row data
         for (var key in data[row]) {
           // data[row][key] = data[row][key].replace(/\r\n?|\n/g, "<br />");
-          $("tr:last-child").append("<td>" + data[row][key]);
+          $("#" + data[row]["row"]).append("<td>" + data[row][key]);
         }
       }
     },

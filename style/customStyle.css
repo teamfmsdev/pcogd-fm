@@ -1,0 +1,219 @@
+header {
+  height: 75px;
+}
+body {
+  background-image: linear-gradient(to right, rgb(12, 75, 22), rgb(18, 94, 30), rgb(15, 114, 30));
+}
+
+/* form background styling */
+.formBackground {
+  background-color: rgba(26, 25, 25, 0.671);
+  border-radius: 25px;
+  /* margin-left: 5px; */
+  /* margin-right: 15px; */
+}
+
+/* form styling */
+form {
+  border-radius: 20px;
+}
+
+/* Alert div */
+.alertDiv {
+  background-color: rgba(26, 25, 25, 0.671);
+  min-height: 50px;
+  border-radius: 25px;
+}
+
+/* Table Styling */
+table,
+tbody {
+  width: 100%;
+}
+th,
+tr,
+td,
+th,
+thead {
+  border: 1px solid rgb(34, 33, 33);
+  color: white;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: rgb(41, 38, 38);
+}
+
+tr {
+  background-color: rgb(18, 85, 63);
+}
+
+tr:hover {
+  background-color: rgb(7, 58, 41);
+}
+.select {
+  background-color: rgb(7, 58, 41);
+}
+
+/* Table details styling */
+/* FM NO */
+th:nth-child(1) {
+  width: 3.5%;
+  max-width: 4.5%;
+}
+
+/* Type */
+th:nth-child(4),
+th:nth-child(3) {
+  width: 2.6%;
+  max-width: 4%;
+}
+
+/* Status */
+th:nth-child(7) {
+  width: 4%;
+  max-width: 5%;
+}
+/* Company */
+th:nth-child(8) {
+  width: 7.9%;
+  max-width: 8.5%;
+}
+/* SAP */
+th:nth-child(9) {
+  width: 3.97%;
+  max-width: 4.5%;
+}
+
+/* Requester */
+th:nth-child(10) {
+  width: 5.83%;
+  max-width: 6.5%;
+}
+/* Description */
+th:nth-child(5) {
+  width: 34.48%;
+  max-width: 35%;
+}
+/* Request Date */
+th:nth-child(11) {
+  width: 4.77%;
+  max-width: 5.5%;
+}
+/* closedBy */
+th:nth-child(12) {
+  width: 5.83%;
+  max-width: 6.5%;
+}
+/* Request Date */
+th:nth-child(13) {
+  width: 4.77%;
+  max-width: 5.5%;
+}
+
+/* Form Styling */
+form {
+  background-color: white;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+select {
+  text-align: center;
+}
+
+/* Button Styles */
+.btn {
+  -moz-box-shadow: 0px 0px 4px 2px #60696e;
+  -webkit-box-shadow: 0px 0px 4px 2px #60696e;
+  box-shadow: 0px 0px 4px 2px #60696e;
+  background-color: #3080ab;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  border-radius: 25px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Verdana;
+  font-size: 15px;
+  padding: 5px 20px;
+  text-decoration: none;
+}
+.btn:hover {
+  background-color: #1ab0d6;
+}
+.btn:active {
+  position: relative;
+  top: 1px;
+}
+
+/* Switch Button styles */
+.onoffswitch {
+  position: relative;
+  width: 65px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+  display: none;
+}
+.onoffswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #999999;
+  border-radius: 50px;
+}
+.onoffswitch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 25px;
+  padding: 0;
+  line-height: 25px;
+  font-size: 14 px;
+  color: white;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+  content: "";
+  padding-left: 10px;
+  background-color: #0ce38d;
+  color: #ffffff;
+}
+.onoffswitch-inner:after {
+  content: "";
+  padding-right: 10px;
+  background-color: #0ce38d;
+  color: #333333;
+  text-align: right;
+}
+.onoffswitch-switch {
+  display: block;
+  width: 25px;
+  margin: 0px;
+  background: #066fba;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 40px;
+  height: 80%;
+  border: 2px solid #999999;
+  border-radius: 50px;
+  transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px;
+}
