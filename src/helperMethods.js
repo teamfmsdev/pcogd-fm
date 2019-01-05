@@ -32,11 +32,7 @@ function passOver(elem) {
   // If there exist already selected element
   if (currentSelected.length == 1) {
     // If there is a called to "edit" event already
-    if (
-      editArg == 1 &&
-      $("#deleteButton").css("display") == "block" &&
-      $("#saveButton").css("display") == "block"
-    ) {
+    if (editArg == 1 && $("#deleteButton").css("display") == "block" && $("#saveButton").css("display") == "block") {
       // If we click other element during "EDIT"-ing
       if (currentSelected[0].id != elem.id) {
         // Assign elem as the currently existing clicked element
@@ -123,8 +119,7 @@ function getFormInputsObject() {
 function alertValidation(formData) {
   var alertMsg = "";
   var defAlert = "Please fill up field with asterisk \n";
-  var closedAlert =
-    "Closed by and completion date field cannot be empty for closed record \n";
+  var closedAlert = "Closed by and completion date field cannot be empty for closed record \n";
 
   // Error Message Appending EXCEPT for item 5 7
   // and EXCEPT for item 10 11 If status = "CLOSED"
@@ -136,10 +131,7 @@ function alertValidation(formData) {
         continue;
       case "clos":
       case "comple":
-        if (
-          formData["stats"] == "Closed" &&
-          (formData[key] == "" || formData[key] == null)
-        ) {
+        if (formData["stats"] == "Closed" && (formData[key] == "" || formData[key] == null)) {
           if (alertMsg.includes(closedAlert) == false) {
             alertMsg += closedAlert;
             break;
@@ -214,8 +206,7 @@ function getFormInputsObject() {
 function alertValidation(formData) {
   var alertMsg = "";
   var defAlert = "Please fill up field with asterisk \n";
-  var closedAlert =
-    "Closed by and completion date field cannot be empty for closed record \n";
+  var closedAlert = "Closed by and completion date field cannot be empty for closed record \n";
 
   // Error Message Appending EXCEPT for item 5 7
   // and EXCEPT for item 10 11 If status = "CLOSED"
@@ -227,10 +218,7 @@ function alertValidation(formData) {
         continue;
       case "Closed By":
       case "Completion Date":
-        if (
-          formData["Status"] == "Closed" &&
-          (formData[key] == "" || formData[key] == null)
-        ) {
+        if (formData["Status"] == "Closed" && (formData[key] == "" || formData[key] == null)) {
           if (alertMsg.includes(closedAlert) == false) {
             alertMsg += closedAlert;
             break;
@@ -355,8 +343,7 @@ function randomizer(id, min, max) {
     var alpha = ["Aqil", "Amirul", "Zamri", "Kamarulzaman", "Malina"];
     $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
   } else {
-    var alpha =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&()_+-=[]{}|;':\",./<>?/-+`~";
+    var alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&()_+-=[]{}|;':\",./<>?/-+`~";
     var alphaSplit = Array.from(alpha);
     var randomLength = Math.floor(Math.random() * (max - min)) + min;
     for (i = 0; i < randomLength; i++) {
@@ -364,38 +351,38 @@ function randomizer(id, min, max) {
       $(id).val(val);
     }
   }
+}
 
-  function randomFill() {
-    var formData = [
-      $("#wTitleBox"),
-      $("#type1Box"),
-      $("#type2Box"),
-      $("#descriptionBox"),
-      $("#locationBox"),
-      $("#statusBox"),
-      $("#companyBox"),
-      $("#sapBox"),
-      $("#requestbyBox")
-      // 9: $("#requestdateBox")
-    ];
+function randomFill() {
+  var formData = [
+    $("#wTitleBox"),
+    $("#type1Box"),
+    $("#type2Box"),
+    $("#descriptionBox"),
+    $("#locationBox"),
+    $("#statusBox"),
+    $("#companyBox"),
+    $("#sapBox"),
+    $("#requestbyBox")
+    // 9: $("#requestdateBox")
+  ];
 
-    for (t = 0; t < $("#randomizeAmount").val(); t++) {
-      for (j = 0; j < formData.length; j++) {
-        switch (j) {
-          case 3:
-            // Description box
-            randomizer(formData[j], 200, 200);
-            break;
-          case 6:
-            // Company Box
-            randomizer(formData[j], 5, 10);
-            break;
+  for (t = 0; t < $("#randomizeAmount").val(); t++) {
+    for (j = 0; j < formData.length; j++) {
+      switch (j) {
+        case 3:
+          // Description box
+          randomizer(formData[j], 200, 200);
+          break;
+        case 6:
+          // Company Box
+          randomizer(formData[j], 5, 10);
+          break;
 
-          default:
-            randomizer(formData[j], 5, 15);
-        }
+        default:
+          randomizer(formData[j], 5, 15);
       }
-      Validation();
     }
+    Validation();
   }
 }

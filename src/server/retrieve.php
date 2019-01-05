@@ -3,18 +3,17 @@
   require "misc.php";
 
   // Loop through GET variables and append wildcard 
-foreach ($_GET as $key => $value) {
+    foreach ($_GET as $key => $value) {
 
     if ($key == "SAP#" || $key == "SAP_Choice"){
         $data[$key] = $value;
-    }else{
-        
+    }else{   
         $data[$key] = "%".$value."%";
     }
-    // $data[$key]= ($key!="SAP#" || $key!="SAP_Choice") ? "%".$value."%": $value;
 }
 
-  // TO decide whether SAP is - or not
+  /* To decide what kind of SAP behaviour to search
+    e.g. no SAP# , only with SAP# or to retrieve both with and without */
     switch($data["SAP_Choice"]){
         case "Yes":
             if($data["SAP#"]==""){
@@ -27,12 +26,12 @@ foreach ($_GET as $key => $value) {
             }
             break;
         case "No":
-        $data["SAP_Choice"] = "=";
-        $data["SAP#"]="-";
+            $data["SAP_Choice"] = "=";
+            $data["SAP#"]="-";
         break;
         default:
-        $data["SAP_Choice"] = "LIKE";
-        $data["SAP#"]="%";
+            $data["SAP_Choice"] = "LIKE";
+            $data["SAP#"]="%";
     }
 
 
@@ -43,36 +42,43 @@ foreach ($_GET as $key => $value) {
     AND `Request Date` LIKE ? AND `Closed By` LIKE ? AND `Completion Date` 
     LIKE ? )");
 
-$i=1;
-foreach ($data as $key => $value) {
-  if($key == "SAP_Choice"){
-    // $stmt-> bindValue($i,$value);
-    continue;
-  }else {
-    $stmt-> bindValue($i,$value);
-    $i++;
-  }
-}
+    // Bind value to be send to DB
+    $i=1;
+    foreach ($data as $key => $value) {
+    if($key == "SAP_Choice"){
+        // $stmt-> bindValue($i,$value);
+        continue;
+    }else {
+        $stmt-> bindValue($i,$value);
+        $i++;
+    }
+    }
 
-try{
     $stmt->execute();
-
+    // Set fetching type to associative array
     $row = $stmt ->fetchAll(PDO::FETCH_ASSOC);
+    // Loop throgh array of results eg 1,2,3,4,5
     foreach ($row as $rowKey => $value) {
+        // Loop through each column as key eg "Work title",SAP#
         foreach ($row[$rowKey] as $colKey => $colVal) {
+            // convert \n line break to <br> 
             $row[$rowKey][$colKey] = nl2br($colVal);
         }
         
     }
-     echo json_encode($row);
+    // Send result as json
+    echo json_encode($row);
+
+// try{
+
 
     
-  }catch(PDOException $e){
-    echo "Record retrieve fail <br>";
-    echo $e->getmessage() . "<br>";
+//   }catch(PDOException $e){
+//     echo "Record retrieve fail <br>";
+//     echo $e->getmessage() . "<br>";
    
-    echo '<pre>'.htmlspecialchars(pdo_debugStrParams($stmt)).'</pre>';
-  }
+//     echo '<pre>'.htmlspecialchars(pdo_debugStrParams($stmt)).'</pre>';
+//   }
       
     
 
