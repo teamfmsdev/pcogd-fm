@@ -129,6 +129,7 @@ function retrieve() {
 
         // Set row data
         for (var key in data[row]) {
+          // data[row][key] = data[row][key].replace(/\r\n?|\n/g, "<br />");
           $("tr:last-child").append("<td>" + data[row][key]);
         }
       }
@@ -146,6 +147,7 @@ function Update(formData) {
   var data = {};
   // Set data for submission keys and value
   for (var key in formData) {
+    // data[key] = encodeURI(formData[key]);
     data[key] = formData[key];
   }
   //Global clicked row element

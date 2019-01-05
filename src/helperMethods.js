@@ -21,7 +21,8 @@ function setDefaultDate() {
 
 // Trim user input of white spaces
 function myTrim(subj) {
-  return subj.replace(/^\s+|\s+$/gm, "");
+  // return subj.replace(/^\s+|\s+$/gm, "");
+  return subj.trim();
 }
 
 //Pass clicked element to required function
@@ -289,6 +290,8 @@ function populateForm(selectedRow) {
               break;
             }
           default:
+            var regex = /<br\s*[\/]?>/gi;
+            data[key] = data[key].replace(regex, "");
             formInputs[key].val(data[key]);
         }
       }

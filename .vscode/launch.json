@@ -7,16 +7,14 @@
     {
       "name": "Listen for XDebug",
       "type": "php",
-      "request": "launch",
-      "port": 80
+      "request": "launch"
     },
     {
       "name": "Launch currently open script",
       "type": "php",
       "request": "launch",
       "program": "${file}",
-      "cwd": "${fileDirname}",
-      "port": 80
+      "cwd": "${fileDirname}"
     }
   ]
 }
