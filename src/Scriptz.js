@@ -128,7 +128,7 @@ function retrieve() {
       for (var row in data) {
         // Create new row
         $("<tr>")
-          .appendTo("table")
+          .appendTo("tbody")
           .attr("id", data[row]["row"])
           .click(function() {
             passOver(this);
@@ -148,6 +148,7 @@ function retrieve() {
           // data[row][key] = data[row][key].replace(/\r\n?|\n/g, "<br />");
         }
       }
+      $("table").DataTable();
     },
     error: function(jqXHR, textStatus, errorThrown) {
       console.log("Failed to retrieve");

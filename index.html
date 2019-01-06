@@ -10,20 +10,22 @@
 
     <script src="src/lib/jquery-3.3.1.js"></script>
     <script src="src//lib/js.cookie.js"></script>
+    <script src="src/lib/datatables.min.js"></script>
+    <script src="src/lib/dataTables.bootstrap4.min.js"></script>
+    <script src="src/lib/jquery.dataTables.min.js"></script>
     <script src="src/globalVar.js"></script>
     <script src="src/docReady.js"></script>
     <script src="src/interactionMethods.js"></script>
     <script src="src/helperMethods.js"></script>
     <script src="src/Scriptz.js"></script>
     <link rel="stylesheet" type="text/css" href="style/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="style/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="style/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" type="text/css" href="style/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="style/customStyle.css" />
   </head>
   <body>
-    <header
-      class="container-fluid text-center page-header no-gutters text-white"
-    >
-      <h1>PCOGD Facilities Management</h1>
-    </header>
+    <header class="container-fluid text-center page-header no-gutters text-white"><h1>PCOGD Facilities Management</h1></header>
 
     <div class="container sticky-top mt-4 p-0">
       <form class="form-group p-3">
@@ -31,17 +33,10 @@
           <label>New</label>
           <!-- <input type="checkbox" id="checkBox" onclick="changeAction()" /> -->
           <!-- Rounded switch -->
-          <label class="switch mx-3">
-            <input type="checkbox" id="checkBox" />
-            <span class="slider round"></span>
-          </label>
-          <label>Update</label>
+          <label class="switch mx-3"> <input type="checkbox" id="checkBox" /> <span class="slider round"></span> </label> <label>Update</label>
         </div>
         <div class=" row text-center justify-content-center no-gutters ">
-          <label for="wTitleBox" class="col-2 col-form-label  "
-            >Work Title</label
-          >
-          <input id="wTitleBox" class="form-control col-6" />
+          <label for="wTitleBox" class="col-2 col-form-label  ">Work Title</label> <input id="wTitleBox" class="form-control col-6" />
           <label class="col-2 col-form-label" for="type1Box">Type</label>
 
           <select class="form-control col-1 " id="type1Box">
@@ -62,27 +57,13 @@
           </select>
         </div>
         <div class=" row justify-content-center no-gutters">
-          <label
-            id="Description"
-            class="col-2 col-form-label text-center"
-            for="descriptionBox"
-            >*Description</label
-          >
-          <textarea
-            id="descriptionBox"
-            rows="5"
-            cols="50"
-            class="form-control col"
-          ></textarea>
+          <label id="Description" class="col-2 col-form-label text-center" for="descriptionBox">*Description</label>
+          <textarea id="descriptionBox" rows="5" cols="50" class="form-control col"></textarea>
         </div>
         <div class="row text-center justify-content-center no-gutters">
-          <label id="Location" class="col-2 col-form-label" for="locationBox"
-            >*Location</label
-          >
+          <label id="Location" class="col-2 col-form-label" for="locationBox">*Location</label>
           <input id="locationBox" class="form-control col-4" type="text" />
-          <label id="Status" class="col-2 col-form-label" for="statusBox"
-            >*Status</label
-          >
+          <label id="Status" class="col-2 col-form-label" for="statusBox">*Status</label>
           <select id="statusBox" class="form-control col-4">
             <option disabled selected></option>
             <option selected="selected" value="New">New</option>
@@ -92,13 +73,8 @@
           </select>
         </div>
         <div class="row text-center justify-content-center no-gutters">
-          <label id="Company" class="col-2 col-form-label" for="companyBox"
-            >Company</label
-          >
-          <input id="companyBox" class="form-control col-4" type="text" />
-          <label id="SAP#" class="col-2 col-form-label" for="sapBox"
-            >SAP#</label
-          >
+          <label id="Company" class="col-2 col-form-label" for="companyBox">Company</label>
+          <input id="companyBox" class="form-control col-4" type="text" /> <label id="SAP#" class="col-2 col-form-label" for="sapBox">SAP#</label>
 
           <select id="sapChoice" class="form-control col-1 sapChoice">
             <option selected></option>
@@ -109,9 +85,7 @@
           <input id="sapBox" class="form-control col-3" type="text" />
         </div>
         <div class="row text-center justify-content-center no-gutters">
-          <label class="col-2 col-form-label" for="requestbyBox"
-            >*Request By</label
-          >
+          <label class="col-2 col-form-label" for="requestbyBox">*Request By</label>
           <select id="requestbyBox" class="form-control col-4" type="text">
             <option id="defReqByOption" disable selected></option>
             <option value="Aqil">Aqil</option>
@@ -120,17 +94,11 @@
             <option value="Kamarulzaman">Kamarulzaman</option>
             <option value="Malina">Malina</option>
           </select>
-          <label class="col-2 col-form-label" for="requestdateBox"
-            >*Request Date</label
-          >
+          <label class="col-2 col-form-label" for="requestdateBox">*Request Date</label>
           <input id="requestdateBox" class="form-control col-4" type="Date" />
         </div>
-        <div
-          class="row text-center justify-content-center no-gutters closedByLine"
-        >
-          <label class="col-2 col-form-label" for="closedbyBox"
-            >Closed By</label
-          >
+        <div class="row text-center justify-content-center no-gutters closedByLine">
+          <label class="col-2 col-form-label" for="closedbyBox">Closed By</label>
           <select id="closedbyBox" class="form-control col-4" type="text">
             <option disabled selected></option>
             <option value="Aqil">Aqil</option>
@@ -140,65 +108,41 @@
             <option value="Malina">Malina</option>
           </select>
 
-          <label class="col-2 col-form-label" for="completiondateBox"
-            >Completion Date</label
-          >
-          <input
-            id="completiondateBox"
-            class="form-control col-4"
-            type="date"
-          />
+          <label class="col-2 col-form-label" for="completiondateBox">Completion Date</label>
+          <input id="completiondateBox" class="form-control col-4" type="date" />
         </div>
-        <div
-          class="row text-center my-3 justify-content-center no-gutters d-flex "
-        >
-          <input
-            id="searchButton"
-            class="btn  mx-1"
-            type="button"
-            value="SEARCH"
-          />
+        <div class="row text-center my-3 justify-content-center no-gutters d-flex ">
+          <input id="searchButton" class="btn  mx-1" type="button" value="SEARCH" />
           <input id="editButton" class="btn  mx-1" type="button" value="EDIT" />
-          <input
-            id="deleteButton"
-            class="btn  mx-1"
-            type="button"
-            value="DELETE"
-          />
+          <input id="deleteButton" class="btn  mx-1" type="button" value="DELETE" />
           <input id="saveButton" class="btn  mx-1" type="button" value="SAVE" />
-          <input
-            id="resetButton"
-            class="btn  mx-1"
-            type="button"
-            value="RESET"
-          />
+          <input id="resetButton" class="btn  mx-1" type="button" value="RESET" />
         </div>
       </form>
     </div>
 
-    <div class="container-fluid no-gutters text-center my-3 alertDiv">
-      <div id="alertMsg" class="text-white"></div>
-    </div>
+    <div class="container-fluid no-gutters text-center my-3 alertDiv"><div id="alertMsg" class="text-white"></div></div>
 
     <div class="container-fluid customTable">
-      <table id="outputTable" class="table table-sm text-center no-gutters ">
-        <!-- <thead> -->
-        <tr>
-          <th>FM No</th>
-          <th>Work title</th>
-          <th>Type 1</th>
-          <th>Type 2</th>
-          <!-- <th>Description</th> -->
-          <th>Location</th>
-          <th>Status</th>
-          <th>Company</th>
-          <th>SAP#</th>
-          <th>Request By</th>
-          <th>Request Date</th>
-          <th>Closed By</th>
-          <th>Complete Date</th>
-        </tr>
-        <!-- </thead> -->
+      <table id="outputTable" class="table table-sm text-center no-gutters table-primary table-bordered ">
+        <thead>
+          <tr>
+            <th>FM No</th>
+            <th>Work title</th>
+            <th>Type 1</th>
+            <th>Type 2</th>
+            <!-- <th>Description</th> -->
+            <th>Location</th>
+            <th>Status</th>
+            <th>Company</th>
+            <th>SAP#</th>
+            <th>Request By</th>
+            <th>Request Date</th>
+            <th>Closed By</th>
+            <th>Complete Date</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
       </table>
     </div>
   </body>

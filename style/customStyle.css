@@ -16,7 +16,7 @@ body {
     rgb(18, 94, 30),
     rgb(15, 114, 30)
   ); */
-  background-image: url("../image/mainBg2.jpg");
+  /* background-image: url("../image/mainBg2.jpg"); */
   background-repeat: no-repeat;
   background-color: rgb(36, 34, 34);
 }
@@ -56,34 +56,34 @@ tr,
 td,
 th,
 thead {
-  border: 1px groove rgb(59, 58, 56);
-  color: white;
-  border-collapse: collapse;
+  /* border: 1px groove rgb(59, 58, 56); */
+  /* color: white; */
+  /* border-collapse: collapse; */
 }
 
 th {
   /* background-color: rgb(41, 38, 38); */
-  background-color: rgb(0, 177, 169);
+  /* background-color: rgb(0, 177, 169); */
   border-radius: 5px;
 }
 
 tr {
-  background-color: rgb(18, 85, 63);
+  /* background-color: rgb(18, 85, 63); */
   border-radius: 5px;
 }
 
 tr:hover {
-  background-color: rgb(7, 58, 41);
+  /* background-color: rgb(7, 58, 41); */
 }
 .select {
-  background-color: rgb(7, 58, 41);
+  /* background-color: rgb(7, 58, 41); */
 }
 
 /* Table details styling */
 
 th:nth-child(1) {
-  width: 3.5%;
-  max-width: 4.5%;
+  width: 5%;
+  max-width: 7%;
 }
 
 th:nth-child(2) {
