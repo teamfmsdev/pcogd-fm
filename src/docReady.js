@@ -2,9 +2,17 @@ $(document).ready(function() {
   Reset();
   setDefaultDate();
 
-  // Set Line 7 to be h idden
-  $(".closedByLine").css({
-    visibility: "hidden"
+  $("#checkBox").change(function() {
+    changeAction();
+  });
+  $("#searchButton").click(function() {
+    retrieve();
+  });
+  $("#saveButton").click(function() {
+    Validation();
+  });
+  $("#resetButton").click(function() {
+    Reset();
   });
 
   changeAction();

@@ -13,7 +13,7 @@ function Reset() {
         //Make "New" as selected
         else {
           formData[key].prop("selectedIndex", 1);
-          statusBoxChange();
+          // statusBoxChange();
         }
         break;
       case "SAP#":

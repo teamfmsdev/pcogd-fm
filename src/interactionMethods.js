@@ -13,14 +13,16 @@ function changeAction() {
     case true:
       // Global var
       editArg = 1;
+      $("#statusBox").off("change");
       uiControlUpdateMode();
       Reset();
       // Enable sapChoice onChange for sapBox enable/disable
       $("#sapChoice").change(function() {
         sapChoiceChange();
       });
+      sapChoiceChange();
       // Disable statusBox onchange for displaying Line 7
-      $("#statusBox").off();
+
       break;
     // If Mode is "New"
     case false:
@@ -32,7 +34,7 @@ function changeAction() {
       // Disable sapChoice onChange for sapBox enable/disable
       $("#sapChoice").off();
       // Set statusBox onchange for displaying Line 7
-      $("#statusBox").change(function() {
+      $("#statusBox").on("change", function() {
         statusBoxChange();
       });
       break;
@@ -90,10 +92,12 @@ function sapChoiceChange() {
 function statusBoxChange() {
   // Show Line 7 if "Closed" is selected
   if ($("#statusBox").prop("selectedIndex") == 4) {
+    // console.log(statusBoxChange.caller());
     $(".closedByLine")
       .css({ visibility: "visible" })
       .animate({ opacity: 1.0 }, "slow");
   } else {
+    // console.log(statusBoxChange.caller());
     // Hide and empty line 7 input box
     $(".closedByLine").animate({ opacity: 0 }, "slow", function() {
       $(".closedByLine").css({ visibility: "hidden" });
@@ -159,6 +163,7 @@ function uiControlDelete() {
 }
 
 function uiControlNewMode() {
+  $("#checkBox").prop("disabled", true);
   // Hide edit, search and delete button
   if ($("#editButton").css("display") == "block") {
     $("#editButton").hide("slow");
@@ -194,9 +199,11 @@ function uiControlNewMode() {
   // Enabled request date box
   $("#requestdateBox").prop("readonly", false);
   // $("#requestdateBox").css({"backgroundColor":"rgb(100, 98, 98)"});
+  $("#checkBox").prop("disabled", false);
 }
 
 function uiControlUpdateMode() {
+  $("#checkBox").prop("disabled", true);
   // Show edit and search button
   if ($("#editButton").css("display") == "none") {
     $("#editButton").show("slow");
@@ -222,6 +229,7 @@ function uiControlUpdateMode() {
   $(".closedByLine")
     .css({ visibility: "visible" })
     .animate({ opacity: 1.0 }, "slow");
+  $("#checkBox").prop("disabled", false);
 }
 
 // Depreciated hide/show toggle

@@ -29,18 +29,12 @@
       <form class="form-group p-3">
         <div class="row justify-content-center no-gutters ">
           <label>New</label>
-          <div class="onoffswitch mx-3">
-            <input
-              type="checkbox"
-              class="onoffswitch-checkbox"
-              id="checkBox"
-              onclick="changeAction()"
-            />
-            <label class="onoffswitch-label" for="checkBox">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-            </label>
-          </div>
+          <!-- <input type="checkbox" id="checkBox" onclick="changeAction()" /> -->
+          <!-- Rounded switch -->
+          <label class="switch mx-3">
+            <input type="checkbox" id="checkBox" />
+            <span class="slider round"></span>
+          </label>
           <label>Update</label>
         </div>
         <div class=" row text-center justify-content-center no-gutters ">
@@ -155,40 +149,14 @@
             type="date"
           />
         </div>
-        <div class="row text-center my-3 justify-content-center no-gutters ">
-          <input
-            id="searchButton"
-            class="btn col-2 mx-1"
-            type="button"
-            value="SEARCH"
-            onclick="retrieve()"
-          />
-          <input
-            id="editButton"
-            class="btn col-2 mx-1"
-            type="button"
-            value="EDIT"
-          />
-          <input
-            id="deleteButton"
-            class="btn col-2 mx-1"
-            type="button"
-            value="DELETE"
-          />
-          <input
-            id="saveButton"
-            class="btn col-2 mx-1"
-            type="button"
-            value="SAVE"
-            onclick="Validation()"
-          />
-          <input
-            id="resetButton"
-            class="btn col-2 mx-1"
-            type="button"
-            value="RESET"
-            onclick="Reset()"
-          />
+        <div
+          class="row text-center my-3 justify-content-center no-gutters d-flex "
+        >
+          <input id="searchButton" class="btn" type="button" value="SEARCH" />
+          <input id="editButton" class="btn" type="button" value="EDIT" />
+          <input id="deleteButton" class="btn" type="button" value="DELETE" />
+          <input id="saveButton" class="btn" type="button" value="SAVE" />
+          <input id="resetButton" class="btn" type="button" value="RESET" />
         </div>
       </form>
     </div>

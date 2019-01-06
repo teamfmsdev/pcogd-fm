@@ -2,6 +2,7 @@ var jsonResponse = "";
 var select = [[]];
 var editArg = 0;
 var elemRow;
+console.log(editArg);
 
 //Declaring global VAR for buttons when HTML page loaded
 document.addEventListener("DOMContentLoaded", function() {
