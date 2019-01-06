@@ -147,7 +147,11 @@ function uiControlReset() {
 }
 
 function uiControlDelete() {
-  if ($("#deleteButton").css("display") == "block" && $("#saveButton").css("display") == "block" && $("#editButton").css("display") == "none") {
+  if (
+    $("#deleteButton").css("display") == "block" &&
+    $("#saveButton").css("display") == "block" &&
+    $("#editButton").css("display") == "none"
+  ) {
     $("#deleteButton").hide("slow");
     $("#saveButton").hide("slow");
     $("#editButton").show("slow");
@@ -171,13 +175,13 @@ function uiControlNewMode() {
   } // Hide SAP choices box
   if ($("#sapChoice").css("display") == "block") {
     $("#sapChoice").prop("disabled", true);
-    // $("#sapChoice").hide("slow", function() {
-    //   $("#sapBox").css({ gridColumn: "4/5" });
-    //   $("#sapBox").animate({
-    //     width: "194px"
-    //   });
-    //   $("#sapBox").attr("disabled", false);
-    // });
+    $("#sapChoice").hide("slow", function() {
+      $(".sapChoice").removeClass("col-1");
+      $(".sapChoice").addClass("col");
+      $("#sapBox").removeClass("col-3");
+      $("#sapBox").addClass("col-4");
+      $("#sapBox").attr("disabled", false);
+    });
   }
   // Hide Line 7
   $(".closedByLine").animate({ opacity: 0 }, "slow", function() {
@@ -206,9 +210,12 @@ function uiControlUpdateMode() {
   }
   // Show SAP Choices box
   if ($("#sapChoice").css("display") == "none") {
-    $("#sapBox").animate({ width: "94px" }, function() {
-      $("#sapChoice").show("slow");
-      $("#sapBox").css({ gridColumn: "5/5" });
+    $("#sapBox").removeClass("col-4");
+    $("#sapBox").addClass("col-3");
+
+    $("#sapChoice").show("slow", function() {
+      $(".sapChoice").removeClass("col");
+      $(".sapChoice").addClass("col-1");
     });
   }
   // Show Line 7 (Closed by Line)

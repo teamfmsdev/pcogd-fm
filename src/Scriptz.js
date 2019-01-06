@@ -130,10 +130,14 @@ function retrieve() {
         // Set row event
         // $("tr:last-child").click(function() {});
 
-        // Set row data
+        // Set row data for all except description
         for (var key in data[row]) {
+          if (key != "Description") {
+            $("#" + data[row]["row"]).append("<td>" + data[row][key]);
+          } else {
+            continue;
+          }
           // data[row][key] = data[row][key].replace(/\r\n?|\n/g, "<br />");
-          $("#" + data[row]["row"]).append("<td>" + data[row][key]);
         }
       }
     },
