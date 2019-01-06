@@ -8,36 +8,44 @@ function Reset() {
       case "Status":
         // Clear field as usual if system is on "UPDATE "
         if (editArg == 1) {
+          formData[key].prop("disabled", false);
           formData[key].val("");
         }
         //Make "New" as selected
         else {
+          formData[key].prop("disabled", false);
           formData[key].prop("selectedIndex", 1);
           // statusBoxChange();
         }
         break;
       case "SAP#":
         if (editArg == 1) {
+          formData[key].prop("disabled", true);
           formData[key].val("");
         } else {
+          formData[key].prop("disabled", false);
           formData[key].val("-");
         }
         break;
       case "Request Date":
         // Clear field as usual if system is on "UPDATE "
         if (editArg == 1) {
+          formData[key].prop("disabled", false);
           formData[key].val("");
         }
         // Set reqDate to today
         else {
+          formData[key].prop("disabled", false);
           setDefaultDate();
         }
         break;
       case "SAP Choice":
+        formData[key].prop("disabled", false);
         formData[key].prop("selectedIndex", 0);
         break;
       default:
         // Set value to empty
+        formData[key].prop("disabled", false);
         formData[key].val("");
     }
   }

@@ -28,30 +28,41 @@ function myTrim(subj) {
 //Pass clicked element to required function
 function passOver(elem) {
   // Check for existing selected element
-  var currentSelected = $("#outputTable").find(".select");
+  var currentSelected = $(".select");
 
   // If there exist already selected element
-  if (currentSelected.length == 1) {
+  if (editArg == 1) {
     // If there is a called to "edit" event already
-    if (editArg == 1 && $("#deleteButton").css("display") == "block" && $("#saveButton").css("display") == "block") {
-      // If we click other element during "EDIT"-ing
-      if (currentSelected[0].id != elem.id) {
-        // Assign elem as the currently existing clicked element
-        elem = currentSelected[0];
+    if (currentSelected.length == 1) {
+      // If we clicked the same row, Remove select class from the current selected row
+      if (currentSelected.attr("id") == elem.id) {
+        Reset();
+        currentSelected.removeClass("select");
+        // Re-assign currently selected row as "elem"
+      } else if (currentSelected.attr("id") != elem.id) {
+        currentSelected.removeClass("select");
+        elem.className = "select";
+        populateForm(elem);
       }
-      // currentSelected[0].removeAttribute("class");
-      // elem = $("#" + elem.id)[0];
+      // If we clicked the same row(row with selected class), reset the form
     } else {
-      currentSelected[0].removeAttribute("class");
+      elem.className = "select";
+      populateForm(elem);
     }
   }
 
   // Set the new clicked element class to "select"
-  elem.className = "select";
 
+  // populateForm(elem);
   elemRow = elem;
+
   editButton.onclick = function() {
-    currentSelected = $("#outputTable").find(".select");
+    formInputs = getFormInputsObject();
+
+    for (var i in formInputs) {
+      formInputs[i].prop("disabled", false);
+    }
+
     if (currentSelected.length != 0) {
       // Show delete and save button while hiding the edit button
       if ($("#deleteButton").css("display") == "none") {
@@ -65,7 +76,6 @@ function passOver(elem) {
       }
 
       $("#resetButton").val("CANCEL");
-      populateForm(elem);
     } else {
       alert("Please click a record to edit");
     }
@@ -77,50 +87,11 @@ function passOver(elem) {
   // editButton.addEventListener("Click",function(){edit(elem)});
 }
 
-// function getFormInputs() {
-//   var formData = {
-//     wTitle: $("#wTitleBox").val(),
-//     type1: $("#type1Box").val(),
-//     type2: $("#type2Box").val(),
-//     desc: $("#descriptionBox").val(),
-//     loca: $("#locationBox").val(),
-//     stats: $("#statusBox").val(),
-//     comp: $("#companyBox").val(),
-//     sapB: $("#sapBox").val(),
-//     sapC: $("#sapChoice").val(),
-//     reqB: $("#requestbyBox").val(),
-//     reqD: $("#requestdateBox").val(),
-//     clos: $("#closedbyBox").val(),
-//     comple: $("#completiondateBox").val()
-//   };
-
-//   return formData;
-// }
-
-// function getFormInputsObject() {
-//   var formData = {
-//     "Work Title": $("#wTitleBox"),
-//     "Type 1": $("#type1Box"),
-//     "Type 2": $("#type2Box"),
-//     Description: $("#descriptionBox"),
-//     Location: $("#locationBox"),
-//     Status: $("#statusBox"),
-//     Company: $("#companyBox"),
-//     "SAP#": $("#sapBox"),
-//     "SAP Choice": $("#sapChoice"),
-//     "Request By": $("#requestbyBox"),
-//     "Request Date": $("#requestdateBox"),
-//     "Closed By": $("#closedbyBox"),
-//     "Completion Date": $("#completiondateBox")
-//   };
-
-//   return formData;
-// }
-
 function alertValidation(formData) {
   var alertMsg = "";
   var defAlert = "Please fill up field with asterisk \n";
-  var closedAlert = "Closed by and completion date field cannot be empty for closed record \n";
+  var closedAlert =
+    "Closed by and completion date field cannot be empty for closed record \n";
 
   // Error Message Appending EXCEPT for item 5 7
   // and EXCEPT for item 10 11 If status = "CLOSED"
@@ -132,7 +103,10 @@ function alertValidation(formData) {
         continue;
       case "clos":
       case "comple":
-        if (formData["stats"] == "Closed" && (formData[key] == "" || formData[key] == null)) {
+        if (
+          formData["stats"] == "Closed" &&
+          (formData[key] == "" || formData[key] == null)
+        ) {
           if (alertMsg.includes(closedAlert) == false) {
             alertMsg += closedAlert;
             break;
@@ -207,7 +181,8 @@ function getFormInputsObject() {
 function alertValidation(formData) {
   var alertMsg = "";
   var defAlert = "Please fill up field with asterisk \n";
-  var closedAlert = "Closed by and completion date field cannot be empty for closed record \n";
+  var closedAlert =
+    "Closed by and completion date field cannot be empty for closed record \n";
 
   // Error Message Appending EXCEPT for item 5 7
   // and EXCEPT for item 10 11 If status = "CLOSED"
@@ -219,7 +194,10 @@ function alertValidation(formData) {
         continue;
       case "Closed By":
       case "Completion Date":
-        if (formData["Status"] == "Closed" && (formData[key] == "" || formData[key] == null)) {
+        if (
+          formData["Status"] == "Closed" &&
+          (formData[key] == "" || formData[key] == null)
+        ) {
           if (alertMsg.includes(closedAlert) == false) {
             alertMsg += closedAlert;
             break;
@@ -298,10 +276,15 @@ function populateForm(selectedRow) {
     }
   });
 
+  var formInputs = getFormInputsObject();
+
+  for (var key in formInputs) {
+    $(formInputs[key]).prop("disabled", true);
+  }
   // Make SAP Choice, Request By and Request date Readonly to users
-  $("#sapChoice").prop("disabled", true);
-  $("#requestbyBox").prop("disabled", true);
-  $("#requestdateBox").prop("readonly", true);
+  // $("#sapChoice").prop("disabled", true);
+  // $("#requestbyBox").prop("disabled", true);
+  // $("#requestdateBox").prop("readonly", true);
 }
 
 function getTableHead() {
@@ -346,7 +329,8 @@ function randomizer(id, min, max) {
     var alpha = ["Aqil", "Amirul", "Zamri", "Kamarulzaman", "Malina"];
     $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
   } else {
-    var alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&()_+-=[]{}|;':\",./<>?/-+`~";
+    var alpha =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&()_+-=[]{}|;':\",./<>?/-+`~";
     var alphaSplit = Array.from(alpha);
     var randomLength = Math.floor(Math.random() * (max - min)) + min;
     for (i = 0; i < randomLength; i++) {

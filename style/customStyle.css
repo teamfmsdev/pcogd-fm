@@ -16,7 +16,8 @@ body {
     rgb(18, 94, 30),
     rgb(15, 114, 30)
   ); */
-
+  background-image: url("../image/mainBg2.jpg");
+  background-repeat: no-repeat;
   background-color: rgb(36, 34, 34);
 }
 
@@ -130,6 +131,7 @@ th:nth-child(12) {
 
 /* Form Styling */
 form {
+  /* background-color: rgb(23, 119, 113); */
   background-color: white;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
@@ -140,9 +142,9 @@ select {
 
 /* Button Styles */
 .btn {
-  -moz-box-shadow: 0px 0px 4px 2px #60696e;
-  -webkit-box-shadow: 0px 0px 4px 2px #60696e;
-  box-shadow: 0px 0px 4px 2px #60696e;
+  -moz-box-shadow: 0px 0px 10px 0px #3080ab;
+  -webkit-box-shadow: 0px 0px 10px 0px #3080ab;
+  box-shadow: 0px 0px 10px 0px #3080ab;
   background-color: #3080ab;
   -moz-border-radius: 25px;
   -webkit-border-radius: 25px;
@@ -154,6 +156,9 @@ select {
   font-size: 15px;
   padding: 5px 20px;
   text-decoration: none;
+  min-width: 15%;
+  max-width: 18%;
+  font-weight: bold;
 }
 .btn:hover {
   background-color: #1ab0d6;
@@ -169,7 +174,7 @@ select {
   position: relative;
   display: inline-block;
   width: 60px;
-  height: 34px;
+  height: 25px;
 }
 
 /* Hide default HTML checkbox */
@@ -187,7 +192,7 @@ select {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #2196f3;
+  background-color: rgb(58, 84, 65);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -195,17 +200,18 @@ select {
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
+  height: 25px;
   width: 26px;
-  left: 4px;
-  bottom: 4px;
+  left: -1px;
+  bottom: 0px;
   background-color: white;
+  border: 0.5px solid rgb(58, 84, 65);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: rgb(58, 84, 65);
 }
 
 input:focus + .slider {
@@ -213,9 +219,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  -webkit-transform: translateX(35px);
+  -ms-transform: translateX(35px);
+  transform: translateX(35px);
 }
 
 /* Rounded sliders */
