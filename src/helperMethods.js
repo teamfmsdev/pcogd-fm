@@ -31,11 +31,7 @@ function passOver(elem) {
   var currentSelected = $(".select");
 
   // If there exist already selected element
-  if (
-    editArg == 1 &&
-    $("#deleteButton").css("display") != "block" &&
-    $("#saveButton").css("display") != "block"
-  ) {
+  if (editArg == 1 && $("#deleteButton").css("display") != "block" && $("#saveButton").css("display") != "block") {
     // If there is a called to "edit" event already
     if (currentSelected.length == 1) {
       // If we clicked the same row, Remove select class from the current selected row
@@ -59,8 +55,7 @@ function passOver(elem) {
 function alertValidation(formData) {
   var alertMsg = "";
   var defAlert = "Please fill up field with asterisk \n";
-  var closedAlert =
-    "Closed by and completion date field cannot be empty for closed record \n";
+  var closedAlert = "Closed by and completion date field cannot be empty for closed record \n";
 
   // Error Message Appending EXCEPT for item 5 7
   // and EXCEPT for item 10 11 If status = "CLOSED"
@@ -72,10 +67,7 @@ function alertValidation(formData) {
         continue;
       case "Closed By":
       case "Completion Date":
-        if (
-          formData["Status"] == "Closed" &&
-          (formData[key] == "" || formData[key] == null)
-        ) {
+        if (formData["Status"] == "Closed" && (formData[key] == "" || formData[key] == null)) {
           if (alertMsg.includes(closedAlert) == false) {
             alertMsg += closedAlert;
             break;
@@ -242,6 +234,10 @@ function specificRetrieve(formData) {
   });
 }
 
+function dateFormat(dateObj) {
+  return fecha.format(dateObj, "D-MM-YYYY");
+}
+
 function randomizer(id, min, max) {
   var val = "";
   var selectedId = id;
@@ -270,8 +266,7 @@ function randomizer(id, min, max) {
     var alpha = ["Aqil", "Amirul", "Zamri", "Kamarulzaman", "Malina"];
     $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
   } else {
-    var alpha =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&()_+-=[]{}|;':\",./<>?/-+`~";
+    var alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&()_+-=[]{}|;':\",./<>?/-+`~";
     var alphaSplit = Array.from(alpha);
     var randomLength = Math.floor(Math.random() * (max - min)) + min;
     for (i = 0; i < randomLength; i++) {

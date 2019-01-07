@@ -110,6 +110,13 @@ function Save(formdata) {
           passOver(this);
         });
       for (var key in serverData) {
+        if (key == "Request Date" && serverData[key] != "" && serverData[key] != null) {
+          var unformattedDate = new Date(serverData[key]);
+          serverData[key] = dateFormat(unformattedDate);
+        } else if (key == "Completion Date" && serverData[key] != "" && serverData[key] != null) {
+          var unformattedDate = new Date(serverData[key]);
+          serverData[key] = dateFormat(unformattedDate);
+        }
         newTableRow.append("<td>" + serverData[key]);
       }
       globalTable.row.add(newTableRow).draw(false);
@@ -148,6 +155,14 @@ function retrieve() {
 
         // Set row data for all except description
         for (var key in data[row]) {
+          //Date formatting
+          if (key == "Request Date" && data[row][key] != "" && data[row][key] != null) {
+            var unformattedDate = new Date(data[row][key]);
+            data[row][key] = dateFormat(unformattedDate);
+          } else if (key == "Completion Date" && data[row][key] != "" && data[row][key] != null) {
+            var unformattedDate = new Date(data[row][key]);
+            data[row][key] = dateFormat(unformattedDate);
+          }
           if (key != "Description") {
             tRow[row].append("<td>" + data[row][key]);
           } else {
@@ -187,6 +202,15 @@ function Update(formData) {
       delete data["Description"];
       delete data["dataID"];
       delete data["SAP Choice"];
+      for (var key in data) {
+        if (key == "Request Date" && data[key] != "" && data[key] != null) {
+          var unformattedDate = new Date(data[key]);
+          data[key] = dateFormat(unformattedDate);
+        } else if (key == "Completion Date" && data[key] != "" && data[key] != null) {
+          var unformattedDate = new Date(data[key]);
+          data[key] = dateFormat(unformattedDate);
+        }
+      }
       var clientRowUpdate = Object.values(data);
       clientRowUpdate.unshift($(".select").attr("id"));
       globalTable
