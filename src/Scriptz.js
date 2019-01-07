@@ -104,7 +104,15 @@ function Save(formdata) {
       serverData = JSON.parse(serverData);
       $("#alertMsg").text(serverData["serverMessage"]);
       delete serverData.serverMessage;
-      globalTable.row.add(Object.values(serverData)).draw(false);
+      var newTableRow = $("<tr>")
+        .attr("id", serverData["row"])
+        .click(function() {
+          passOver(this);
+        });
+      for (var key in serverData) {
+        newTableRow.append("<td>" + serverData[key]);
+      }
+      globalTable.row.add(newTableRow).draw(false);
       Reset();
     },
     error: function(jqXHR, textStatus, errorThrown) {
