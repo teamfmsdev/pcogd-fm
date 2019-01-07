@@ -51,7 +51,7 @@ function Reset() {
   }
   $("#sapChoice").prop("selectedIndex", 0);
   $("input[type=search]").val("");
-  // globalTable.table.draw("false");
+  globalTable.search($("input[type=search]").val()).draw(false);
 }
 
 function Validation() {
