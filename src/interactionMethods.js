@@ -5,6 +5,7 @@ function changeAction() {
 
   // openDevArea();
 
+<<<<<<< HEAD
   // Check if checkbox(New or Update Toggle) is ticked , and will show only required buttons for each state.
 
   // If checkbox is UPDATE
@@ -77,6 +78,39 @@ function changeAction() {
           width: "194px"
         });
         $("#sapBox").attr("disabled", false);
+=======
+  /* Check if checkbox(New or Update Toggle) is ticked ,
+  and will show only required buttons for each state. */
+
+  switch (checkBox.prop("checked")) {
+    // If Mode is "Update"
+    case true:
+      // Global var
+      editArg = 1;
+      $("#statusBox").off("change");
+      uiControlUpdateMode();
+      Reset();
+      // Enable sapChoice onChange for sapBox enable/disable
+      $("#sapChoice").change(function() {
+        sapChoiceChange();
+      });
+      sapChoiceChange();
+      // Disable statusBox onchange for displaying Line 7
+
+      break;
+    // If Mode is "New"
+    case false:
+      // Global var
+      editArg = 0;
+      uiControlNewMode();
+      Reset();
+      setDefaultDate();
+      // Disable sapChoice onChange for sapBox enable/disable
+      $("#sapChoice").off();
+      // Set statusBox onchange for displaying Line 7
+      $("#statusBox").on("change", function() {
+        statusBoxChange();
+>>>>>>> localDev
       });
     }
 
@@ -223,10 +257,12 @@ function sapChoiceChange() {
 function statusBoxChange() {
   // Show Line 7 if "Closed" is selected
   if ($("#statusBox").prop("selectedIndex") == 4) {
+    // console.log(statusBoxChange.caller());
     $(".closedByLine")
       .css({ visibility: "visible" })
       .animate({ opacity: 1.0 }, "slow");
   } else {
+    // console.log(statusBoxChange.caller());
     // Hide and empty line 7 input box
     $(".closedByLine").animate({ opacity: 0 }, "slow", function() {
       $(".closedByLine").css({ visibility: "hidden" });
@@ -277,20 +313,122 @@ function uiControlReset() {
   if ($("#requestdateBox").prop("readonly") == true) {
     $("#requestdateBox").prop("readonly", false);
   }
+
+  if ($("#outputTable_filter").hasClass("invisible") == true) {
+    $("#outputTable_filter").removeClass("invisible");
+  }
+  if ($("#outputTable_paginate").hasClass("invisible") == true) {
+    $("#outputTable_paginate").removeClass("invisible");
+  }
 }
 
 function uiControlDelete() {
-  if (
-    $("#deleteButton").css("display") == "block" &&
-    $("#saveButton").css("display") == "block" &&
-    $("#editButton").css("display") == "none"
-  ) {
+  if ($("#deleteButton").css("display") == "block" && $("#saveButton").css("display") == "block" && $("#editButton").css("display") == "none") {
     $("#deleteButton").hide("slow");
     $("#saveButton").hide("slow");
     $("#editButton").show("slow");
   }
 }
 
+<<<<<<< HEAD
+=======
+function uiControlNewMode() {
+  $("#checkBox").prop("disabled", true);
+  // Hide edit, search and delete button
+  if ($("#editButton").css("display") == "block") {
+    $("#editButton").hide("slow");
+  }
+  if ($("#searchButton").css("display") == "block") {
+    $("#searchButton").hide("slow");
+  }
+  if ($("#deleteButton").css("display") == "block") {
+    $("#deleteButton").hide("slow");
+  }
+  // Show save button
+  if ($("#saveButton").css("display") == "none") {
+    $("#saveButton").show("slow");
+  }
+
+  if ($("#resetButton").val() == "CANCEL") {
+    $("#resetButton").val("RESET");
+  }
+
+  // Hide SAP choices box
+  if ($("#sapChoice").css("display") == "block") {
+    $("#sapChoice").prop("disabled", true);
+    $("#sapChoice").hide("slow", function() {
+      $(".sapChoice").removeClass("col-1");
+      $(".sapChoice").addClass("col");
+      $("#sapBox").removeClass("col-3");
+      $("#sapBox").addClass("col-4");
+      $("#sapBox").attr("disabled", false);
+    });
+  }
+  // Hide Line 7
+  $(".closedByLine").animate({ opacity: 0 }, "slow", function() {
+    $(".closedByLine").css({ visibility: "hidden" });
+  });
+  // Enabled request by box
+  $("#requestbyBox").prop("disabled", false);
+  // $("#requestbyBox").css({"backgroundColor":"rgb(100, 98, 98)"});
+
+  // Enabled request date box
+  $("#requestdateBox").prop("readonly", false);
+  // $("#requestdateBox").css({"backgroundColor":"rgb(100, 98, 98)"});
+  $("#checkBox").prop("disabled", false);
+}
+
+function uiControlUpdateMode() {
+  $("#checkBox").prop("disabled", true);
+  // Show edit and search button
+  if ($("#editButton").css("display") == "none") {
+    $("#editButton").show("slow");
+  }
+  if ($("#searchButton").css("display") == "none") {
+    $("#searchButton").show("slow");
+  }
+  // Hide save button
+  if ($("#saveButton").css("display") == "block") {
+    $("#saveButton").hide("slow");
+  }
+  // Show SAP Choices box
+  if ($("#sapChoice").css("display") == "none") {
+    $("#sapBox").removeClass("col-4");
+    $("#sapBox").addClass("col-3");
+
+    $("#sapChoice").show("slow", function() {
+      $(".sapChoice").removeClass("col");
+      $(".sapChoice").addClass("col-1");
+    });
+  }
+  // Show Line 7 (Closed by Line)
+  $(".closedByLine")
+    .css({ visibility: "visible" })
+    .animate({ opacity: 1.0 }, "slow");
+  $("#checkBox").prop("disabled", false);
+}
+
+function uiControlEditClicked() {
+  if ($("#deleteButton").css("display") == "none") {
+    $("#deleteButton").show("slow");
+  }
+  if ($("#saveButton").css("display") == "none") {
+    $("#saveButton").show("slow");
+  }
+  if ($("#editButton").css("display") == "block") {
+    $("#editButton").hide("slow");
+  }
+  if ($("#outputTable_filter").hasClass("invisible") == false) {
+    $("#outputTable_filter").addClass("invisible");
+  }
+  if ($("#outputTable_paginate").hasClass("invisible") == false) {
+    $("#outputTable_paginate").addClass("invisible");
+  }
+
+  $("#resetButton").val("CANCEL");
+}
+
+>>>>>>> localDev
 // Depreciated hide/show toggle
 function animateToggle() {
   // If it is UPDATE

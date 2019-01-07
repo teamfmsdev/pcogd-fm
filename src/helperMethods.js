@@ -21,65 +21,226 @@ function setDefaultDate() {
 
 // Trim user input of white spaces
 function myTrim(subj) {
-  return subj.replace(/^\s+|\s+$/gm, "");
+  // return subj.replace(/^\s+|\s+$/gm, "");
+  return subj.trim();
 }
 
 //Pass clicked element to required function
 function passOver(elem) {
   // Check for existing selected element
-  var currentSelected = $("#outputTable").find(".select");
+  var currentSelected = $(".select");
 
   // If there exist already selected element
-  if (currentSelected.length == 1) {
+  if (editArg == 1 && $("#deleteButton").css("display") != "block" && $("#saveButton").css("display") != "block") {
     // If there is a called to "edit" event already
-    if (
-      editArg == 1 &&
-      $("#deleteButton").css("display") == "block" &&
-      $("#saveButton").css("display") == "block"
-    ) {
-      // If we click other element during "EDIT"-ing
-      if (currentSelected[0].id != elem.id) {
-        // Assign elem as the currently existing clicked element
-        elem = currentSelected[0];
+    if (currentSelected.length == 1) {
+      // If we clicked the same row, Remove select class from the current selected row
+      if (currentSelected.attr("id") == elem.id) {
+        Reset();
+        currentSelected.removeClass("select");
+        // Re-assign currently selected row as "elem"
+      } else if (currentSelected.attr("id") != elem.id) {
+        currentSelected.removeClass("select");
+        $(elem).addClass("select");
+        populateForm(elem);
       }
-      // currentSelected[0].removeAttribute("class");
-      // elem = $("#" + elem.id)[0];
+      // If we clicked the same row(row with selected class), reset the form
     } else {
-      currentSelected[0].removeAttribute("class");
+      $(elem).addClass("select");
+      populateForm(elem);
+    }
+  }
+}
+
+function alertValidation(formData) {
+  var alertMsg = "";
+  var defAlert = "Please fill up field with asterisk \n";
+  var closedAlert = "Closed by and completion date field cannot be empty for closed record \n";
+
+  // Error Message Appending EXCEPT for item 5 7
+  // and EXCEPT for item 10 11 If status = "CLOSED"
+  for (var key in formData) {
+    switch (key) {
+      case "Company":
+      case "SAP#":
+      case "SAP Choice":
+        continue;
+      case "Closed By":
+      case "Completion Date":
+        if (formData["Status"] == "Closed" && (formData[key] == "" || formData[key] == null)) {
+          if (alertMsg.includes(closedAlert) == false) {
+            alertMsg += closedAlert;
+            break;
+          }
+        } else {
+          break;
+        }
+      default:
+        if (formData[key] == "" || formData[key] == null) {
+          if (alertMsg.includes(defAlert) == false) {
+            alertMsg += defAlert;
+          }
+        }
     }
   }
 
-  // Set the new clicked element class to "select"
-  elem.className = "select";
+  // Comparing date
+  if (formData["Status"] == "Closed") {
+    var dateComparing = new Array();
 
-  elemRow = elem;
-  editButton.onclick = function() {
-    currentSelected = $("#outputTable").find(".select");
-    if (currentSelected.length != 0) {
-      // Show delete and save button while hiding the edit button
-      if ($("#deleteButton").css("display") == "none") {
-        $("#deleteButton").show("slow");
-      }
-      if ($("#saveButton").css("display") == "none") {
-        $("#saveButton").show("slow");
-      }
-      if ($("#editButton").css("display") == "block") {
-        $("#editButton").hide("slow");
-      }
+    dateComparing.push(Date.parse(formData["Request Date"]));
+    dateComparing.push(Date.parse(formData["Completion Date"]));
 
-      $("#resetButton").val("CANCEL");
-      populateForm(elem);
-    } else {
-      alert("Please click a record to edit");
+    if (dateComparing[1] < dateComparing[0] || dateComparing[1] == NaN) {
+      alertMsg += "Error: Completion date is earlier than request date";
     }
-  };
-  deleteButton.onclick = function() {
-    deleteRecord(elem);
-  };
-  // console.log(elem);
-  // editButton.addEventListener("Click",function(){edit(elem)});
+  }
+
+  return alertMsg;
 }
 
+<<<<<<< HEAD
+=======
+function getFormInputs() {
+  var formData = {
+    "Work Title": $("#wTitleBox").val(),
+    "Type 1": $("#type1Box").val(),
+    "Type 2": $("#type2Box").val(),
+    Description: $("#descriptionBox").val(),
+    Location: $("#locationBox").val(),
+    Status: $("#statusBox").val(),
+    Company: $("#companyBox").val(),
+    "SAP Choice": $("#sapChoice").val(),
+    "SAP#": $("#sapBox").val(),
+    "Request By": $("#requestbyBox").val(),
+    "Request Date": $("#requestdateBox").val(),
+    "Closed By": $("#closedbyBox").val(),
+    "Completion Date": $("#completiondateBox").val()
+  };
+
+  return formData;
+}
+
+function getFormInputsObject() {
+  var formData = {
+    "Work Title": $("#wTitleBox"),
+    "Type 1": $("#type1Box"),
+    "Type 2": $("#type2Box"),
+    Description: $("#descriptionBox"),
+    Location: $("#locationBox"),
+    Status: $("#statusBox"),
+    Company: $("#companyBox"),
+    "SAP#": $("#sapBox"),
+    "SAP Choice": $("#sapChoice"),
+    "Request By": $("#requestbyBox"),
+    "Request Date": $("#requestdateBox"),
+    "Closed By": $("#closedbyBox"),
+    "Completion Date": $("#completiondateBox")
+  };
+
+  return formData;
+}
+
+// Populate input form
+function populateForm(selectedRow) {
+  var data = { dataId: selectedRow.id };
+
+  $.ajax({
+    type: "GET",
+    url: "src/server/selectedRetrieve.php",
+    data: data,
+    success: function(data) {
+      // Get form html input element
+      var formInputs = getFormInputsObject();
+      // Empty form inputs
+      for (var key in formInputs) {
+        formInputs[key].val("");
+      }
+      // Parse JSON from data into object
+      data = JSON.parse(data);
+      for (var key in formInputs) {
+        switch (key) {
+          case "Type 1":
+          case "Type 2":
+          case "Status":
+          case "Request By":
+          case "Closed By":
+            // Make option element with value=data as selected
+            $(formInputs[key])
+              .find($("option[value='" + data[key] + "']"))
+              .prop("selected", true);
+            break;
+          case "SAP Choice":
+            // Set SAP Choice select element to "Yes"/"No" according to SAP#
+            if (data["SAP#"] == "-" || data["SAP#"] == "") {
+              $(formInputs["SAP Choice"])
+                .find($("option[value='No']"))
+                .prop("selected", true);
+              break;
+            } else {
+              $(formInputs["SAP Choice"])
+                .find($("option[value='Yes']"))
+                .prop("selected", true);
+              break;
+            }
+          default:
+            var regex = /<br\s*[\/]?>/gi;
+            data[key] = data[key].replace(regex, "");
+            formInputs[key].val(data[key]);
+        }
+      }
+    }
+  });
+
+  var formInputs = getFormInputsObject();
+
+  for (var key in formInputs) {
+    $(formInputs[key]).prop("disabled", true);
+  }
+  // Make SAP Choice, Request By and Request date Readonly to users
+  // $("#sapChoice").prop("disabled", true);
+  // $("#requestbyBox").prop("disabled", true);
+  // $("#requestdateBox").prop("readonly", true);
+}
+
+function editClicked() {
+  formInputs = getFormInputsObject();
+
+  var currentSelected = $(".select");
+
+  switch (currentSelected.length) {
+    case 0:
+      alert("Please click a record to edit");
+      break;
+    default:
+      for (var i in formInputs) {
+        if (i == "SAP#" || i == "Request By" || i == "Request Date") {
+          continue;
+        } else {
+          formInputs[i].prop("disabled", false);
+        }
+      }
+      uiControlEditClicked();
+  }
+}
+
+function specificRetrieve(formData) {
+  $.ajax({
+    type: "GET",
+    url: "src/server/specificRetrive.php",
+    data: formData,
+    success: function(data) {
+      data = JSON.parse;
+      return data;
+    }
+  });
+}
+
+function dateFormat(dateObj) {
+  return fecha.format(dateObj, "D-MM-YYYY");
+}
+
+>>>>>>> localDev
 function randomizer(id, min, max) {
   var val = "";
   var selectedId = id;
@@ -108,7 +269,11 @@ function randomizer(id, min, max) {
     var alpha = ["Aqil", "Amirul", "Zamri", "Kamarulzaman", "Malina"];
     $(id).val(alpha[Math.floor(Math.random() * alpha.length)]);
   } else {
+<<<<<<< HEAD
     var alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+=======
+    var alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&()_+-=[]{}|;':\",./<>?/-+`~";
+>>>>>>> localDev
     var alphaSplit = Array.from(alpha);
     var randomLength = Math.floor(Math.random() * (max - min)) + min;
     for (i = 0; i < randomLength; i++) {

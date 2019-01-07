@@ -1,12 +1,21 @@
 $(document).ready(function() {
-  Reset();
+  // Reset();
   setDefaultDate();
 
-  // Set Line 7 to be h idden
-  $(".closedByLine").css({
-    visibility: "hidden"
+  $("#checkBox").change(function() {
+    changeAction();
+  });
+  $("#searchButton").click(function() {
+    retrieve();
+  });
+  $("#saveButton").click(function() {
+    Validation();
+  });
+  $("#resetButton").click(function() {
+    Reset();
   });
 
+<<<<<<< HEAD
   // changeAction();
 
   if ($("#editButton").css("display") == "block") {
@@ -32,6 +41,32 @@ $(document).ready(function() {
   $("#sapChoice").change(function() {
     sapChoiceChange();
   });
+=======
+  editButton = $("#editButton");
+  deleteButton = $("#deleteButton");
+>>>>>>> localDev
 
-  // document.getElementById("requestdateBox").value = new Date().toDateInputValue();
+  editButton.click(function() {
+    editClicked();
+  });
+
+  deleteButton.click(function() {
+    deleteRecord($(".select"));
+  });
+
+  globalTable = $("table")
+    .DataTable({
+      // searching: false
+    })
+    .draw();
+
+  globalTable.on("preDraw.dt", function() {
+    $(".select").removeClass("select");
+  });
+
+  // globalTable.on("page.dt", function() {
+  //   Reset();
+  // });
+
+  changeAction();
 });
