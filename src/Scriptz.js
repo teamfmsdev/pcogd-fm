@@ -97,9 +97,12 @@ function Save(formdata) {
     url: "src/server/save.php",
     data: data,
 
-    success: function(data) {
+    success: function(serverdata) {
       // Display success message
-      $("#alertMsg").text(data);
+      $("#alertMsg").text(serverdata);
+      var tableUpdate = specificRetrieve(data);
+      delete tableUpdate["Description"];
+      globalTable.row.add(Object.values(tableUpdate)).draw(false);
       Reset();
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -113,8 +116,7 @@ function Save(formdata) {
 
 //Retrieve *all record from SQL DB
 function retrieve() {
-  formData = getFormInputs();
-
+  var formData = getFormInputs();
   $.ajax({
     type: "GET",
     url: "src/server/retrieve.php",
@@ -170,9 +172,18 @@ function Update(formData) {
     url: "src/server/update.php",
     data: data,
 
-    success: function(data) {
+    success: function(serverData) {
       // Display success message
-      $("#alertMsg").text(data);
+      delete data["Description"];
+      delete data["dataID"];
+      delete data["SAP Choice"];
+      var clientRowUpdate = Object.values(data);
+      clientRowUpdate.unshift($(".select").attr("id"));
+      globalTable
+        .row($(".select"))
+        .data(clientRowUpdate)
+        .draw(false);
+      $("#alertMsg").text(serverData);
       Reset();
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -185,10 +196,13 @@ function Update(formData) {
 }
 
 //Delete specified record by passOver()
-function deleteRecord(selectedRow) {
+function deleteRecord() {
   if (confirm("Do you want to delete this record?")) {
-    $(selectedRow).remove();
-    var dataID = { dataId: $(selectedRow).attr("id") };
+    var dataID = { dataId: $(".select").attr("id") };
+    globalTable
+      .row($(".select"))
+      .remove()
+      .draw(false);
 
     $.ajax({
       type: "GET",
