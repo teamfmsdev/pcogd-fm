@@ -177,7 +177,13 @@ function uiControlNewMode() {
   // Show save button
   if ($("#saveButton").css("display") == "none") {
     $("#saveButton").show("slow");
-  } // Hide SAP choices box
+  }
+
+  if ($("#resetButton").val() == "CANCEL") {
+    $("#resetButton").val("RESET");
+  }
+
+  // Hide SAP choices box
   if ($("#sapChoice").css("display") == "block") {
     $("#sapChoice").prop("disabled", true);
     $("#sapChoice").hide("slow", function() {
@@ -230,6 +236,20 @@ function uiControlUpdateMode() {
     .css({ visibility: "visible" })
     .animate({ opacity: 1.0 }, "slow");
   $("#checkBox").prop("disabled", false);
+}
+
+function uiControlEditClicked() {
+  if ($("#deleteButton").css("display") == "none") {
+    $("#deleteButton").show("slow");
+  }
+  if ($("#saveButton").css("display") == "none") {
+    $("#saveButton").show("slow");
+  }
+  if ($("#editButton").css("display") == "block") {
+    $("#editButton").hide("slow");
+  }
+
+  $("#resetButton").val("CANCEL");
 }
 
 // Depreciated hide/show toggle

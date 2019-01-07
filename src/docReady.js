@@ -18,7 +18,14 @@ $(document).ready(function() {
   editButton = $("#editButton");
   deleteButton = $("#deleteButton");
 
+  // editButton.click(function(){
+  //   passOver()
+  // });
   changeAction();
+
+  editButton.click(function() {
+    editClicked();
+  });
 
   globalTable = $("table")
     .DataTable()

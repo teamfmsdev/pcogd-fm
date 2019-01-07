@@ -31,7 +31,11 @@ function passOver(elem) {
   var currentSelected = $(".select");
 
   // If there exist already selected element
-  if (editArg == 1) {
+  if (
+    editArg == 1 &&
+    $("#deleteButton").css("display") != "block" &&
+    $("#saveButton").css("display") != "block"
+  ) {
     // If there is a called to "edit" event already
     if (currentSelected.length == 1) {
       // If we clicked the same row, Remove select class from the current selected row
@@ -51,37 +55,9 @@ function passOver(elem) {
     }
   }
 
-  globalTable.on("preDraw", function() {
-    currentSelected.removeClass("select");
-  });
-
   // Set the new clicked element class to "select"
-  elemRow = elem;
+  // elemRow = elem;
 
-  editButton.onclick = function() {
-    formInputs = getFormInputsObject();
-
-    for (var i in formInputs) {
-      formInputs[i].prop("disabled", false);
-    }
-
-    if (currentSelected.length != 0) {
-      // Show delete and save button while hiding the edit button
-      if ($("#deleteButton").css("display") == "none") {
-        $("#deleteButton").show("slow");
-      }
-      if ($("#saveButton").css("display") == "none") {
-        $("#saveButton").show("slow");
-      }
-      if ($("#editButton").css("display") == "block") {
-        $("#editButton").hide("slow");
-      }
-
-      $("#resetButton").val("CANCEL");
-    } else {
-      alert("Please click a record to edit");
-    }
-  };
   deleteButton.onclick = function() {
     deleteRecord(elem);
   };
@@ -287,6 +263,27 @@ function populateForm(selectedRow) {
   // $("#sapChoice").prop("disabled", true);
   // $("#requestbyBox").prop("disabled", true);
   // $("#requestdateBox").prop("readonly", true);
+}
+
+function editClicked() {
+  formInputs = getFormInputsObject();
+
+  var currentSelected = $(".select");
+
+  switch (currentSelected.length) {
+    case 0:
+      alert("Please click a record to edit");
+      break;
+    default:
+      for (var i in formInputs) {
+        if (i == "SAP#" || i == "Request By" || i == "Request Date") {
+          continue;
+        } else {
+          formInputs[i].prop("disabled", false);
+        }
+      }
+      uiControlEditClicked();
+  }
 }
 
 function getTableHead() {

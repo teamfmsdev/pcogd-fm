@@ -163,7 +163,7 @@ function Update(formData) {
     data[key] = formData[key];
   }
   //Global clicked row element
-  data["dataID"] = elemRow.id;
+  data["dataID"] = $(".select").attr("id");
 
   $.ajax({
     type: "GET",

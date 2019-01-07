@@ -155,10 +155,10 @@ select {
 
 /* Button Styles */
 .btn {
-  -moz-box-shadow: 0px 0px 10px 0px #3080ab;
-  -webkit-box-shadow: 0px 0px 10px 0px #3080ab;
-  box-shadow: 0px 0px 10px 0px #3080ab;
-  background-color: #3080ab;
+  -moz-box-shadow: 0px 0px 10px 0px rgb(0, 177, 169);
+  -webkit-box-shadow: 0px 0px 10px 0px rgb(0, 177, 169);
+  box-shadow: 0px 0px 10px 0px rgb(0, 177, 169);
+  background-color: rgb(0, 177, 169);
   -moz-border-radius: 25px;
   -webkit-border-radius: 25px;
   border-radius: 25px;
