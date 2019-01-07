@@ -50,8 +50,8 @@ function Reset() {
     }
   }
   $("#sapChoice").prop("selectedIndex", 0);
-  $("input[type=search]").val("");
-  globalTable.search($("input[type=search]").val()).draw(false);
+  // $("input[type=search]").val("");
+  // globalTable.search($("input[type=search]").val()).draw(false);
 }
 
 function Validation() {

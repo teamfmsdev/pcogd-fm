@@ -148,14 +148,17 @@ function uiControlReset() {
   if ($("#requestdateBox").prop("readonly") == true) {
     $("#requestdateBox").prop("readonly", false);
   }
+
+  if ($("#outputTable_filter").hasClass("invisible") == true) {
+    $("#outputTable_filter").removeClass("invisible");
+  }
+  if ($("#outputTable_paginate").hasClass("invisible") == true) {
+    $("#outputTable_paginate").removeClass("invisible");
+  }
 }
 
 function uiControlDelete() {
-  if (
-    $("#deleteButton").css("display") == "block" &&
-    $("#saveButton").css("display") == "block" &&
-    $("#editButton").css("display") == "none"
-  ) {
+  if ($("#deleteButton").css("display") == "block" && $("#saveButton").css("display") == "block" && $("#editButton").css("display") == "none") {
     $("#deleteButton").hide("slow");
     $("#saveButton").hide("slow");
     $("#editButton").show("slow");
@@ -247,6 +250,12 @@ function uiControlEditClicked() {
   }
   if ($("#editButton").css("display") == "block") {
     $("#editButton").hide("slow");
+  }
+  if ($("#outputTable_filter").hasClass("invisible") == false) {
+    $("#outputTable_filter").addClass("invisible");
+  }
+  if ($("#outputTable_paginate").hasClass("invisible") == false) {
+    $("#outputTable_paginate").addClass("invisible");
   }
 
   $("#resetButton").val("CANCEL");
