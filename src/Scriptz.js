@@ -50,6 +50,8 @@ function Reset() {
     }
   }
   $("#sapChoice").prop("selectedIndex", 0);
+  $("input[type=search]").val("");
+  // globalTable.table.draw("false");
 }
 
 function Validation() {
@@ -97,12 +99,12 @@ function Save(formdata) {
     url: "src/server/save.php",
     data: data,
 
-    success: function(serverdata) {
+    success: function(serverData) {
       // Display success message
-      $("#alertMsg").text(serverdata);
-      var tableUpdate = specificRetrieve(data);
-      delete tableUpdate["Description"];
-      globalTable.row.add(Object.values(tableUpdate)).draw(false);
+      serverData = JSON.parse(serverData);
+      $("#alertMsg").text(serverData["serverMessage"]);
+      delete serverData.serverMessage;
+      globalTable.row.add(Object.values(serverData)).draw(false);
       Reset();
     },
     error: function(jqXHR, textStatus, errorThrown) {

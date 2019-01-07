@@ -32,7 +32,9 @@ $(document).ready(function() {
   });
 
   globalTable = $("table")
-    .DataTable()
+    .DataTable({
+      searching: false
+    })
     .draw();
 
   globalTable.on("page.dt", function() {
