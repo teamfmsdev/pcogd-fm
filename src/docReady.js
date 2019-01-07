@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  Reset();
+  // Reset();
   setDefaultDate();
 
   $("#checkBox").change(function() {
@@ -18,11 +18,6 @@ $(document).ready(function() {
   editButton = $("#editButton");
   deleteButton = $("#deleteButton");
 
-  // editButton.click(function(){
-  //   passOver()
-  // });
-  changeAction();
-
   editButton.click(function() {
     editClicked();
   });
@@ -33,15 +28,17 @@ $(document).ready(function() {
 
   globalTable = $("table")
     .DataTable({
-      searching: false
+      // searching: false
     })
     .draw();
 
-  globalTable.on("page.dt", function() {
-    console.log("pageChange");
+  globalTable.on("preDraw.dt", function() {
     $(".select").removeClass("select");
-    Reset();
   });
 
-  // document.getElementById("requestdateBox").value = new Date().toDateInputValue();
+  // globalTable.on("page.dt", function() {
+  //   Reset();
+  // });
+
+  changeAction();
 });
