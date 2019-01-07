@@ -41,19 +41,21 @@ function passOver(elem) {
         // Re-assign currently selected row as "elem"
       } else if (currentSelected.attr("id") != elem.id) {
         currentSelected.removeClass("select");
-        elem.className = "select";
+        $(elem).addClass("select");
         populateForm(elem);
       }
       // If we clicked the same row(row with selected class), reset the form
     } else {
-      elem.className = "select";
+      $(elem).addClass("select");
       populateForm(elem);
     }
   }
 
-  // Set the new clicked element class to "select"
+  globalTable.on("preDraw", function() {
+    currentSelected.removeClass("select");
+  });
 
-  // populateForm(elem);
+  // Set the new clicked element class to "select"
   elemRow = elem;
 
   editButton.onclick = function() {

@@ -120,35 +120,31 @@ function retrieve() {
     url: "src/server/retrieve.php",
     data: formData,
     success: function(data) {
-      // Delete all except first row
-      $("table tr:not(:first)").remove();
+      // Delete all except header
+
+      globalTable.clear();
 
       var data = JSON.parse(data);
-
+      var tRow = [];
       for (var row in data) {
         // Create new row
-        $("<tr>")
-          .appendTo("tbody")
+        tRow[row] = $("<tr>")
           .attr("id", data[row]["row"])
           .click(function() {
             passOver(this);
           });
-        // Set row id
-        // $("tr:last-child").attr("id", data[row]["row"]);
-        // Set row event
-        // $("tr:last-child").click(function() {});
 
         // Set row data for all except description
         for (var key in data[row]) {
           if (key != "Description") {
-            $("#" + data[row]["row"]).append("<td>" + data[row][key]);
+            tRow[row].append("<td>" + data[row][key]);
           } else {
             continue;
           }
-          // data[row][key] = data[row][key].replace(/\r\n?|\n/g, "<br />");
         }
+        // Add the row to table and redraw table
+        globalTable.rows.add(tRow[row]).draw();
       }
-      $("table").DataTable();
     },
     error: function(jqXHR, textStatus, errorThrown) {
       console.log("Failed to retrieve");

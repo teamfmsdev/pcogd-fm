@@ -5,6 +5,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "name": "Launch localhost",
+      "url": "http://localhost/oms/index.html",
+      "webRoot": "${workspaceFolder}"
+      // "skipFiles": ["${workspaceFolder}/src/lib/bootstrap.min.js"]
+    },
+    {
+      "type": "firefox",
+      "request": "attach",
+      "name": "Attach"
+    },
+    {
       "name": "Listen for XDebug",
       "type": "php",
       "request": "launch"
