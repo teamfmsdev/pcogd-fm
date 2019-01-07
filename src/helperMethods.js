@@ -54,15 +54,6 @@ function passOver(elem) {
       populateForm(elem);
     }
   }
-
-  // Set the new clicked element class to "select"
-  // elemRow = elem;
-
-  deleteButton.onclick = function() {
-    deleteRecord(elem);
-  };
-  // console.log(elem);
-  // editButton.addEventListener("Click",function(){edit(elem)});
 }
 
 function alertValidation(formData) {
@@ -75,14 +66,14 @@ function alertValidation(formData) {
   // and EXCEPT for item 10 11 If status = "CLOSED"
   for (var key in formData) {
     switch (key) {
-      case "comp":
-      case "sapB":
-      case "sapC":
+      case "Company":
+      case "SAP#":
+      case "SAP Choice":
         continue;
-      case "clos":
-      case "comple":
+      case "Closed By":
+      case "Completion Date":
         if (
-          formData["stats"] == "Closed" &&
+          formData["Status"] == "Closed" &&
           (formData[key] == "" || formData[key] == null)
         ) {
           if (alertMsg.includes(closedAlert) == false) {
@@ -102,11 +93,11 @@ function alertValidation(formData) {
   }
 
   // Comparing date
-  if (formData["stats"] == "Closed") {
+  if (formData["Status"] == "Closed") {
     var dateComparing = new Array();
 
-    dateComparing.push(Date.parse(formData["reqD"]));
-    dateComparing.push(Date.parse(formData["comple"]));
+    dateComparing.push(Date.parse(formData["Request Date"]));
+    dateComparing.push(Date.parse(formData["Completion Date"]));
 
     if (dateComparing[1] < dateComparing[0] || dateComparing[1] == NaN) {
       alertMsg += "Error: Completion date is earlier than request date";
@@ -156,57 +147,6 @@ function getFormInputsObject() {
   return formData;
 }
 
-function alertValidation(formData) {
-  var alertMsg = "";
-  var defAlert = "Please fill up field with asterisk \n";
-  var closedAlert =
-    "Closed by and completion date field cannot be empty for closed record \n";
-
-  // Error Message Appending EXCEPT for item 5 7
-  // and EXCEPT for item 10 11 If status = "CLOSED"
-  for (var key in formData) {
-    switch (key) {
-      case "Company":
-      case "SAP#":
-      case "SAP Choice":
-        continue;
-      case "Closed By":
-      case "Completion Date":
-        if (
-          formData["Status"] == "Closed" &&
-          (formData[key] == "" || formData[key] == null)
-        ) {
-          if (alertMsg.includes(closedAlert) == false) {
-            alertMsg += closedAlert;
-            break;
-          }
-        } else {
-          break;
-        }
-      default:
-        if (formData[key] == "" || formData[key] == null) {
-          if (alertMsg.includes(defAlert) == false) {
-            alertMsg += defAlert;
-          }
-        }
-    }
-  }
-
-  // Comparing date
-  if (formData["stats"] == "Closed") {
-    var dateComparing = new Array();
-
-    dateComparing.push(Date.parse(formData["reqD"]));
-    dateComparing.push(Date.parse(formData["comple"]));
-
-    if (dateComparing[1] < dateComparing[0] || dateComparing[1] == NaN) {
-      alertMsg += "Error: Completion date is earlier than request date";
-    }
-  }
-
-  return alertMsg;
-}
-
 // Populate input form
 function populateForm(selectedRow) {
   var data = { dataId: selectedRow.id };
@@ -218,6 +158,10 @@ function populateForm(selectedRow) {
     success: function(data) {
       // Get form html input element
       var formInputs = getFormInputsObject();
+      // Empty form inputs
+      for (var key in formInputs) {
+        formInputs[key].val("");
+      }
       // Parse JSON from data into object
       data = JSON.parse(data);
       for (var key in formInputs) {
@@ -286,18 +230,16 @@ function editClicked() {
   }
 }
 
-function getTableHead() {
-  // Select all table heads as object
-  var data = document.querySelectorAll("th");
-  var key = {};
-  // set key as object with data as the key
-
-  for (var i in data) {
-    if (data.hasOwnProperty(i)) {
-      key[i] = data[i].textContent;
+function specificRetrieve(formData) {
+  $.ajax({
+    type: "GET",
+    url: "src/server/specificRetrive.php",
+    data: formData,
+    success: function(data) {
+      data = JSON.parse;
+      return data;
     }
-  }
-  return key;
+  });
 }
 
 function randomizer(id, min, max) {
