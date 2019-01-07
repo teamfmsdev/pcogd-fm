@@ -208,17 +208,17 @@ function Update(formData) {
 //Delete specified record by passOver()
 function deleteRecord() {
   if (confirm("Do you want to delete this record?")) {
-    var dataID = { dataId: $(".select").attr("id") };
-    globalTable
-      .row($(".select"))
-      .remove()
-      .draw(false);
+    var dataId = { dataId: $(".select").attr("id") };
 
     $.ajax({
       type: "GET",
       url: "src/server/delete.php",
-      data: dataID,
+      data: dataId,
       success: function(data) {
+        globalTable
+          .row($("#" + dataId["dataId"]))
+          .remove()
+          .draw(false);
         $("#alertMsg").text(data);
       },
       error: function(jqXHR, textStatus, errorThrown) {
