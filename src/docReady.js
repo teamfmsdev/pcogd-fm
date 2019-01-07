@@ -27,6 +27,10 @@ $(document).ready(function() {
     editClicked();
   });
 
+  deleteButton.click(function() {
+    deleteRecord($(".select"));
+  });
+
   globalTable = $("table")
     .DataTable()
     .draw();
