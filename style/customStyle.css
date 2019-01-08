@@ -53,6 +53,7 @@ body {
 form {
   border-radius: 20px;
   font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 textarea {
@@ -61,9 +62,18 @@ textarea {
 
 /* Alert div */
 .alertDiv {
-  background-color: rgba(58, 84, 65, 0.507);
-  min-height: 50px;
+  /* background-color: rgba(58, 84, 65, 0.507); */
+  min-height: 25px;
   border-radius: 25px;
+  width: 50%;
+  color: black;
+}
+
+.alertMsg {
+  min-height: 25px;
+  width: 25%;
+  font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 /* Table Styling */
@@ -190,6 +200,11 @@ select {
 .btn:active {
   position: relative;
   top: 1px;
+}
+
+.helpButton {
+  /* height: 75%; */
+  /* padding: 0; */
 }
 
 /* Switch Button styles */

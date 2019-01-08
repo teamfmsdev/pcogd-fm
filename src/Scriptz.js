@@ -102,7 +102,8 @@ function Save(formdata) {
     success: function(serverData) {
       // Display success message
       serverData = JSON.parse(serverData);
-      $("#alertMsg").text(serverData["serverMessage"]);
+      serverMessageDisplaying(serverData["serverMessage"]);
+      // $("#alertMsg").text(serverData["serverMessage"]);
       delete serverData.serverMessage;
       var newTableRow = $("<tr>")
         .attr("id", serverData["row"])
@@ -110,10 +111,18 @@ function Save(formdata) {
           passOver(this);
         });
       for (var key in serverData) {
-        if (key == "Request Date" && serverData[key] != "" && serverData[key] != null) {
+        if (
+          key == "Request Date" &&
+          serverData[key] != "" &&
+          serverData[key] != null
+        ) {
           var unformattedDate = new Date(serverData[key]);
           serverData[key] = dateFormat(unformattedDate);
-        } else if (key == "Completion Date" && serverData[key] != "" && serverData[key] != null) {
+        } else if (
+          key == "Completion Date" &&
+          serverData[key] != "" &&
+          serverData[key] != null
+        ) {
           var unformattedDate = new Date(serverData[key]);
           serverData[key] = dateFormat(unformattedDate);
         }
@@ -141,7 +150,7 @@ function retrieve() {
     success: function(data) {
       // Delete all except header
 
-      globalTable.clear();
+      globalTable.clear().draw(false);
 
       var data = JSON.parse(data);
       var tRow = [];
@@ -156,10 +165,18 @@ function retrieve() {
         // Set row data for all except description
         for (var key in data[row]) {
           //Date formatting
-          if (key == "Request Date" && data[row][key] != "" && data[row][key] != null) {
+          if (
+            key == "Request Date" &&
+            data[row][key] != "" &&
+            data[row][key] != null
+          ) {
             var unformattedDate = new Date(data[row][key]);
             data[row][key] = dateFormat(unformattedDate);
-          } else if (key == "Completion Date" && data[row][key] != "" && data[row][key] != null) {
+          } else if (
+            key == "Completion Date" &&
+            data[row][key] != "" &&
+            data[row][key] != null
+          ) {
             var unformattedDate = new Date(data[row][key]);
             data[row][key] = dateFormat(unformattedDate);
           }
@@ -206,7 +223,11 @@ function Update(formData) {
         if (key == "Request Date" && data[key] != "" && data[key] != null) {
           var unformattedDate = new Date(data[key]);
           data[key] = dateFormat(unformattedDate);
-        } else if (key == "Completion Date" && data[key] != "" && data[key] != null) {
+        } else if (
+          key == "Completion Date" &&
+          data[key] != "" &&
+          data[key] != null
+        ) {
           var unformattedDate = new Date(data[key]);
           data[key] = dateFormat(unformattedDate);
         }
@@ -217,7 +238,7 @@ function Update(formData) {
         .row($(".select"))
         .data(clientRowUpdate)
         .draw(false);
-      $("#alertMsg").text(serverData);
+      serverMessageDisplaying(serverData);
       Reset();
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -243,7 +264,7 @@ function deleteRecord() {
           .row($("#" + dataId["dataId"]))
           .remove()
           .draw(false);
-        $("#alertMsg").text(data);
+        serverMessageDisplaying(data);
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.log("Failed to delete");
