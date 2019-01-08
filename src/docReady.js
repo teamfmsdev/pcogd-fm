@@ -64,9 +64,10 @@ $(document).ready(function() {
     $(".select").removeClass("select");
   });
 
-  // globalTable.on("page.dt", function() {
-  //   Reset();
-  // });
+  $('[data-toggle="popover"]').popover({
+    html: true,
+    trigger: "focus"
+  });
 
   changeAction();
 });
