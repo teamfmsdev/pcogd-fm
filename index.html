@@ -6,13 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>PCOGD FM</title>
 
-    <script src="src/lib/bootstrap.min.js"></script>
-
     <script src="src/lib/jquery-3.3.1.js"></script>
     <script src="src//lib/js.cookie.js"></script>
+    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+    <script src="src/lib/bootstrap.min.js"></script>
     <script src="src/lib/datatables.min.js"></script>
     <script src="src/lib/dataTables.bootstrap4.min.js"></script>
     <script src="src/lib/jquery.dataTables.min.js"></script>
+
     <script src="src/lib/fecha.min.js"></script>
     <script src="src/globalVar.js"></script>
     <script src="src/docReady.js"></script>
@@ -40,7 +42,7 @@
       <h1>PCOGD Facilities Management</h1>
     </header>
 
-    <div class="container sticky-top mt-4 p-0">
+    <div class="container sticky-top mt-3  p-0 mainArea">
       <form class="form-group p-3">
         <div class="row justify-content-center no-gutters ">
           <div class="col d-flex justify-content-end align-items-center">
@@ -60,10 +62,18 @@
               type="button"
               value="Help"
               class="btn p-0 m-0 helpButton"
-              data-toggle="collapse"
-              data-target="#helpArea"
-              aria-expanded="false"
-              aria-controls="helpArea"
+              data-toggle="popover"
+              data-placement="bottom"
+              title="Help"
+              data-content=" PM : Preventative Maintenance<br>
+              RM : Reactive Maintenance<br>
+              VI : Visual Inspection<br>
+              RS: Repair & Service
+              RP : Replace<br>
+              HK : Housekeeping<br>
+              UC : Unclogging<br>
+              PT : Painting<br>
+              SL : Sealing"
             />
           </div>
         </div>
@@ -205,9 +215,14 @@
           />
         </div>
       </form>
-      <div class="container card alertMsg justify-content-center text-center" id="alertMsg"></div>
-      </div>
+
+      <div
+        class="container card alertMsg justify-content-center text-center"
+        id="alertMsg"
+      ></div>
     </div>
+
+    <!-- <div class="d-inline text-white clearfix">FLOATING</div> -->
 
     <div class="container-fluid customTable">
       <table

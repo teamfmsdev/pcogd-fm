@@ -49,6 +49,12 @@ body {
   /* margin-right: 15px; */
 }
 
+.mainArea {
+  /* margin-left: 25vw; */
+  /* margin-right: 25vw; */
+  /* margin-left: 25%; */
+}
+
 /* form styling */
 form {
   border-radius: 20px;
