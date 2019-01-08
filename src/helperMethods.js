@@ -251,13 +251,13 @@ function serverMessageDisplaying(message) {
     $("#alertMsg")
       .text(message)
       .animate({ opacity: 1 }, "slow")
-      .delay(3000)
+      .delay(1500)
       .animate({ opacity: 0 }, "slow");
   }
   if ($("#alertMsg").css("opacity") == "1") {
     $("#alertMsg")
       .text(message)
-      .delay(3000)
+      .delay(1500)
       .animate({ opacity: 0 }, "slow");
   }
 }

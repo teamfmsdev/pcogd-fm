@@ -80,6 +80,7 @@ textarea {
   width: 25%;
   font-weight: bold;
   border: 1px solid rgba(0, 0, 0, 0.5);
+  opacity: 0;
 }
 
 /* Table Styling */
