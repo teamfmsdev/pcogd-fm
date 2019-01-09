@@ -29,6 +29,8 @@ $(document).ready(function() {
   globalTable = $("table")
     .DataTable({
       // searching: false
+      dom: "lfBtip",
+      buttons: ["excel"]
     })
     .draw();
 
