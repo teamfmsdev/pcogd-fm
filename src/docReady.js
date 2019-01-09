@@ -43,5 +43,9 @@ $(document).ready(function() {
     trigger: "focus"
   });
 
+  // $("#addList").click(function() {
+  //   addCheckList();
+  // });
+
   changeAction();
 });

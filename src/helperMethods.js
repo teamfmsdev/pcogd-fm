@@ -262,6 +262,13 @@ function serverMessageDisplaying(message) {
   }
 }
 
+function addCheckList() {
+  $("<input>")
+    .attr("type", "text")
+    .addClass("form-control-sm")
+    .insertBefore(".checkList div");
+}
+
 function randomizer(id, min, max) {
   var val = "";
   var selectedId = id;
