@@ -1,36 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>PCOGD FM Login</title>
-    <link rel="stylesheet" type="text/css" href="style/login.css" />
-    <script src="src/jquery-3.3.1.js"></script>
-    <script src="src/js.cookie.js"></script>
-    <script src="src/login.js"></script>
+    <script src="src/lib/jquery-3.3.1.js"></script>
+    <script src="src//lib/js.cookie.js"></script>
+    <script src="src/lib/bootstrap.min.js"></script>
+    <script src="src/helperMethods.js"></script>
+    <script src="src/Scriptz.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="style/loginPage.css" />
   </head>
-
   <body>
-    <div class="header">s</div>
-    <div class="main">
-      <label class="idLabel">Username</label>
-      <input id="idBox" class="idBox" type="text" />
-      <label class="pwLabel">Password</label
-      ><input id="pwBox" class="pwBox" type="password" />
-
-      <input id="signInBtn" class="signInBtn" type="button" value="Sign In" />
-      <a id="pwForgotBtn" class="pwForgotBtn" href="">Forgot your password?</a>
-      <!--
-        <input
-          id="pwForgotBtn"
-          class="pwForgotBtn"
-          type="button"
-          value="Forgot Password"
-        />
-      -->
-      <div>TEST 2 WEKK</div>
-      <div>WEKKKKKk</div>
-      <div>HAHAHA TEST JE</div>
+    <div class="container mx-auto no-gutters loginDiv">
+      <form class="form-group d-flex flex-column-reverse align-items-center justify-content-center text-center ">
+        <input type="text" class="form-control order-3" placeholder="Username" />
+        <input type="password" class="form-control order-2 mt-1" placeholder="Password" />
+        <input type="button" class="btn btn-primary order-1 mt-5" value="Log in" />
+      </form>
     </div>
-
-    <div class="footer">d</div>
   </body>
 </html>
