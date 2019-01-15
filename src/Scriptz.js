@@ -180,11 +180,12 @@ function retrieve() {
             var unformattedDate = new Date(data[row][key]);
             data[row][key] = dateFormat(unformattedDate);
           }
-          if (key != "Description") {
-            tRow[row].append("<td>" + data[row][key]);
-          } else {
-            continue;
-          }
+          // if (key != "Description") {
+          //   tRow[row].append("<td>" + data[row][key]);
+          // } else {
+          //   continue;
+          // }
+          tRow[row].append("<td>" + data[row][key]);
         }
         // Add the row to table and redraw table
         globalTable.rows.add(tRow[row]).draw();
@@ -216,7 +217,7 @@ function Update(formData) {
 
     success: function(serverData) {
       // Display success message
-      delete data["Description"];
+      // delete data["Description"];
       delete data["dataID"];
       delete data["SAP Choice"];
       for (var key in data) {

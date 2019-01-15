@@ -72,25 +72,23 @@ function alertValidation(formData) {
       case "SAP Choice":
         continue;
       case "Status":
-        if (
-          (formData[key] == "Closed" &&
-            (formData["Closed By"] == "" || formData["Closed By"] == null)) ||
-          (formData["Completion Date"] == "" ||
-            formData["Completion Date"] == null)
-        ) {
-          if (alertMsg.includes(closedAlert) == false) {
-            alertMsg += closedAlert;
-            break;
+        if (formData[key] == "Closed") {
+          if (
+            formData["Closed By"] == "" ||
+            formData["Closed By"] == null ||
+            (formData["Completion Date"] == "" ||
+              formData["Completion Date"] == null)
+          ) {
+            if (alertMsg.includes(closedAlert) == false) {
+              alertMsg += closedAlert;
+              break;
+            }
           }
-        } else {
-          break;
         }
+        break;
       case "Closed By":
       case "Completion Date":
-        if (
-          (formData[key] != "" || formData[key] != null) &&
-          formData["Status"] != "Closed"
-        ) {
+        if (formData[key] != "" && formData["Status"] != "Closed") {
           if (alertMsg.includes(closedStatus) == false) {
             alertMsg += closedStatus;
             break;

@@ -30,7 +30,8 @@ $(document).ready(function() {
     .DataTable({
       // searching: false
       dom: "lfBtip",
-      buttons: ["excel"]
+      buttons: ["excel"],
+      columnDefs: [{ visible: false, targets: 4 }]
     })
     .draw();
 
