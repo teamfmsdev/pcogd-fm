@@ -61,6 +61,7 @@ function alertValidation(formData) {
   var defAlert = "Please fill up field with asterisk \n";
   var closedAlert =
     "Closed by and completion date field cannot be empty for closed record \n";
+  var closedStatus = "Status must be 'Closed' for closed record \n";
 
   // Error Message Appending EXCEPT for item 5 7
   // and EXCEPT for item 10 11 If status = "CLOSED"
@@ -70,11 +71,12 @@ function alertValidation(formData) {
       case "SAP#":
       case "SAP Choice":
         continue;
-      case "Closed By":
-      case "Completion Date":
+      case "Status":
         if (
-          formData["Status"] == "Closed" &&
-          (formData[key] == "" || formData[key] == null)
+          (formData[key] == "Closed" &&
+            (formData["Closed By"] == "" || formData["Closed By"] == null)) ||
+          (formData["Completion Date"] == "" ||
+            formData["Completion Date"] == null)
         ) {
           if (alertMsg.includes(closedAlert) == false) {
             alertMsg += closedAlert;
@@ -83,6 +85,19 @@ function alertValidation(formData) {
         } else {
           break;
         }
+      case "Closed By":
+      case "Completion Date":
+        if (
+          (formData[key] != "" || formData[key] != null) &&
+          formData["Status"] != "Closed"
+        ) {
+          if (alertMsg.includes(closedStatus) == false) {
+            alertMsg += closedStatus;
+            break;
+          }
+        }
+        break;
+
       default:
         if (formData[key] == "" || formData[key] == null) {
           if (alertMsg.includes(defAlert) == false) {
