@@ -67,6 +67,11 @@ function Validation() {
     }
   }
 
+  // Set SAP# as - if its blank
+  if (formData["SAP#"] == "") {
+    formData["SAP#"] = "-";
+  }
+
   var alertMsg = alertValidation(formData);
 
   if (alertMsg != "") {
