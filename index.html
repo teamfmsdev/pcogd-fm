@@ -14,6 +14,11 @@
     <script src="src/lib/datatables.min.js"></script>
     <script src="src/lib/dataTables.bootstrap4.min.js"></script>
     <script src="src/lib/jquery.dataTables.min.js"></script>
+    <script src="src/lib/dataTables.buttons.min.js"></script>
+    <script src="src/lib/jszip.min.js"></script>
+    <script src="src/lib/buttons.bootstrap4.min.js"></script>
+    <script src="src/lib/buttons.flash.min.js"></script>
+    <script src="src/lib/buttons.html5.min.js"></script>
 
     <script src="src/lib/fecha.min.js"></script>
     <script src="src/globalVar.js"></script>
@@ -27,6 +32,11 @@
       rel="stylesheet"
       type="text/css"
       href="style/dataTables.bootstrap4.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="style/buttons.bootstrap4.min.css"
     />
     <link
       rel="stylesheet"
@@ -63,13 +73,15 @@
               value="Help"
               class="btn p-0 m-0 helpButton"
               data-toggle="popover"
-              data-placement="bottom"
+              data-placement="right"
               title="Help"
               data-content=" PM : Preventative Maintenance<br>
               RM : Reactive Maintenance<br>
+              SM : Support Maintenance<br>
               VI : Visual Inspection<br>
-              RS: Repair & Service
+              RS: Repair & Service <br>
               RP : Replace<br>
+              PR : Project <br>
               HK : Housekeeping<br>
               UC : Unclogging<br>
               PT : Painting<br>
@@ -89,6 +101,7 @@
             <option disabled selected></option>
             <option value="PM">PM</option>
             <option value="RM">RM</option>
+            <option value="RM">SM</option>
           </select>
 
           <select class="form-control col-1 " id="type2Box">
@@ -96,6 +109,7 @@
             <option value="VI">VI</option>
             <option value="RS">RS</option>
             <option value="RP">RP</option>
+            <option value="PR">PR</option>
             <option value="HK">HK</option>
             <option value="UC">UC</option>
             <option value="PT">PT</option>
@@ -235,7 +249,7 @@
             <th>Work title</th>
             <th>Type 1</th>
             <th>Type 2</th>
-            <!-- <th>Description</th> -->
+            <th>Description</th>
             <th>Location</th>
             <th>Status</th>
             <th>Company</th>

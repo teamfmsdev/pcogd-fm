@@ -29,6 +29,9 @@ $(document).ready(function() {
   globalTable = $("table")
     .DataTable({
       // searching: false
+      dom: "lfBtip",
+      buttons: ["excel"],
+      columnDefs: [{ visible: false, targets: 4 }]
     })
     .draw();
 
@@ -40,6 +43,10 @@ $(document).ready(function() {
     html: true,
     trigger: "focus"
   });
+
+  // $("#addList").click(function() {
+  //   addCheckList();
+  // });
 
   changeAction();
 });

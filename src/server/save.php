@@ -22,9 +22,7 @@ foreach ($data as $key => $value) {
   }
 }
 if($stmt->execute()){
-  $stmt = $con -> prepare("SELECT `row`,`Work Title`,`Type 1`,`Type 2`,
-  `Location`,`Status`,`Company`,`SAP#`,`Request By`,`Request Date`,`Closed By`,
-  `Completion Date` FROM `main` WHERE 
+  $stmt = $con -> prepare("SELECT * FROM `main` WHERE 
   (`Work Title` LIKE ? AND `Type 1` LIKE ? AND `Type 2` LIKE ? 
   AND `Description` LIKE ? AND `Location` LIKE ? AND `Status` 
   LIKE ? AND `Company` LIKE ? AND `SAP#` LIKE ? AND `Request By` LIKE ?

@@ -61,6 +61,7 @@ function alertValidation(formData) {
   var defAlert = "Please fill up field with asterisk \n";
   var closedAlert =
     "Closed by and completion date field cannot be empty for closed record \n";
+  var closedStatus = "Status must be 'Closed' for closed record \n";
 
   // Error Message Appending EXCEPT for item 5 7
   // and EXCEPT for item 10 11 If status = "CLOSED"
@@ -70,19 +71,31 @@ function alertValidation(formData) {
       case "SAP#":
       case "SAP Choice":
         continue;
+      case "Status":
+        if (formData[key] == "Closed") {
+          if (
+            formData["Closed By"] == "" ||
+            formData["Closed By"] == null ||
+            (formData["Completion Date"] == "" ||
+              formData["Completion Date"] == null)
+          ) {
+            if (alertMsg.includes(closedAlert) == false) {
+              alertMsg += closedAlert;
+              break;
+            }
+          }
+        }
+        break;
       case "Closed By":
       case "Completion Date":
-        if (
-          formData["Status"] == "Closed" &&
-          (formData[key] == "" || formData[key] == null)
-        ) {
-          if (alertMsg.includes(closedAlert) == false) {
-            alertMsg += closedAlert;
+        if (formData[key] != "" && formData["Status"] != "Closed") {
+          if (alertMsg.includes(closedStatus) == false) {
+            alertMsg += closedStatus;
             break;
           }
-        } else {
-          break;
         }
+        break;
+
       default:
         if (formData[key] == "" || formData[key] == null) {
           if (alertMsg.includes(defAlert) == false) {
@@ -260,6 +273,13 @@ function serverMessageDisplaying(message) {
       .delay(1500)
       .animate({ opacity: 0 }, "slow");
   }
+}
+
+function addCheckList() {
+  $("<input>")
+    .attr("type", "text")
+    .addClass("form-control-sm")
+    .insertBefore(".checkList div");
 }
 
 function randomizer(id, min, max) {
