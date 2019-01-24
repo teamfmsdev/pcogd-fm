@@ -110,39 +110,39 @@ tr:hover {
 /* Table details styling */
 
 th:nth-child(1) {
-  width: 5%;
-  max-width: 7%;
+  width: 1%;
+  max-width: 2%;
 }
 
 th:nth-child(2) {
-  width: 15%;
-  max-width: 17%;
-}
-th:nth-child(3),
-th:nth-child(4) {
-  width: 4%;
-  max-width: 5%;
-}
-
-th:nth-child(5) {
-  width: 10%;
-  max-width: 12%;
-}
-th:nth-child(6) {
-  width: 5%;
-  max-width: 6%;
-}
-th:nth-child(7) {
   width: 8%;
   max-width: 10%;
 }
+th:nth-child(3),
+th:nth-child(4) {
+  width: 2%;
+  max-width: 3%;
+}
+
+th:nth-child(5) {
+  width: 3%;
+  max-width: 5%;
+}
+th:nth-child(6) {
+  width: 3%;
+  max-width: 6%;
+}
+th:nth-child(7) {
+  width: 4%;
+  max-width: 5%;
+}
 th:nth-child(8) {
-  width: 10%;
-  max-width: 12%;
+  width: 2%;
+  max-width: 3%;
 }
 th:nth-child(9) {
-  width: 7%;
-  max-width: 8%;
+  width: 2%;
+  max-width: 3%;
 }
 th:nth-child(10) {
   width: 10%;

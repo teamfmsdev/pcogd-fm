@@ -31,7 +31,12 @@ $(document).ready(function() {
       // searching: false
       dom: "lfBtip",
       buttons: ["excel"],
-      columnDefs: [{ visible: false, targets: 4 }]
+      columnDefs: [
+        { visible: false, targets: 4 },
+        { visible: false, targets: 3 },
+        { visible: false, targets: 8 },
+        { visible: false, targets: 11 }
+      ]
     })
     .draw();
 
