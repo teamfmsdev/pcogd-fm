@@ -181,6 +181,7 @@ function populateForm(selectedRow) {
       data = JSON.parse(data);
       for (var key in formInputs) {
         switch (key) {
+          case "Priority":
           case "Type 1":
           case "Type 2":
           case "Status":
