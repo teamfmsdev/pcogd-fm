@@ -2,9 +2,9 @@
   require "connection.php";
   require "misc.php";
 
-  // Loop through GET variables and append wildcard 
+    // Loop through GET variables and append wildcard 
     foreach ($_GET as $key => $value) {
-
+    // Skip SAP# and SAP_Choice
     if ($key == "SAP#" || $key == "SAP_Choice"){
         $data[$key] = $value;
     }else{   
@@ -36,7 +36,7 @@
 
 
     $stmt = $con -> prepare("SELECT * FROM `main` WHERE 
-    (`Work Title` LIKE ? AND `Type 1` LIKE ? AND `Type 2` LIKE ? 
+    (`Work Title` LIKE ? AND `Priority` LIKE ? AND `Type 1` LIKE ? AND `Type 2` LIKE ? 
     AND `Description` LIKE ? AND `Location` LIKE ? AND `Status` 
     LIKE ? AND `Company` LIKE ? AND `SAP#` $data[SAP_Choice] ? AND `Request By` LIKE ?
     AND `Request Date` LIKE ? AND `Closed By` LIKE ? AND `Completion Date` 
@@ -45,6 +45,7 @@
     // Bind value to be send to DB
     $i=1;
     foreach ($data as $key => $value) {
+    // Skip SAP_Choice
     if($key == "SAP_Choice"){
         // $stmt-> bindValue($i,$value);
         continue;

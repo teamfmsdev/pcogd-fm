@@ -6,11 +6,11 @@ foreach ($_GET as $key => $value) {
   $data[$key] = $value;
 }
 
-$stmt = $con -> prepare("INSERT INTO `main`(`Work Title`, `Type 1`, `Type 2`, 
+$stmt = $con -> prepare("INSERT INTO `main`(`Work Title`,`Priority`, `Type 1`, `Type 2`, 
 `Description`, `Location`, `Status`,
 `Company`, `SAP#`, `Request By`, 
 `Request Date`, `Closed By`, `Completion Date`) 
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 $i=1;
 foreach ($data as $key => $value) {
@@ -23,7 +23,7 @@ foreach ($data as $key => $value) {
 }
 if($stmt->execute()){
   $stmt = $con -> prepare("SELECT * FROM `main` WHERE 
-  (`Work Title` LIKE ? AND `Type 1` LIKE ? AND `Type 2` LIKE ? 
+  (`Work Title` LIKE ? AND `Priority` LIKE ? AND `Type 1` LIKE ? AND `Type 2` LIKE ? 
   AND `Description` LIKE ? AND `Location` LIKE ? AND `Status` 
   LIKE ? AND `Company` LIKE ? AND `SAP#` LIKE ? AND `Request By` LIKE ?
   AND `Request Date` LIKE ? AND `Closed By` LIKE ? AND `Completion Date` 
@@ -42,7 +42,6 @@ if($stmt->execute()){
   $row = $stmt ->fetch(PDO::FETCH_ASSOC);
   foreach ($row as $rowKey => $value) {
     $row[$rowKey] = nl2br($value);
-  
   }
   $row["serverMessage"] = "Record insert success";
   
