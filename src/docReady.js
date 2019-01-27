@@ -32,10 +32,14 @@ $(document).ready(function() {
       dom: "lfBtip",
       buttons: ["excel"],
       columnDefs: [
+        //Type 2
         { visible: false, targets: 4 },
-        { visible: false, targets: 3 },
-        { visible: false, targets: 8 },
-        { visible: false, targets: 11 }
+        // Description
+        { visible: false, targets: 5 },
+        //SAP#
+        { visible: false, targets: 9 },
+        // Closed by
+        { visible: false, targets: 12 }
       ]
     })
     .draw();
