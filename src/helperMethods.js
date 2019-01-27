@@ -123,6 +123,7 @@ function alertValidation(formData) {
 function getFormInputs() {
   var formData = {
     "Work Title": $("#wTitleBox").val(),
+    Priority: $("#priorityBox").val(),
     "Type 1": $("#type1Box").val(),
     "Type 2": $("#type2Box").val(),
     Description: $("#descriptionBox").val(),
@@ -143,6 +144,7 @@ function getFormInputs() {
 function getFormInputsObject() {
   var formData = {
     "Work Title": $("#wTitleBox"),
+    Priority: $("#priorityBox"),
     "Type 1": $("#type1Box"),
     "Type 2": $("#type2Box"),
     Description: $("#descriptionBox"),
