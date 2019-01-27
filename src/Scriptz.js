@@ -105,10 +105,10 @@ function Save(formdata) {
     data: data,
 
     success: function(serverData) {
-      // Display success message
       serverData = JSON.parse(serverData);
+      // Display success message
       serverMessageDisplaying(serverData["serverMessage"]);
-      // $("#alertMsg").text(serverData["serverMessage"]);
+
       delete serverData.serverMessage;
       var newTableRow = $("<tr>")
         .attr("id", serverData["row"])
@@ -116,6 +116,7 @@ function Save(formdata) {
           passOver(this);
         });
       for (var key in serverData) {
+        // If Reqest date is not null/empty, then format it.
         if (
           key == "Request Date" &&
           serverData[key] != "" &&
@@ -123,7 +124,9 @@ function Save(formdata) {
         ) {
           var unformattedDate = new Date(serverData[key]);
           serverData[key] = dateFormat(unformattedDate);
-        } else if (
+        }
+        // If Reqest date is not null/empty, then format it.
+        else if (
           key == "Completion Date" &&
           serverData[key] != "" &&
           serverData[key] != null
@@ -185,11 +188,7 @@ function retrieve() {
             var unformattedDate = new Date(data[row][key]);
             data[row][key] = dateFormat(unformattedDate);
           }
-          // if (key != "Description") {
-          //   tRow[row].append("<td>" + data[row][key]);
-          // } else {
-          //   continue;
-          // }
+          // Append td to row
           tRow[row].append("<td>" + data[row][key]);
         }
         // Add the row to table and redraw table
