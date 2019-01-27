@@ -172,13 +172,18 @@ function populateForm(selectedRow) {
     data: data,
     success: function(data) {
       // Get form html input element
+      data = JSON.parse(data);
       var formInputs = getFormInputsObject();
+
       // Empty form inputs
       for (var key in formInputs) {
+        if (formInputs[key].prop("disabled") == true) {
+          formInputs[key].prop("disabled", false);
+        }
         formInputs[key].val("");
       }
+
       // Parse JSON from data into object
-      data = JSON.parse(data);
       for (var key in formInputs) {
         switch (key) {
           case "Priority":
@@ -205,24 +210,21 @@ function populateForm(selectedRow) {
                 .prop("selected", true);
               break;
             }
+          case "Request Date":
+          case "Completion date":
+            var formattedDate = new Date(data[key]);
+            formattedDate = fecha.format(formattedDate, "YYYY-MM-D");
+            formInputs[key].val(data[key]);
+            break;
           default:
             var regex = /<br\s*[\/]?>/gi;
             data[key] = data[key].replace(regex, "");
             formInputs[key].val(data[key]);
         }
+        $(formInputs[key]).prop("disabled", true);
       }
     }
   });
-
-  var formInputs = getFormInputsObject();
-
-  for (var key in formInputs) {
-    $(formInputs[key]).prop("disabled", true);
-  }
-  // Make SAP Choice, Request By and Request date Readonly to users
-  // $("#sapChoice").prop("disabled", true);
-  // $("#requestbyBox").prop("disabled", true);
-  // $("#requestdateBox").prop("readonly", true);
 }
 
 function editClicked() {
