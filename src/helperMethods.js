@@ -61,6 +61,7 @@ function alertValidation(formData) {
   var defAlert = "Please fill up field with asterisk \n";
   var closedAlert =
     "Closed by and completion date field cannot be empty for closed record \n";
+  var closedStatus = "Status must be 'Closed' for closed record \n";
 
   // Error Message Appending EXCEPT for item 5 7
   // and EXCEPT for item 10 11 If status = "CLOSED"
@@ -70,19 +71,31 @@ function alertValidation(formData) {
       case "SAP#":
       case "SAP Choice":
         continue;
+      case "Status":
+        if (formData[key] == "Closed") {
+          if (
+            formData["Closed By"] == "" ||
+            formData["Closed By"] == null ||
+            (formData["Completion Date"] == "" ||
+              formData["Completion Date"] == null)
+          ) {
+            if (alertMsg.includes(closedAlert) == false) {
+              alertMsg += closedAlert;
+              break;
+            }
+          }
+        }
+        break;
       case "Closed By":
       case "Completion Date":
-        if (
-          formData["Status"] == "Closed" &&
-          (formData[key] == "" || formData[key] == null)
-        ) {
-          if (alertMsg.includes(closedAlert) == false) {
-            alertMsg += closedAlert;
+        if (formData[key] != "" && formData["Status"] != "Closed") {
+          if (alertMsg.includes(closedStatus) == false) {
+            alertMsg += closedStatus;
             break;
           }
-        } else {
-          break;
         }
+        break;
+
       default:
         if (formData[key] == "" || formData[key] == null) {
           if (alertMsg.includes(defAlert) == false) {
@@ -112,6 +125,7 @@ function alertValidation(formData) {
 function getFormInputs() {
   var formData = {
     "Work Title": $("#wTitleBox").val(),
+    Priority: $("#priorityBox").val(),
     "Type 1": $("#type1Box").val(),
     "Type 2": $("#type2Box").val(),
     Description: $("#descriptionBox").val(),
@@ -132,6 +146,7 @@ function getFormInputs() {
 function getFormInputsObject() {
   var formData = {
     "Work Title": $("#wTitleBox"),
+    Priority: $("#priorityBox"),
     "Type 1": $("#type1Box"),
     "Type 2": $("#type2Box"),
     Description: $("#descriptionBox"),
@@ -159,15 +174,21 @@ function populateForm(selectedRow) {
     data: data,
     success: function(data) {
       // Get form html input element
+      data = JSON.parse(data);
       var formInputs = getFormInputsObject();
+
       // Empty form inputs
       for (var key in formInputs) {
+        if (formInputs[key].prop("disabled") == true) {
+          formInputs[key].prop("disabled", false);
+        }
         formInputs[key].val("");
       }
+
       // Parse JSON from data into object
-      data = JSON.parse(data);
       for (var key in formInputs) {
         switch (key) {
+          case "Priority":
           case "Type 1":
           case "Type 2":
           case "Status":
@@ -191,24 +212,21 @@ function populateForm(selectedRow) {
                 .prop("selected", true);
               break;
             }
+          case "Request Date":
+          case "Completion date":
+            var formattedDate = new Date(data[key]);
+            formattedDate = fecha.format(formattedDate, "YYYY-MM-D");
+            formInputs[key].val(data[key]);
+            break;
           default:
             var regex = /<br\s*[\/]?>/gi;
             data[key] = data[key].replace(regex, "");
             formInputs[key].val(data[key]);
         }
+        $(formInputs[key]).prop("disabled", true);
       }
     }
   });
-
-  var formInputs = getFormInputsObject();
-
-  for (var key in formInputs) {
-    $(formInputs[key]).prop("disabled", true);
-  }
-  // Make SAP Choice, Request By and Request date Readonly to users
-  // $("#sapChoice").prop("disabled", true);
-  // $("#requestbyBox").prop("disabled", true);
-  // $("#requestdateBox").prop("readonly", true);
 }
 
 function editClicked() {
@@ -265,6 +283,16 @@ function serverMessageDisplaying(message) {
       .delay(1500)
       .animate({ opacity: 0 }, "slow");
   }
+}
+
+<<<<<<< HEAD
+>>>>>>> localDev
+=======
+function addCheckList() {
+  $("<input>")
+    .attr("type", "text")
+    .addClass("form-control-sm")
+    .insertBefore(".checkList div");
 }
 
 >>>>>>> localDev

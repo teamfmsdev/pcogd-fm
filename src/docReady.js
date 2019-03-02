@@ -57,6 +57,18 @@ $(document).ready(function() {
   globalTable = $("table")
     .DataTable({
       // searching: false
+      dom: "lfBtip",
+      buttons: ["excel"],
+      columnDefs: [
+        //Type 2
+        { visible: false, targets: 4 },
+        // Description
+        { visible: false, targets: 5 },
+        //SAP#
+        { visible: false, targets: 9 },
+        // Closed by
+        { visible: false, targets: 12 }
+      ]
     })
     .draw();
 
@@ -68,6 +80,10 @@ $(document).ready(function() {
     html: true,
     trigger: "focus"
   });
+
+  // $("#addList").click(function() {
+  //   addCheckList();
+  // });
 
   changeAction();
 });

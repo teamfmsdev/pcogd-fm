@@ -14,6 +14,11 @@
     <script src="src/lib/datatables.min.js"></script>
     <script src="src/lib/dataTables.bootstrap4.min.js"></script>
     <script src="src/lib/jquery.dataTables.min.js"></script>
+    <script src="src/lib/dataTables.buttons.min.js"></script>
+    <script src="src/lib/jszip.min.js"></script>
+    <script src="src/lib/buttons.bootstrap4.min.js"></script>
+    <script src="src/lib/buttons.flash.min.js"></script>
+    <script src="src/lib/buttons.html5.min.js"></script>
 
     <script src="src/lib/fecha.min.js"></script>
     <script src="src/globalVar.js"></script>
@@ -21,6 +26,7 @@
     <script src="src/interactionMethods.js"></script>
     <script src="src/helperMethods.js"></script>
     <script src="src/Scriptz.js"></script>
+<<<<<<< HEAD
 <<<<<<< HEAD
     
     <link rel="stylesheet" type="text/css" href="style/Stylez.css" >
@@ -213,15 +219,34 @@
 =======
     <link rel="stylesheet" type="text/css" href="style/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="style/datatables.min.css" />
+=======
+    <link
+      rel="icon"
+      href="image/FMPCOGD.png"
+      sizes="16x16 32x32"
+      type="image/png"
+    />
+    <link rel="stylesheet" type="text/css" href="style/lib/bootstrap.min.css" />
     <link
       rel="stylesheet"
       type="text/css"
-      href="style/dataTables.bootstrap4.min.css"
+      href="style/lib/datatables.min.css"
     />
     <link
       rel="stylesheet"
       type="text/css"
-      href="style/jquery.dataTables.min.css"
+      href="style/lib/dataTables.bootstrap4.min.css"
+    />
+>>>>>>> localDev
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="style/lib/buttons.bootstrap4.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="style/lib/jquery.dataTables.min.css"
     />
     <link rel="stylesheet" type="text/css" href="style/customStyle.css" />
   </head>
@@ -229,7 +254,9 @@
     <header
       class="container-fluid text-center page-header no-gutters text-white"
     >
-      <h1>PCOGD Facilities Management</h1>
+      <h1 class="p-0 mb-0">PCOGD Facilities Management</h1>
+      <h2 class="p-0 "><strong>Request & Reporting</strong></h2>
+      <a href="/pcogdccfm"><strong>Planning & Scheduling</strong></a>
     </header>
 
     <div class="container sticky-top mt-3  p-0 mainArea">
@@ -260,13 +287,15 @@
               value="Help"
               class="btn p-0 m-0 helpButton"
               data-toggle="popover"
-              data-placement="bottom"
+              data-placement="right"
               title="Help"
               data-content=" PM : Preventative Maintenance<br>
               RM : Reactive Maintenance<br>
+              SM : Support Maintenance<br>
               VI : Visual Inspection<br>
-              RS: Repair & Service
+              RS: Repair & Service <br>
               RP : Replace<br>
+              PR : Project <br>
               HK : Housekeeping<br>
               UC : Unclogging<br>
               PT : Painting<br>
@@ -280,13 +309,24 @@
           <label for="wTitleBox" class="col-2 col-form-label  "
             >Work Title</label
           >
-          <input id="wTitleBox" class="form-control col-6" />
-          <label class="col-2 col-form-label" for="type1Box">Type</label>
+          <input id="wTitleBox" class="form-control col-5" />
+          <label class="col-1 col-form-label" for="priorityBox">Priority</label>
+
+          <select class="form-control col-1 " id="priorityBox">
+            <option disabled selected></option>
+            <option value="P1">P1</option>
+            <option value="P2">P2</option>
+            <option value="P3">P3</option>
+            <option value="P4">P4</option>
+          </select>
+
+          <label class="col-1 col-form-label" for="type1Box">Type</label>
 
           <select class="form-control col-1 " id="type1Box">
             <option disabled selected></option>
             <option value="PM">PM</option>
             <option value="RM">RM</option>
+            <option value="SM">SM</option>
           </select>
 
           <select class="form-control col-1 " id="type2Box">
@@ -294,6 +334,7 @@
             <option value="VI">VI</option>
             <option value="RS">RS</option>
             <option value="RP">RP</option>
+            <option value="PR">PR</option>
             <option value="HK">HK</option>
             <option value="UC">UC</option>
             <option value="PT">PT</option>
@@ -431,9 +472,10 @@
           <tr>
             <th>FM No</th>
             <th>Work title</th>
+            <th>Priority</th>
             <th>Type 1</th>
             <th>Type 2</th>
-            <!-- <th>Description</th> -->
+            <th>Description</th>
             <th>Location</th>
             <th>Status</th>
             <th>Company</th>
