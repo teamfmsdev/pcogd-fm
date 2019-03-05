@@ -94,14 +94,26 @@
         <label id="Company" class="col-2 col-form-label" for="companyBox">Company</label>
         <input v-model="comp" class="form-control col-4" type="text">
         <label id="SAP#" class="col-2 col-form-label" for="sapBox">SAP#</label>
-
-        <select v-model="sapS" class="form-control col-1 sapChoice">
-          <option selected></option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
-
-        <input v-model="sapN" class="form-control col-3" type="text">
+        <transition name="buttonDisplay" mode="out-in">
+          <select
+            v-model="sapS"
+            v-show="getFormState"
+            :class="{'col-1':getFormState}"
+            class="form-control sapC"
+          >
+            <option selected></option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </transition>
+        <!-- <transition name="sapNDisplay" mode="out-in"> -->
+        <input
+          v-model="sapN"
+          class="form-control sapN"
+          :class="{'col-4':!getFormState,'col-3':getFormState}"
+          type="text"
+        >
+        <!-- </transition> -->
       </div>
       <div class="row text-center justify-content-center no-gutters">
         <label class="col-2 col-form-label" for="requestbyBox">*Request By</label>
@@ -116,7 +128,10 @@
         <label class="col-2 col-form-label" for="requestdateBox">*Request Date</label>
         <input v-model="reqD" id="requestdateBox" class="form-control col-4" type="Date">
       </div>
-      <div class="row text-center justify-content-center no-gutters closedByLine">
+      <div
+        :class="{displayClosed:getFormState || stat=='Closed'}"
+        class="row text-center justify-content-center no-gutters closedByLine"
+      >
         <label class="col-2 col-form-label" for="closedbyBox">Closed By</label>
         <select v-model="closBy" class="form-control col-4" type="text">
           <option disabled selected></option>
@@ -133,15 +148,14 @@
       <!-- <div class="row text-center my-3 justify-content-center no-gutters d-flex"> -->
       <div class="row text-center my-3 no-gutters d-flex justify-content-center">
         <!-- <transition-group tag="custom"  name="buttonDisplay" mode="out-in"> -->
-        <input :key="1" v-if="getFormState" class="btn mx-1" type="button" value="SEARCH">
+        <input class="btn mx-1" type="button" id="searchBtn" value="SEARCH">
 
-        <input :key="2" v-if="getFormState" class="btn mx-1" type="button" value="EDIT">
+        <input class="btn mx-1" type="button" id="editBtn" value="EDIT">
 
-        <input :key="3" v-if="getFormState" class="btn mx-1" type="button" value="DELETE">
+        <input class="btn mx-1" type="button" id="deleteBtn" value="DELETE">
 
-        <input :key="3" v-if="!getFormState" class="btn mx-1" type="button" value="SAVE">
-
-        <input :key="4" v-if="!getFormState" class="btn mx-1" type="button" value="RESET">
+        <input class="btn mx-1" type="button" id="saveBtn" value="SAVE">
+        <input class="btn mx-1" type="button" id="resetBtn" value="RESET">
         <!-- </transition-group> -->
       </div>
     </form>
@@ -154,6 +168,7 @@
 import '@/styles/customForm.css'
 import dayjs from 'dayjs'
 import { mapActions } from 'vuex'
+import Velocity from 'velocity-animate'
 
 export default {
   name: 'mainForm',
@@ -349,9 +364,19 @@ export default {
   methods: {
     ...mapActions(['changeFormState', 'updateFormData']),
     switchState () {
+      let searchBtn = document.querySelector('#searchBtn')
+      let editBtn = document.querySelector('#editBtn')
+      let deleteBtn = document.querySelector('#deleteBtn')
+      // console.log(searchBtn)
       if (this.getFormState) {
+        Velocity(searchBtn, { width: '15%' }, 1000) // Velocity
+        Velocity(editBtn, { width: '15%' }, 1000) // Velocity
+        Velocity(deleteBtn, { width: '15%' }, 1000) // Velocity
         this.resetForm()
       } else if (!this.getFormState) {
+        Velocity(searchBtn, { width: 0 }, 1000) // Velocity
+        Velocity(editBtn, { width: '0' }, 1000) // Velocity
+        Velocity(deleteBtn, { width: '0' }, 1000) // Velocity
         this.resetForm()
       }
     },
@@ -365,14 +390,42 @@ export default {
                 field: field,
                 data: ''
               }
-              this.updateFormData(payload)
             } else {
               payload = {
                 field: field,
                 data: dayjs(new Date()).format('YYYY-MM-DD')
               }
-              this.updateFormData(payload)
             }
+            this.updateFormData(payload)
+            break
+          case 'stat':
+            if (!this.getFormState) {
+              payload = {
+                field: field,
+                data: 'New'
+              }
+            } else {
+              payload = {
+                field: field,
+                data: ''
+              }
+            }
+            this.updateFormData(payload)
+            break
+          case 'sapN':
+            if (!this.getFormState) {
+              payload = {
+                field: field,
+                data: '-'
+              }
+            } else {
+              payload = {
+                field: field,
+                data: ''
+              }
+            }
+            this.updateFormData(payload)
+
             break
           default:
             payload = {
@@ -388,20 +441,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.buttonDisplay-enter,
-.buttonDisplay-leave-to {
+.buttonDisplay-enter {
   opacity: 0;
-  transform: translateY(0px);
 }
-.buttonDisplay-enter-active,
+.buttonDisplay-leave {
+  display: none;
+  // width:90.15px;
+}
 .buttonDisplay-leave-active {
+  // transition: opacity 0s;
+  // width:90.15px;
+  display: none;
+}
+.buttonDisplay-enter-active {
   transition: opacity 1s;
 }
-// .buttonDisplay-move{
-//   // transition: transform 1s;
-//   transition: transform 1s;
 
-// }
+.displayClosed {
+  opacity: 0;
+  transition: opacity 1s;
+  visibility: hidden;
+}
+
+.closedByLine {
+  transition: all 1s;
+}
+.sapN {
+  // transition: max-width 1s;
+  // width: auto;
+  // transition: width 1s;
+  // transition: background-color 1s;
+}
+
+.sapN:hover {
+  // transform: translateX(300px);
+
+  // background-color: red;
+  // max-width:3000px;
+}
 
 custom {
   // transition: transform 1s;
@@ -423,7 +500,8 @@ custom {
   font-size: 15px;
   padding: 5px 20px;
   text-decoration: none;
-  min-width: 15%;
+  width:15%;
+  // min-width: 15%;
   max-width: 18%;
   font-weight: bold;
   position: relative;
