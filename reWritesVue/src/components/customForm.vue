@@ -7,7 +7,8 @@
           <!-- <input type="checkbox" id="checkBox" onclick="changeAction()" /> -->
           <!-- Rounded switch -->
           <label class="switch mx-3">
-            <input type="checkbox" v-model="formState">
+            <input type="checkbox" v-model="getFormState" @change="switchState">
+
             <span class="slider round"></span>
           </label>
           <label>Update</label>
@@ -37,10 +38,10 @@
 
       <div class="row text-center justify-content-center no-gutters">
         <label for="wTitleBox" class="col-2 col-form-label">Work Title</label>
-        <input id="wTitleBox" class="form-control col-5">
+        <input id="wTitleBox" class="form-control col-5" v-model="wTitle">
         <label class="col-1 col-form-label" for="priorityBox">Priority</label>
 
-        <select class="form-control col-1" id="priorityBox">
+        <select class="form-control col-1" v-model="prio">
           <option disabled selected></option>
           <option value="P1">P1</option>
           <option value="P2">P2</option>
@@ -50,14 +51,14 @@
 
         <label class="col-1 col-form-label" for="type1Box">Type</label>
 
-        <select class="form-control col-1" id="type1Box">
+        <select class="form-control col-1" v-model="t1">
           <option disabled selected></option>
           <option value="PM">PM</option>
           <option value="RM">RM</option>
           <option value="SM">SM</option>
         </select>
 
-        <select class="form-control col-1" id="type2Box">
+        <select class="form-control col-1" v-model="t2">
           <option disabled selected></option>
           <option value="VI">VI</option>
           <option value="RS">RS</option>
@@ -75,13 +76,13 @@
           class="col-2 col-form-label text-center"
           for="descriptionBox"
         >*Description</label>
-        <textarea id="descriptionBox" rows="5" cols="50" class="form-control col"></textarea>
+        <textarea v-model="desc" rows="5" cols="50" class="form-control col"></textarea>
       </div>
       <div class="row text-center justify-content-center no-gutters">
         <label id="Location" class="col-2 col-form-label" for="locationBox">*Location</label>
-        <input id="locationBox" class="form-control col-4" type="text">
+        <input v-model="loca" class="form-control col-4" type="text">
         <label id="Status" class="col-2 col-form-label" for="statusBox">*Status</label>
-        <select id="statusBox" class="form-control col-4">
+        <select v-model="stat" class="form-control col-4">
           <option disabled selected></option>
           <option selected="selected" value="New">New</option>
           <option value="Reviewed">Reviewed</option>
@@ -91,20 +92,20 @@
       </div>
       <div class="row text-center justify-content-center no-gutters">
         <label id="Company" class="col-2 col-form-label" for="companyBox">Company</label>
-        <input id="companyBox" class="form-control col-4" type="text">
+        <input v-model="comp" class="form-control col-4" type="text">
         <label id="SAP#" class="col-2 col-form-label" for="sapBox">SAP#</label>
 
-        <select id="sapChoice" class="form-control col-1 sapChoice">
+        <select v-model="sapS" class="form-control col-1 sapChoice">
           <option selected></option>
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
 
-        <input id="sapBox" class="form-control col-3" type="text">
+        <input v-model="sapN" class="form-control col-3" type="text">
       </div>
       <div class="row text-center justify-content-center no-gutters">
         <label class="col-2 col-form-label" for="requestbyBox">*Request By</label>
-        <select id="requestbyBox" class="form-control col-4" type="text">
+        <select v-model="reqBy" class="form-control col-4" type="text">
           <option id="defReqByOption" disable selected></option>
           <option value="Aqil">Aqil</option>
           <option value="Amirul">Amirul</option>
@@ -113,11 +114,11 @@
           <option value="Malina">Malina</option>
         </select>
         <label class="col-2 col-form-label" for="requestdateBox">*Request Date</label>
-        <input v-model="reqDate" id="requestdateBox" class="form-control col-4" type="Date">
+        <input v-model="reqD" id="requestdateBox" class="form-control col-4" type="Date">
       </div>
       <div class="row text-center justify-content-center no-gutters closedByLine">
         <label class="col-2 col-form-label" for="closedbyBox">Closed By</label>
-        <select id="closedbyBox" class="form-control col-4" type="text">
+        <select v-model="closBy" class="form-control col-4" type="text">
           <option disabled selected></option>
           <option value="Aqil">Aqil</option>
           <option value="Amirul">Amirul</option>
@@ -127,22 +128,21 @@
         </select>
 
         <label class="col-2 col-form-label" for="completiondateBox">Completion Date</label>
-        <input id="completiondateBox" class="form-control col-4" type="date">
+        <input v-model="closD" class="form-control col-4" type="date">
       </div>
       <!-- <div class="row text-center my-3 justify-content-center no-gutters d-flex"> -->
-        <div class="row text-center my-3 no-gutters ">
-        <transition-group tag="custom"  name="buttonDisplay" mode="out-in">
-        <input :key="1" v-if="formState" class="btn mx-1 " type="button" value="SEARCH">
+      <div class="row text-center my-3 no-gutters d-flex justify-content-center">
+        <!-- <transition-group tag="custom"  name="buttonDisplay" mode="out-in"> -->
+        <input :key="1" v-if="getFormState" class="btn mx-1" type="button" value="SEARCH">
 
-        <input :key="2" v-if="formState"  class="btn mx-1 " type="button" value="EDIT">
+        <input :key="2" v-if="getFormState" class="btn mx-1" type="button" value="EDIT">
 
-        <input :key="3" v-if="formState"  class="btn mx-1 " type="button" value="DELETE">
+        <input :key="3" v-if="getFormState" class="btn mx-1" type="button" value="DELETE">
 
-        <input :key="3" v-if="!formState" class="btn mx-1 " type="button" value="SAVE">
+        <input :key="3" v-if="!getFormState" class="btn mx-1" type="button" value="SAVE">
 
-        <input :key="4" v-if="!formState"  class="btn mx-1 " type="button" value="RESET">
-        </transition-group>
-
+        <input :key="4" v-if="!getFormState" class="btn mx-1" type="button" value="RESET">
+        <!-- </transition-group> -->
       </div>
     </form>
 
@@ -153,25 +153,249 @@
 <script>
 import '@/styles/customForm.css'
 import dayjs from 'dayjs'
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'form',
+  name: 'mainForm',
   data () {
     return {
-      formState: false,
-      reqDate: dayjs(new Date()).format('YYYY-MM-DD')
+      // formState: false,
+      // reqDate: dayjs(new Date()).format("YYYY-MM-DD")
+    }
+  },
+  computed: {
+    getFormState: {
+      get () {
+        return this.$store.getters.getFormState
+      },
+      set (value) {
+        this.changeFormState(value)
+      }
+    },
+    // getFormData: {
+    //   get(){
+    //     return this.$store.getters.getFormData
+    //   },
+    // },
+    wTitle: {
+      get () {
+        return this.$store.getters.getFormData['wTitle']
+      },
+      set (value) {
+        let payload = {
+          field: 'wTitle',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    prio: {
+      get () {
+        return this.$store.getters.getFormData['prio']
+      },
+      set (value) {
+        let payload = {
+          field: 'prio',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    t1: {
+      get () {
+        return this.$store.getters.getFormData['t1']
+      },
+      set (value) {
+        let payload = {
+          field: 't1',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    t2: {
+      get () {
+        return this.$store.getters.getFormData['t2']
+      },
+      set (value) {
+        let payload = {
+          field: 't2',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    desc: {
+      get () {
+        return this.$store.getters.getFormData['desc']
+      },
+      set (value) {
+        let payload = {
+          field: 'desc',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    loca: {
+      get () {
+        return this.$store.getters.getFormData['loca']
+      },
+      set (value) {
+        let payload = {
+          field: 'loca',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    stat: {
+      get () {
+        return this.$store.getters.getFormData['stat']
+      },
+      set (value) {
+        let payload = {
+          field: 'stat',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    comp: {
+      get () {
+        return this.$store.getters.getFormData['comp']
+      },
+      set (value) {
+        let payload = {
+          field: 'comp',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    sapS: {
+      get () {
+        return this.$store.getters.getFormData['sapS']
+      },
+      set (value) {
+        let payload = {
+          field: 'sapS',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    sapN: {
+      get () {
+        return this.$store.getters.getFormData['sapN']
+      },
+      set (value) {
+        let payload = {
+          field: 'sapN',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    reqBy: {
+      get () {
+        return this.$store.getters.getFormData['reqBy']
+      },
+      set (value) {
+        let payload = {
+          field: 'reqBy',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    reqD: {
+      get () {
+        return this.$store.getters.getFormData['reqD']
+      },
+      set (value) {
+        let payload = {
+          field: 'reqD',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    closBy: {
+      get () {
+        return this.$store.getters.getFormData['closBy']
+      },
+      set (value) {
+        let payload = {
+          field: 'closBy',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    },
+    closD: {
+      get () {
+        return this.$store.getters.getFormData['closD']
+      },
+      set (value) {
+        let payload = {
+          field: 'closD',
+          data: value
+        }
+        this.updateFormData(payload)
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['changeFormState', 'updateFormData']),
+    switchState () {
+      if (this.getFormState) {
+        this.resetForm()
+      } else if (!this.getFormState) {
+        this.resetForm()
+      }
+    },
+    resetForm () {
+      let payload
+      for (let field in this.$store.getters.getFormData) {
+        switch (field) {
+          case 'reqD':
+            if (this.getFormState) {
+              payload = {
+                field: field,
+                data: ''
+              }
+              this.updateFormData(payload)
+            } else {
+              payload = {
+                field: field,
+                data: dayjs(new Date()).format('YYYY-MM-DD')
+              }
+              this.updateFormData(payload)
+            }
+            break
+          default:
+            payload = {
+              field: field,
+              data: ''
+            }
+            this.updateFormData(payload)
+        }
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
-.buttonDisplay-enter,.buttonDisplay-leave-to{
-opacity:0;
-transform: translateY(0px)
+.buttonDisplay-enter,
+.buttonDisplay-leave-to {
+  opacity: 0;
+  transform: translateY(0px);
 }
-.buttonDisplay-enter-active,.buttonDisplay-leave-active{
-  transition: opacity 1s ;
+.buttonDisplay-enter-active,
+.buttonDisplay-leave-active {
+  transition: opacity 1s;
 }
 // .buttonDisplay-move{
 //   // transition: transform 1s;
@@ -179,9 +403,9 @@ transform: translateY(0px)
 
 // }
 
-custom{
+custom {
   // transition: transform 1s;
-  width:100%;
+  width: 100%;
 }
 
 .btn {
@@ -202,7 +426,7 @@ custom{
   min-width: 15%;
   max-width: 18%;
   font-weight: bold;
-  position:relative;
+  position: relative;
   // width: 200px;
 }
 .btn:hover {
