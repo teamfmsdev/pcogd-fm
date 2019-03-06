@@ -1,6 +1,6 @@
 <template>
   <div class="container sticky-top mt-3 p-0 mainArea">
-    <form class="form-group p-3">
+    <form class="form-group p-3 sticky-top" @submit.prevent="saveData">
       <div class="row justify-content-center no-gutters">
         <div class="col d-flex justify-content-end align-items-center">
           <label>New</label>
@@ -8,11 +8,12 @@
           <!-- Rounded switch -->
           <label class="switch mx-3">
             <input type="checkbox" v-model="getFormState" @change="switchState">
-
+            
             <span class="slider round"></span>
           </label>
           <label>Update</label>
         </div>
+        
         <div class="col-5 d-flex justify-content-end align-item-center p-0 m-0 h-50">
           <input
             type="button"
@@ -35,30 +36,36 @@
           >
         </div>
       </div>
+      <!-- <div class="row justify-content-center no-gutters">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div> -->
 
-      <div class="row text-center justify-content-center no-gutters">
+      <div class="row text-center justify-content-center no-gutters mb-1">
         <label for="wTitleBox" class="col-2 col-form-label">Work Title</label>
-        <input id="wTitleBox" class="form-control col-5" v-model="wTitle">
+        <input id="wTitleBox" class="form-control col-5" v-model="wTitle" :required="!getFormState">
+        
         <label class="col-1 col-form-label" for="priorityBox">Priority</label>
-
-        <select class="form-control col-1" v-model="prio">
+        
+        <select class="form-control col-1" v-model="prio" :required="!getFormState">
           <option disabled selected></option>
           <option value="P1">P1</option>
           <option value="P2">P2</option>
           <option value="P3">P3</option>
           <option value="P4">P4</option>
         </select>
-
+        
         <label class="col-1 col-form-label" for="type1Box">Type</label>
-
-        <select class="form-control col-1" v-model="t1">
+        
+        <select class="form-control col-1" v-model="t1" :required="!getFormState">
           <option disabled selected></option>
           <option value="PM">PM</option>
           <option value="RM">RM</option>
           <option value="SM">SM</option>
         </select>
-
-        <select class="form-control col-1" v-model="t2">
+        
+        <select class="form-control col-1" v-model="t2" :required="!getFormState">
           <option disabled selected></option>
           <option value="VI">VI</option>
           <option value="RS">RS</option>
@@ -70,19 +77,25 @@
           <option value="SL">SL</option>
         </select>
       </div>
-      <div class="row justify-content-center no-gutters">
+      <div class="row justify-content-center no-gutters mb-1">
         <label
           id="Description"
           class="col-2 col-form-label text-center"
           for="descriptionBox"
         >*Description</label>
-        <textarea v-model="desc" rows="5" cols="50" class="form-control col"></textarea>
+        <textarea
+          :required="!getFormState"
+          v-model="desc"
+          rows="5"
+          cols="50"
+          class="form-control col"
+        ></textarea>
       </div>
-      <div class="row text-center justify-content-center no-gutters">
+      <div class="row text-center justify-content-center no-gutters mb-1">
         <label id="Location" class="col-2 col-form-label" for="locationBox">*Location</label>
-        <input v-model="loca" class="form-control col-4" type="text">
+        <input v-model="loca" class="form-control col-4" type="text" :required="!getFormState">
         <label id="Status" class="col-2 col-form-label" for="statusBox">*Status</label>
-        <select v-model="stat" class="form-control col-4">
+        <select v-model="stat" class="form-control col-4" :required="!getFormState">
           <option disabled selected></option>
           <option selected="selected" value="New">New</option>
           <option value="Reviewed">Reviewed</option>
@@ -90,7 +103,7 @@
           <option value="Closed">Closed</option>
         </select>
       </div>
-      <div class="row text-center justify-content-center no-gutters">
+      <div class="row text-center justify-content-center no-gutters mb-1">
         <label id="Company" class="col-2 col-form-label" for="companyBox">Company</label>
         <input v-model="comp" class="form-control col-4" type="text">
         <label id="SAP#" class="col-2 col-form-label" for="sapBox">SAP#</label>
@@ -111,13 +124,15 @@
           v-model="sapN"
           class="form-control sapN"
           :class="{'col-4':!getFormState,'col-3':getFormState}"
+          :disabled="getFormState && sapS!='Yes'"
           type="text"
+          :required="!getFormState"
         >
         <!-- </transition> -->
       </div>
-      <div class="row text-center justify-content-center no-gutters">
+      <div class="row text-center justify-content-center no-gutters mb-1">
         <label class="col-2 col-form-label" for="requestbyBox">*Request By</label>
-        <select v-model="reqBy" class="form-control col-4" type="text">
+        <select v-model="reqBy" class="form-control col-4" type="text" :required="!getFormState">
           <option id="defReqByOption" disable selected></option>
           <option value="Aqil">Aqil</option>
           <option value="Amirul">Amirul</option>
@@ -126,14 +141,20 @@
           <option value="Malina">Malina</option>
         </select>
         <label class="col-2 col-form-label" for="requestdateBox">*Request Date</label>
-        <input v-model="reqD" id="requestdateBox" class="form-control col-4" type="Date">
+        <input
+          :required="!getFormState"
+          v-model="reqD"
+          id="requestdateBox"
+          class="form-control col-4"
+          type="Date"
+        >
       </div>
       <div
-        :class="{displayClosed:getFormState || stat=='Closed'}"
+        :class="{displayClosed:(!getFormState && stat!='Closed')}"
         class="row text-center justify-content-center no-gutters closedByLine"
       >
         <label class="col-2 col-form-label" for="closedbyBox">Closed By</label>
-        <select v-model="closBy" class="form-control col-4" type="text">
+        <select v-model="closBy" class="form-control col-4" type="text" :required="!getFormState">
           <option disabled selected></option>
           <option value="Aqil">Aqil</option>
           <option value="Amirul">Amirul</option>
@@ -141,303 +162,329 @@
           <option value="Kamarulzaman">Kamarulzaman</option>
           <option value="Malina">Malina</option>
         </select>
-
+        
         <label class="col-2 col-form-label" for="completiondateBox">Completion Date</label>
-        <input v-model="closD" class="form-control col-4" type="date">
+        <input v-model="closD" class="form-control col-4" type="date" :required="!getFormState">
       </div>
       <!-- <div class="row text-center my-3 justify-content-center no-gutters d-flex"> -->
       <div class="row text-center my-3 no-gutters d-flex justify-content-center">
         <!-- <transition-group tag="custom"  name="buttonDisplay" mode="out-in"> -->
-        <input class="btn mx-1" type="button" id="searchBtn" value="SEARCH">
-
-        <input class="btn mx-1" type="button" id="editBtn" value="EDIT">
-
-        <input class="btn mx-1" type="button" id="deleteBtn" value="DELETE">
-
-        <input class="btn mx-1" type="button" id="saveBtn" value="SAVE">
-        <input class="btn mx-1" type="button" id="resetBtn" value="RESET">
+        <input class="btn mx-1" type="button" id="searchBtn" value="SEARCH " v-show="getFormState">
+        
+        <input class="btn mx-1" type="button" id="editBtn" value="EDIT" v-show="getFormState">
+        
+        <input
+          class="btn mx-1"
+          type="button"
+          id="deleteBtn"
+          value="DELETE"
+          v-show="getFormState && getClickedRow"
+        >
+        
+        <input class="btn mx-1" type="submit" id="saveBtn" value="SAVE" v-show="!getFormState">
+        <input
+          class="btn mx-1"
+          type="button"
+          id="resetBtn"
+          value="RESET"
+          v-show="!getFormState || getFormState"
+        >
         <!-- </transition-group> -->
       </div>
     </form>
 
-    <div class="container card alertMsg justify-content-center text-center" id="alertMsg"></div>
+    <div class="container card alertMsg justify-content-center text-center" id="alertMsg">Babushka!</div>
+    <!-- <div class="spinner-border text-primary" style="position:fixed; top:50%; bottom:50%; left:50%; right:50%;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div> -->
+    <!-- </div> -->
   </div>
 </template>
 
 <script>
-import '@/styles/customForm.css'
-import dayjs from 'dayjs'
-import { mapActions } from 'vuex'
-import Velocity from 'velocity-animate'
+import "@/styles/customForm.css";
+import dayjs from "dayjs";
+import { mapActions } from "vuex";
+import Velocity from "velocity-animate";
 
 export default {
-  name: 'mainForm',
-  data () {
+  name: "mainForm",
+  data() {
     return {
       // formState: false,
       // reqDate: dayjs(new Date()).format("YYYY-MM-DD")
-    }
+    };
   },
   computed: {
     getFormState: {
-      get () {
-        return this.$store.getters.getFormState
+      get() {
+        return this.$store.getters.getFormState;
       },
-      set (value) {
-        this.changeFormState(value)
+      set(value) {
+        this.changeFormState(value);
       }
     },
+    getClickedRow: {
+      get() {
+        return this.$store.getters.getClickedRow;
+      }
+    },
+
     // getFormData: {
     //   get(){
     //     return this.$store.getters.getFormData
     //   },
     // },
     wTitle: {
-      get () {
-        return this.$store.getters.getFormData['wTitle']
+      get() {
+        return this.$store.getters.getFormData["wTitle"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'wTitle',
+          field: "wTitle",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     prio: {
-      get () {
-        return this.$store.getters.getFormData['prio']
+      get() {
+        return this.$store.getters.getFormData["prio"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'prio',
+          field: "prio",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     t1: {
-      get () {
-        return this.$store.getters.getFormData['t1']
+      get() {
+        return this.$store.getters.getFormData["t1"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 't1',
+          field: "t1",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     t2: {
-      get () {
-        return this.$store.getters.getFormData['t2']
+      get() {
+        return this.$store.getters.getFormData["t2"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 't2',
+          field: "t2",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     desc: {
-      get () {
-        return this.$store.getters.getFormData['desc']
+      get() {
+        return this.$store.getters.getFormData["desc"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'desc',
+          field: "desc",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     loca: {
-      get () {
-        return this.$store.getters.getFormData['loca']
+      get() {
+        return this.$store.getters.getFormData["loca"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'loca',
+          field: "loca",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     stat: {
-      get () {
-        return this.$store.getters.getFormData['stat']
+      get() {
+        return this.$store.getters.getFormData["stat"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'stat',
+          field: "stat",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     comp: {
-      get () {
-        return this.$store.getters.getFormData['comp']
+      get() {
+        return this.$store.getters.getFormData["comp"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'comp',
+          field: "comp",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     sapS: {
-      get () {
-        return this.$store.getters.getFormData['sapS']
+      get() {
+        return this.$store.getters.getFormData["sapS"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'sapS',
+          field: "sapS",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     sapN: {
-      get () {
-        return this.$store.getters.getFormData['sapN']
+      get() {
+        return this.$store.getters.getFormData["sapN"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'sapN',
+          field: "sapN",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     reqBy: {
-      get () {
-        return this.$store.getters.getFormData['reqBy']
+      get() {
+        return this.$store.getters.getFormData["reqBy"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'reqBy',
+          field: "reqBy",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     reqD: {
-      get () {
-        return this.$store.getters.getFormData['reqD']
+      get() {
+        return this.$store.getters.getFormData["reqD"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'reqD',
+          field: "reqD",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     closBy: {
-      get () {
-        return this.$store.getters.getFormData['closBy']
+      get() {
+        return this.$store.getters.getFormData["closBy"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'closBy',
+          field: "closBy",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     },
     closD: {
-      get () {
-        return this.$store.getters.getFormData['closD']
+      get() {
+        return this.$store.getters.getFormData["closD"];
       },
-      set (value) {
+      set(value) {
         let payload = {
-          field: 'closD',
+          field: "closD",
           data: value
-        }
-        this.updateFormData(payload)
+        };
+        this.updateFormData(payload);
       }
     }
   },
   methods: {
-    ...mapActions(['changeFormState', 'updateFormData']),
-    switchState () {
-      let searchBtn = document.querySelector('#searchBtn')
-      let editBtn = document.querySelector('#editBtn')
-      let deleteBtn = document.querySelector('#deleteBtn')
+    ...mapActions(["changeFormState", "updateFormData","submitFormData"]),
+    switchState() {
+      let searchBtn = document.querySelector("#searchBtn");
+      let editBtn = document.querySelector("#editBtn");
+      let deleteBtn = document.querySelector("#deleteBtn");
       // console.log(searchBtn)
       if (this.getFormState) {
-        Velocity(searchBtn, { width: '15%' }, 1000) // Velocity
-        Velocity(editBtn, { width: '15%' }, 1000) // Velocity
-        Velocity(deleteBtn, { width: '15%' }, 1000) // Velocity
-        this.resetForm()
+        // Velocity(searchBtn, { width: '15%' }, 1000) // Velocity
+        // Velocity(editBtn, { width: '15%' }, 1000) // Velocity
+        // Velocity(deleteBtn, { width: '15%' }, 1000) // Velocity
+        this.resetForm();
       } else if (!this.getFormState) {
-        Velocity(searchBtn, { width: 0 }, 1000) // Velocity
-        Velocity(editBtn, { width: '0' }, 1000) // Velocity
-        Velocity(deleteBtn, { width: '0' }, 1000) // Velocity
-        this.resetForm()
+        // Velocity(searchBtn, { width: 0 }, 1000) // Velocity
+        // Velocity(editBtn, { width: 0 }, 1000) // Velocity
+        // Velocity(deleteBtn, { width: 0 }, 1000) // Velocity
+        this.resetForm();
       }
     },
-    resetForm () {
-      let payload
+    resetForm() {
+      let payload;
       for (let field in this.$store.getters.getFormData) {
         switch (field) {
-          case 'reqD':
+          case "reqD":
             if (this.getFormState) {
               payload = {
                 field: field,
-                data: ''
-              }
+                data: ""
+              };
             } else {
               payload = {
                 field: field,
-                data: dayjs(new Date()).format('YYYY-MM-DD')
-              }
+                data: dayjs(new Date()).format("YYYY-MM-DD")
+              };
             }
-            this.updateFormData(payload)
-            break
-          case 'stat':
+            this.updateFormData(payload);
+            break;
+          case "stat":
             if (!this.getFormState) {
               payload = {
                 field: field,
-                data: 'New'
-              }
+                data: "New"
+              };
             } else {
               payload = {
                 field: field,
-                data: ''
-              }
+                data: ""
+              };
             }
-            this.updateFormData(payload)
-            break
-          case 'sapN':
-            if (!this.getFormState) {
+            this.updateFormData(payload);
+            break;
+          case "sapN":
+            if (this.getFormState) {
               payload = {
                 field: field,
-                data: '-'
-              }
+                data: ""
+              };
             } else {
               payload = {
                 field: field,
-                data: ''
-              }
+                data: "-"
+              };
             }
-            this.updateFormData(payload)
+            this.updateFormData(payload);
 
-            break
+            break;
           default:
             payload = {
               field: field,
-              data: ''
-            }
-            this.updateFormData(payload)
+              data: ""
+            };
+            this.updateFormData(payload);
         }
       }
+    },
+    saveData() {
+      // this.submitFormData();
+      this.$store.dispatch("submitFormData")
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -500,7 +547,7 @@ custom {
   font-size: 15px;
   padding: 5px 20px;
   text-decoration: none;
-  width:15%;
+  width: 15%;
   // min-width: 15%;
   max-width: 18%;
   font-weight: bold;
@@ -513,5 +560,17 @@ custom {
 .btn:active {
   position: relative;
   top: 1px;
+}
+
+// .invalid-feedback{
+//   color:black;
+//   background-color: blue;
+// }
+.alertMsg{
+  // margin-bottom: 1500px;
+}
+
+form{
+  // margin-bottom: 1500px;
 }
 </style>
