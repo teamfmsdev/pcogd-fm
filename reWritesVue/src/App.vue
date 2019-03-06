@@ -9,16 +9,20 @@
       <!-- <router-link to="/">Home</router-link>| -->
     </div>
     <customForm></customForm>
+    <customTable></customTable>
+    <!-- <div style="margin-bottom:5000px;">ABCDEF</div> -->
   </div>
 </template>
 
 <script>
 import '@/styles/globalStyle.css'
 import customForm from '@/components/customForm.vue'
+import customTable from '@/components/customTable.vue'
 export default {
   name: 'app',
   components: {
-    customForm
+    customForm,
+    customTable
   }
 }
 </script>
