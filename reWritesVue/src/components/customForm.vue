@@ -13,7 +13,7 @@
           </label>
           <label>Update</label>
         </div>
-        
+
         <div class="col-5 d-flex justify-content-end align-item-center p-0 m-0 h-50">
           <input
             type="button"
@@ -40,8 +40,7 @@
           <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
           </div>
-        </div> -->
-
+      </div>-->
       <div class="row text-center justify-content-center no-gutters mb-1">
         <label for="wTitleBox" class="col-2 col-form-label">Work Title</label>
         <input id="wTitleBox" class="form-control col-5" v-model="wTitle" :required="!getFormState">
@@ -169,7 +168,14 @@
       <!-- <div class="row text-center my-3 justify-content-center no-gutters d-flex"> -->
       <div class="row text-center my-3 no-gutters d-flex justify-content-center">
         <!-- <transition-group tag="custom"  name="buttonDisplay" mode="out-in"> -->
-        <input class="btn mx-1" type="button" id="searchBtn" value="SEARCH " v-show="getFormState">
+        <input
+          class="btn mx-1"
+          type="button"
+          id="searchBtn"
+          value="SEARCH "
+          v-show="getFormState"
+          @click="searchData"
+        >
         
         <input class="btn mx-1" type="button" id="editBtn" value="EDIT" v-show="getFormState">
         
@@ -196,7 +202,7 @@
     <div class="container card alertMsg justify-content-center text-center" id="alertMsg">Babushka!</div>
     <!-- <div class="spinner-border text-primary" style="position:fixed; top:50%; bottom:50%; left:50%; right:50%;" role="status">
       <span class="sr-only">Loading...</span>
-    </div> -->
+    </div>-->
     <!-- </div> -->
   </div>
 </template>
@@ -206,6 +212,7 @@ import "@/styles/customForm.css";
 import dayjs from "dayjs";
 import { mapActions } from "vuex";
 import Velocity from "velocity-animate";
+import axios from "axios";
 
 export default {
   name: "mainForm",
@@ -405,7 +412,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["changeFormState", "updateFormData","submitFormData"]),
+    ...mapActions(["changeFormState", "updateFormData", "submitFormData","saveSearchData"]),
     switchState() {
       let searchBtn = document.querySelector("#searchBtn");
       let editBtn = document.querySelector("#editBtn");
@@ -481,7 +488,31 @@ export default {
     },
     saveData() {
       // this.submitFormData();
-      this.$store.dispatch("submitFormData")
+      this.$store.dispatch("submitFormData");
+    },
+    searchData() {
+      axios
+        .get("http://localhost:80/fm/rewritesvue/public/server/retrieve.php", {
+          params: {
+            "Work Title": this.wTitle ,
+            Priority: this.prio ,
+            "Type 1": this.t1,
+            "Type 2": this.t2,
+            Description: this.desc,
+            Location: this.loca,
+            Status: this.stat,
+            Company: this.comp,
+            "SAP Choice": this.sapS,
+            "SAP#": this.sapN,
+            "Request By": this.reqBy,
+            "Request Date": this.reqD,
+            "Closed By": this.closBy,
+            "Completion Date": this.closD 
+          }
+        })
+        .then(({data}) => {
+          this.saveSearchData(data)
+        });
     }
   }
 };
@@ -566,11 +597,11 @@ custom {
 //   color:black;
 //   background-color: blue;
 // }
-.alertMsg{
+.alertMsg {
   // margin-bottom: 1500px;
 }
 
-form{
+form {
   // margin-bottom: 1500px;
 }
 </style>

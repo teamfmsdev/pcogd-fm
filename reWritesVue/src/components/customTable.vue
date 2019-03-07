@@ -1,5 +1,5 @@
 <template>
-<b-table  dark :items="item" bordered :fields="fields"></b-table>  
+<b-table class="tableClassBl"  dark :items="item" bordered :fields="fields"></b-table>  
 </template>
 
 <script>
@@ -28,12 +28,32 @@ export default {
       }
       
     }
+  },
+  methods:{
+    hightlightRow:(item,index)=>{
+      console.log("ROW?")
+    }
   }
 }
 </script>
 
-<style lang="sass" scoped>
 
+<style lang="scss" scoped>
+
+.tableClassBl{
+  tr{
+    background-color: orange;
+  }
+  tr:hover{
+    background-color:blue;
+  }
+  tbody{
+    tr:hover{
+      background-color:red;
+    }
+  }
+}
 </style>
+
 
 

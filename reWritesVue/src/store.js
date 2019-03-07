@@ -65,6 +65,9 @@ export default new Vuex.Store({
     },
     submitFormData(state,payload){
       console.log("mutations!")
+    },
+    searchDataResult(state,payload){
+      state.tableItems = payload
     }
 
   },
@@ -92,6 +95,9 @@ export default new Vuex.Store({
     async submitFormData(context,payload){
       context.commit("submitFormData")
       console.log("Actions called")
+    },
+    async saveSearchData({commit},payload){
+      commit("searchDataResult",payload)
     }
   }
 })
