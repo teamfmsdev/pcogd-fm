@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="fakeBody">
     <div id="nav">
       <h1 class="mb-0 p-0" v-text="'PCOGD Facilities Management'"></h1>
       <h2 class="p-0 mt-0 text-white">
@@ -10,6 +11,7 @@
     </div>
     <customForm></customForm>
     <customTable></customTable>
+    </div>
     <!-- <div style="margin-bottom:5000px;">ABCDEF</div> -->
   </div>
 </template>
@@ -28,13 +30,26 @@ export default {
 </script>
 
 <style lang="scss">
+
+$mobile : 768px;
+
+@mixin mobile{
+  @media(max-width: #{$mobile}){
+    @content
+  }
+}
+
 #app {
   // background-color: rgb(36, 34, 34) !important;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background-color: rgb(36, 34, 34) ;
   // color: white;
+}
+body{
+
 }
 #nav {
   margin-bottom: 2%;
@@ -47,6 +62,15 @@ export default {
   a {
     font-weight: bold;
     // color: white;
+  }
+
+  @include mobile{
+    h1{
+      font-size: 1.5em;
+    }
+    h2 strong{
+      font-size: .8em;
+    }
   }
 }
 </style>
