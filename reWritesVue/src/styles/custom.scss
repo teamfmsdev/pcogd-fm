@@ -1,0 +1,64 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+
+$table-dark-hover-bg: rgb(0, 177, 169);
+$table-hover-bg:rgb(0, 177, 169);
+$th-bg-color:rgb(0, 177, 169);
+
+
+$mobile : 768px;
+
+@mixin mobile{
+  @media(max-width: #{$mobile}){
+    @content
+  }
+}
+
+.table-hover {
+  tbody tr {
+    @include hover {
+      color: $table-hover-color;
+      background-color: $table-hover-bg;
+      transition: background-color .3s;
+    }
+  }
+}
+
+.table{
+  background-color: white;
+  th{
+    background-color:$th-bg-color;
+  }
+}
+
+
+.table-dark {
+  color: $table-dark-color;
+  background-color: $table-dark-bg;
+
+  th,
+  td,
+  thead th {
+    border-color: $table-dark-border-color;
+  }
+
+  &.table-bordered {
+    border: 0;
+  }
+
+  &.table-striped {
+    tbody tr:nth-of-type(odd) {
+      background-color: $table-dark-accent-bg;
+    }
+  }
+
+  &.table-hover {
+    tbody tr {
+      @include hover {
+        color: $table-dark-hover-color;
+        background-color: blue;
+        transition: background-color .3s;
+      }
+    }
+  }
+}
