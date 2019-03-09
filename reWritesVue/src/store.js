@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     formState: false,
     clickedRow: false,
+    isLoading: false,
     formData: {
       wTitle: '',
       prio: '',
@@ -24,22 +25,7 @@ export default new Vuex.Store({
       closBy: '',
       closD: ''
     },
-    tableItems:[{
-      fmNo: "1",
-      wTitle: "Olefin Substation Repainting",
-      prio: "P4",
-      t1: "PM",
-      t2: "PT",
-      desc: "15/11-final touch up and house keeping.\n\n17/12- amended PO, signed JCT.",
-      loca: "Olefins Sub Station",
-      stat: "Closed",
-      comp: "Enproserve",
-      sapN: "-",
-      reqBy: "Aqil",
-      reqD: "2018-11-15",
-      closBy: "Aqil",
-      closD: "2018-12-18"
-    }]
+    tableItems: []
 
   },
   getters: {
@@ -49,10 +35,13 @@ export default new Vuex.Store({
     getFormState: (state) => {
       return state.formState
     },
-    getClickedRow:(state)=>{
+    getClickedRow: (state) => {
       return state.clickedRow
     },
-    getTableTtems:(state)=>{
+    getIsLoading: (state) => {
+      return state.isLoading
+    },
+    getTableTtems: (state) => {
       return state.tableItems
     }
   },
@@ -63,11 +52,14 @@ export default new Vuex.Store({
     updateFormData (state, { field, data }) {
       state.formData[field] = data
     },
-    submitFormData(state,payload){
-      console.log("mutations!")
+    submitFormData (state, payload) {
+      state.tableItems.push(payload)
     },
-    searchDataResult(state,payload){
+    searchDataResult (state, payload) {
       state.tableItems = payload
+    },
+    changeIsLoading (state, payload) {
+      state.isLoading = payload
     }
 
   },
@@ -75,29 +67,30 @@ export default new Vuex.Store({
     changeFormState ({ commit }, payload) {
       commit('changeFormState', payload)
     },
-    async updateFormData ({ commit,getters }, payload) {
+    async updateFormData ({ commit, getters }, payload) {
       // If user change sapChoice to something other than yes, clear sapNumber field
-      if(payload.field=="sapS" && payload.data !="Yes" && getters.getFormState){
-        payload.data = payload.data.trim()  
+      if (payload.field == 'sapS' && payload.data != 'Yes' && getters.getFormState) {
+        payload.data = payload.data.trim()
         await commit('updateFormData', payload)
 
-        payload.field="sapN"
-        payload.data=""
+        payload.field = 'sapN'
+        payload.data = ''
 
-        await commit('updateFormData',payload)
-      }
-      else{
+        await commit('updateFormData', payload)
+      } else {
         payload.data = payload.data.trim()
         await commit('updateFormData', payload)
       }
-      
     },
-    async submitFormData(context,payload){
-      context.commit("submitFormData")
-      console.log("Actions called")
+    async submitFormData ({ commit, state }, payload) {
+      let newData = { ...state.formData, fmNo: payload }
+      commit('submitFormData', newData)
     },
-    async saveSearchData({commit},payload){
-      commit("searchDataResult",payload)
+    async saveSearchData ({ commit }, payload) {
+      commit('searchDataResult', payload)
+    },
+    changeIsLoading ({ commit }, payload) {
+      commit('changeIsLoading', payload)
     }
   }
 })
