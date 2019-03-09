@@ -1,20 +1,20 @@
 <template>
-  <div class="container sticky-top mt-3 p-0 mainArea">
-    <form class="form-group p-3 sticky-top" @submit.prevent="saveData">
+  <div class="container sticky-top mb-1 mt-3 p-0 mainArea">
+    <form class="form-group p-3" @submit.prevent="saveData">
       <div class="row justify-content-center no-gutters">
-        <div class="col d-flex justify-content-end align-items-center">
+        <div class="col-md d-flex justify-content-end align-items-center formSwitch">
           <label>New</label>
           <!-- <input type="checkbox" id="checkBox" onclick="changeAction()" /> -->
           <!-- Rounded switch -->
           <label class="switch mx-3">
             <input type="checkbox" v-model="getFormState" @change="switchState">
-            
+
             <span class="slider round"></span>
           </label>
           <label>Update</label>
         </div>
 
-        <div class="col-5 d-flex justify-content-end align-item-center p-0 m-0 h-50">
+        <div class="col-md-5 d-flex justify-content-end align-item-center p-0 m-0 h-50 helpBtn">
           <input
             type="button"
             value="Help"
@@ -36,35 +36,36 @@
           >
         </div>
       </div>
-      <!-- <div class="row justify-content-center no-gutters">
-          <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-      </div>-->
+
       <div class="row text-center justify-content-center no-gutters mb-1">
-        <label for="wTitleBox" class="col-2 col-form-label">Work Title</label>
-        <input id="wTitleBox" class="form-control col-5" v-model="wTitle" :required="!getFormState">
-        
+        <label for="wTitleBox" class="col-md-2 col-form-label">Work Title</label>
+        <input
+          id="wTitleBox"
+          class="form-control col-md-5"
+          v-model="wTitle"
+          :required="!getFormState"
+        >
+
         <label class="col-1 col-form-label" for="priorityBox">Priority</label>
-        
-        <select class="form-control col-1" v-model="prio" :required="!getFormState">
+
+        <select class="form-control col-md-1" v-model="prio" :required="!getFormState">
           <option disabled selected></option>
           <option value="P1">P1</option>
           <option value="P2">P2</option>
           <option value="P3">P3</option>
           <option value="P4">P4</option>
         </select>
-        
-        <label class="col-1 col-form-label" for="type1Box">Type</label>
-        
-        <select class="form-control col-1" v-model="t1" :required="!getFormState">
+
+        <label class="col-md-1 col-form-label" for="type1Box">Type</label>
+
+        <select class="form-control col-md-1" v-model="t1" :required="!getFormState">
           <option disabled selected></option>
           <option value="PM">PM</option>
           <option value="RM">RM</option>
           <option value="SM">SM</option>
         </select>
-        
-        <select class="form-control col-1" v-model="t2" :required="!getFormState">
+
+        <select class="form-control col-md-1" v-model="t2" :required="!getFormState">
           <option disabled selected></option>
           <option value="VI">VI</option>
           <option value="RS">RS</option>
@@ -79,7 +80,7 @@
       <div class="row justify-content-center no-gutters mb-1">
         <label
           id="Description"
-          class="col-2 col-form-label text-center"
+          class="col-md-2 col-form-label text-center"
           for="descriptionBox"
         >*Description</label>
         <textarea
@@ -87,14 +88,14 @@
           v-model="desc"
           rows="5"
           cols="50"
-          class="form-control col"
+          class="form-control col-md"
         ></textarea>
       </div>
       <div class="row text-center justify-content-center no-gutters mb-1">
-        <label id="Location" class="col-2 col-form-label" for="locationBox">*Location</label>
-        <input v-model="loca" class="form-control col-4" type="text" :required="!getFormState">
-        <label id="Status" class="col-2 col-form-label" for="statusBox">*Status</label>
-        <select v-model="stat" class="form-control col-4" :required="!getFormState">
+        <label id="Location" class="col-md-2 col-form-label" for="locationBox">*Location</label>
+        <input v-model="loca" class="form-control col-md-4" type="text" :required="!getFormState">
+        <label id="Status" class="col-md-2 col-form-label" for="statusBox">*Status</label>
+        <select v-model="stat" class="form-control col-md-4" :required="!getFormState">
           <option disabled selected></option>
           <option selected="selected" value="New">New</option>
           <option value="Reviewed">Reviewed</option>
@@ -103,16 +104,11 @@
         </select>
       </div>
       <div class="row text-center justify-content-center no-gutters mb-1">
-        <label id="Company" class="col-2 col-form-label" for="companyBox">Company</label>
-        <input v-model="comp" class="form-control col-4" type="text">
-        <label id="SAP#" class="col-2 col-form-label" for="sapBox">SAP#</label>
+        <label id="Company" class="col-md-2 col-form-label" for="companyBox">Company</label>
+        <input v-model="comp" class="form-control col-md-4" type="text">
+        <label id="SAP#" class="col-md-2 col-form-label" for="sapBox">SAP#</label>
         <transition name="buttonDisplay" mode="out-in">
-          <select
-            v-model="sapS"
-            v-show="getFormState"
-            :class="{'col-1':getFormState}"
-            class="form-control sapC"
-          >
+          <select v-model="sapS" id="sapC" class="form-control sapC col-md-1">
             <option selected></option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
@@ -121,8 +117,8 @@
         <!-- <transition name="sapNDisplay" mode="out-in"> -->
         <input
           v-model="sapN"
-          class="form-control sapN"
-          :class="{'col-4':!getFormState,'col-3':getFormState}"
+          class="form-control sapN col-md-4"
+          id="sapN"
           :disabled="getFormState && sapS!='Yes'"
           type="text"
           :required="!getFormState"
@@ -130,8 +126,8 @@
         <!-- </transition> -->
       </div>
       <div class="row text-center justify-content-center no-gutters mb-1">
-        <label class="col-2 col-form-label" for="requestbyBox">*Request By</label>
-        <select v-model="reqBy" class="form-control col-4" type="text" :required="!getFormState">
+        <label class="col-md-2 col-form-label" for="requestbyBox">*Request By</label>
+        <select v-model="reqBy" class="form-control col-md-4" type="text" :required="!getFormState">
           <option id="defReqByOption" disable selected></option>
           <option value="Aqil">Aqil</option>
           <option value="Amirul">Amirul</option>
@@ -139,12 +135,12 @@
           <option value="Kamarulzaman">Kamarulzaman</option>
           <option value="Malina">Malina</option>
         </select>
-        <label class="col-2 col-form-label" for="requestdateBox">*Request Date</label>
+        <label class="col-md-2 col-form-label" for="requestdateBox">*Request Date</label>
         <input
           :required="!getFormState"
           v-model="reqD"
           id="requestdateBox"
-          class="form-control col-4"
+          class="form-control col-md-4"
           type="Date"
         >
       </div>
@@ -152,8 +148,13 @@
         :class="{displayClosed:(!getFormState && stat!='Closed')}"
         class="row text-center justify-content-center no-gutters closedByLine"
       >
-        <label class="col-2 col-form-label" for="closedbyBox">Closed By</label>
-        <select v-model="closBy" class="form-control col-4" type="text" :required="!getFormState">
+        <label class="col-md-2 col-form-label" for="closedbyBox">Closed By</label>
+        <select
+          v-model="closBy"
+          class="form-control col-md-4"
+          type="text"
+          :required="!getFormState && stat=='Closed'"
+        >
           <option disabled selected></option>
           <option value="Aqil">Aqil</option>
           <option value="Amirul">Amirul</option>
@@ -161,14 +162,15 @@
           <option value="Kamarulzaman">Kamarulzaman</option>
           <option value="Malina">Malina</option>
         </select>
-        
-        <label class="col-2 col-form-label" for="completiondateBox">Completion Date</label>
-        <input v-model="closD" class="form-control col-4" type="date" :required="!getFormState">
+
+        <label class="col-md-2 col-form-label" for="completiondateBox">Completion Date</label>
+        <input v-model="closD" class="form-control col-md-4" type="date" :required="!getFormState && stat=='Closed'">
       </div>
-      <!-- <div class="row text-center my-3 justify-content-center no-gutters d-flex"> -->
-      <div class="row text-center my-3 no-gutters d-flex justify-content-center">
-        <!-- <transition-group tag="custom"  name="buttonDisplay" mode="out-in"> -->
-        <input
+
+      <div
+        class="row text-center my-3 no-gutters d-flex align-content-center justify-content-center flex-column flex-md-row flex-sm-column"
+      >
+        <!-- <input
           class="btn mx-1"
           type="button"
           id="searchBtn"
@@ -176,9 +178,9 @@
           v-show="getFormState"
           @click="searchData"
         >
-        
+
         <input class="btn mx-1" type="button" id="editBtn" value="EDIT" v-show="getFormState">
-        
+
         <input
           class="btn mx-1"
           type="button"
@@ -186,7 +188,7 @@
           value="DELETE"
           v-show="getFormState && getClickedRow"
         >
-        
+
         <input class="btn mx-1" type="submit" id="saveBtn" value="SAVE" v-show="!getFormState">
         <input
           class="btn mx-1"
@@ -194,414 +196,542 @@
           id="resetBtn"
           value="RESET"
           v-show="!getFormState || getFormState"
-        >
-        <!-- </transition-group> -->
+        >-->
+        <input class="btn mx-1" type="button" id="searchBtn" value="SEARCH " @click="searchData">
+
+        <input class="btn mx-1" type="button" id="editBtn" value="EDIT">
+
+        <input class="btn mx-1" type="button" id="deleteBtn" value="DELETE">
+
+        <input class="btn mx-1" type="submit" id="saveBtn" value="SAVE" >
+        <input class="btn mx-1" type="button" id="resetBtn" value="RESET" @click="resetForm">
       </div>
     </form>
 
-    <div class="container card alertMsg justify-content-center text-center" id="alertMsg">Babushka!</div>
-    <!-- <div class="spinner-border text-primary" style="position:fixed; top:50%; bottom:50%; left:50%; right:50%;" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>-->
+    <div class="container card alertMsg justify-content-center text-center" id="alertMsg"></div>
+
+    <!-- <div v-show="getIsLoading" class="d-inline-block" style=" bottom:10%;"> -->
+    <div class="loadingBar">
+      <b-spinner
+        v-show="getIsLoading"
+        variant="primary"
+        type="grow"
+        label="Spinning"
+        style="bottom:10%;"
+      />
+      <b-spinner
+        v-show="getIsLoading"
+        variant="primary"
+        type="grow"
+        label="Spinning"
+        style=" bottom:10%;"
+      />
+      <b-spinner
+        v-show="getIsLoading"
+        variant="primary"
+        type="grow"
+        label="Spinning"
+        style=" bottom:10%;"
+      />
+    </div>
     <!-- </div> -->
   </div>
 </template>
 
 <script>
-import "@/styles/customForm.css";
-import dayjs from "dayjs";
-import { mapActions } from "vuex";
-import Velocity from "velocity-animate";
-import axios from "axios";
+import '@/styles/customForm.css'
+import dayjs from 'dayjs'
+import { mapActions } from 'vuex'
+import Velocity from 'velocity-animate'
+import axios from 'axios'
+import uiControl from '@/helperScript/uiControl.js'
 
 export default {
-  name: "mainForm",
-  data() {
+  name: 'mainForm',
+  data () {
     return {
       // formState: false,
       // reqDate: dayjs(new Date()).format("YYYY-MM-DD")
-    };
+    }
   },
   computed: {
     getFormState: {
-      get() {
-        return this.$store.getters.getFormState;
+      get () {
+        return this.$store.getters.getFormState
       },
-      set(value) {
-        this.changeFormState(value);
+      set (value) {
+        this.changeFormState(value)
       }
     },
     getClickedRow: {
-      get() {
-        return this.$store.getters.getClickedRow;
+      get () {
+        return this.$store.getters.getClickedRow
       }
     },
-
-    // getFormData: {
-    //   get(){
-    //     return this.$store.getters.getFormData
-    //   },
-    // },
-    wTitle: {
-      get() {
-        return this.$store.getters.getFormData["wTitle"];
+    getIsLoading: {
+      get () {
+        return this.$store.getters.getIsLoading
       },
-      set(value) {
+      set (value) {
+        this.$store.commit('changeIsLoading', value)
+      }
+    },
+    wTitle: {
+      get () {
+        return this.$store.getters.getFormData['wTitle']
+      },
+      set (value) {
         let payload = {
-          field: "wTitle",
+          field: 'wTitle',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     prio: {
-      get() {
-        return this.$store.getters.getFormData["prio"];
+      get () {
+        return this.$store.getters.getFormData['prio']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "prio",
+          field: 'prio',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     t1: {
-      get() {
-        return this.$store.getters.getFormData["t1"];
+      get () {
+        return this.$store.getters.getFormData['t1']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "t1",
+          field: 't1',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     t2: {
-      get() {
-        return this.$store.getters.getFormData["t2"];
+      get () {
+        return this.$store.getters.getFormData['t2']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "t2",
+          field: 't2',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     desc: {
-      get() {
-        return this.$store.getters.getFormData["desc"];
+      get () {
+        return this.$store.getters.getFormData['desc']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "desc",
+          field: 'desc',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     loca: {
-      get() {
-        return this.$store.getters.getFormData["loca"];
+      get () {
+        return this.$store.getters.getFormData['loca']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "loca",
+          field: 'loca',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     stat: {
-      get() {
-        return this.$store.getters.getFormData["stat"];
+      get () {
+        return this.$store.getters.getFormData['stat']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "stat",
+          field: 'stat',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     comp: {
-      get() {
-        return this.$store.getters.getFormData["comp"];
+      get () {
+        return this.$store.getters.getFormData['comp']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "comp",
+          field: 'comp',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     sapS: {
-      get() {
-        return this.$store.getters.getFormData["sapS"];
+      get () {
+        return this.$store.getters.getFormData['sapS']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "sapS",
+          field: 'sapS',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     sapN: {
-      get() {
-        return this.$store.getters.getFormData["sapN"];
+      get () {
+        return this.$store.getters.getFormData['sapN']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "sapN",
+          field: 'sapN',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     reqBy: {
-      get() {
-        return this.$store.getters.getFormData["reqBy"];
+      get () {
+        return this.$store.getters.getFormData['reqBy']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "reqBy",
+          field: 'reqBy',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     reqD: {
-      get() {
-        return this.$store.getters.getFormData["reqD"];
+      get () {
+        return this.$store.getters.getFormData['reqD']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "reqD",
+          field: 'reqD',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     closBy: {
-      get() {
-        return this.$store.getters.getFormData["closBy"];
+      get () {
+        return this.$store.getters.getFormData['closBy']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "closBy",
+          field: 'closBy',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     },
     closD: {
-      get() {
-        return this.$store.getters.getFormData["closD"];
+      get () {
+        return this.$store.getters.getFormData['closD']
       },
-      set(value) {
+      set (value) {
         let payload = {
-          field: "closD",
+          field: 'closD',
           data: value
-        };
-        this.updateFormData(payload);
+        }
+        this.updateFormData(payload)
       }
     }
   },
   methods: {
-    ...mapActions(["changeFormState", "updateFormData", "submitFormData","saveSearchData"]),
-    switchState() {
-      let searchBtn = document.querySelector("#searchBtn");
-      let editBtn = document.querySelector("#editBtn");
-      let deleteBtn = document.querySelector("#deleteBtn");
-      // console.log(searchBtn)
+    ...mapActions([
+      'changeFormState',
+      'updateFormData',
+      'submitFormData',
+      'saveSearchData'
+    ]),
+    switchState () {
+      const searchBtn = document.querySelector('#searchBtn')
+      const editBtn = document.querySelector('#editBtn')
+      const deleteBtn = document.querySelector('#deleteBtn')
+      const saveBtn = document.querySelector('#saveBtn')
+      const resetBtn = document.querySelector('#resetBtn')
+      const sapN = document.querySelector('#sapN')
+      const sapC = document.querySelector('#sapC')
       if (this.getFormState) {
-        // Velocity(searchBtn, { width: '15%' }, 1000) // Velocity
-        // Velocity(editBtn, { width: '15%' }, 1000) // Velocity
-        // Velocity(deleteBtn, { width: '15%' }, 1000) // Velocity
-        this.resetForm();
+        uiControl.updateMode()
+
+        this.resetForm()
       } else if (!this.getFormState) {
-        // Velocity(searchBtn, { width: 0 }, 1000) // Velocity
-        // Velocity(editBtn, { width: 0 }, 1000) // Velocity
-        // Velocity(deleteBtn, { width: 0 }, 1000) // Velocity
-        this.resetForm();
+        uiControl.newMode()
+        this.resetForm()
       }
     },
-    resetForm() {
-      let payload;
+    resetForm () {
+      const form = document.querySelector('form')
+      // form.reset();
+      let payload
       for (let field in this.$store.getters.getFormData) {
         switch (field) {
-          case "reqD":
+          case 'reqD':
             if (this.getFormState) {
               payload = {
                 field: field,
-                data: ""
-              };
+                data: ''
+              }
             } else {
               payload = {
                 field: field,
-                data: dayjs(new Date()).format("YYYY-MM-DD")
-              };
+                data: dayjs(new Date()).format('YYYY-MM-DD')
+              }
             }
-            this.updateFormData(payload);
-            break;
-          case "stat":
+            this.updateFormData(payload)
+            break
+          case 'stat':
             if (!this.getFormState) {
               payload = {
                 field: field,
-                data: "New"
-              };
+                data: 'New'
+              }
             } else {
               payload = {
                 field: field,
-                data: ""
-              };
+                data: ''
+              }
             }
-            this.updateFormData(payload);
-            break;
-          case "sapN":
+            this.updateFormData(payload)
+            break
+          case 'sapN':
             if (this.getFormState) {
               payload = {
                 field: field,
-                data: ""
-              };
+                data: ''
+              }
             } else {
               payload = {
                 field: field,
-                data: "-"
-              };
+                data: '-'
+              }
             }
-            this.updateFormData(payload);
+            this.updateFormData(payload)
 
-            break;
+            break
           default:
             payload = {
               field: field,
-              data: ""
-            };
-            this.updateFormData(payload);
+              data: ''
+            }
+            this.updateFormData(payload)
         }
       }
     },
-    saveData() {
-      // this.submitFormData();
-      this.$store.dispatch("submitFormData");
-    },
-    searchData() {
+    saveData () {
+      this.getIsLoading = true
       axios
-        .get("http://localhost:80/fm/rewritesvue/public/server/retrieve.php", {
-          params: {
-            "Work Title": this.wTitle ,
-            Priority: this.prio ,
-            "Type 1": this.t1,
-            "Type 2": this.t2,
-            Description: this.desc,
-            Location: this.loca,
-            Status: this.stat,
-            Company: this.comp,
-            "SAP Choice": this.sapS,
-            "SAP#": this.sapN,
-            "Request By": this.reqBy,
-            "Request Date": this.reqD,
-            "Closed By": this.closBy,
-            "Completion Date": this.closD 
+        .get(
+          'http://localhost:80/pcogdfm/rewritesvue/public/server/save.php',
+          {
+            params: {
+              'Work Title': this.wTitle,
+              Priority: this.prio,
+              'Type 1': this.t1,
+              'Type 2': this.t2,
+              Description: this.desc,
+              Location: this.loca,
+              Status: this.stat,
+              Company: this.comp,
+              'SAP Choice': this.sapS,
+              'SAP#': this.sapN,
+              'Request By': this.reqBy,
+              'Request Date': this.reqD,
+              'Closed By': this.closBy,
+              'Completion Date': this.closD
+            }
           }
+        )
+        .then(({ data }) => {
+          // this.saveSearchData(data);
+          this.$store.dispatch('submitFormData', data.row)
+          this.getIsLoading = false
+
+          const alertMsg = document.querySelector('.alertMsg')
+          uiControl.displayMessage(data['serverMessage'])
         })
-        .then(({data}) => {
+    },
+    searchData () {
+      this.getIsLoading = true
+      axios
+        .get(
+          'http://localhost:80/pcogdfm/rewritesvue/public/server/retrieve.php',
+          {
+            params: {
+              'Work Title': this.wTitle,
+              Priority: this.prio,
+              'Type 1': this.t1,
+              'Type 2': this.t2,
+              Description: this.desc,
+              Location: this.loca,
+              Status: this.stat,
+              Company: this.comp,
+              'SAP Choice': this.sapS,
+              'SAP#': this.sapN,
+              'Request By': this.reqBy,
+              'Request Date': this.reqD,
+              'Closed By': this.closBy,
+              'Completion Date': this.closD
+            }
+          }
+        )
+        .then(({ data }) => {
           this.saveSearchData(data)
-        });
+          this.getIsLoading = false
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-.buttonDisplay-enter {
-  opacity: 0;
+$mobile: 768px;
+
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
 }
-.buttonDisplay-leave {
+
+#searchBtn {
+  width: 0;
   display: none;
-  // width:90.15px;
+  // visibility: hidden;
 }
-.buttonDisplay-leave-active {
-  // transition: opacity 0s;
-  // width:90.15px;
+
+#editBtn {
+  width: 0;
   display: none;
+  // visibility: hidden;
 }
-.buttonDisplay-enter-active {
-  transition: opacity 1s;
+
+#deleteBtn {
+  width: 0;
+  display: none;
+  // visibility: hidden;
+}
+
+#sapC {
+  display: none;
 }
 
 .displayClosed {
   opacity: 0;
   transition: opacity 1s;
-  visibility: hidden;
+  // visibility: hidden;
 }
 
 .closedByLine {
   transition: all 1s;
 }
-.sapN {
-  // transition: max-width 1s;
-  // width: auto;
-  // transition: width 1s;
-  // transition: background-color 1s;
-}
 
-.sapN:hover {
-  // transform: translateX(300px);
-
-  // background-color: red;
-  // max-width:3000px;
-}
-
-custom {
-  // transition: transform 1s;
-  width: 100%;
+.loadingBar {
+  min-height: 50px;
 }
 
 .btn {
-  -moz-box-shadow: 0px 0px 10px 0px rgb(0, 177, 169);
-  -webkit-box-shadow: 0px 0px 10px 0px rgb(0, 177, 169);
-  box-shadow: 0px 0px 10px 0px rgb(0, 177, 169);
   background-color: rgb(0, 177, 169);
-  -moz-border-radius: 25px;
-  -webkit-border-radius: 25px;
+  border: 1px solid rgb(0, 177, 169);
+  width: 150px;
   border-radius: 25px;
-  display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-  font-family: Verdana;
-  font-size: 15px;
-  padding: 5px 20px;
-  text-decoration: none;
-  width: 15%;
-  // min-width: 15%;
-  max-width: 18%;
+  color: white;
   font-weight: bold;
-  position: relative;
-  // width: 200px;
+  font-family: verdana;
+  box-shadow: 0px 0px 10px 0px rgb(0, 177, 169);
+  // letter-spacing: .15em;
+
+  @include mobile {
+    width: 75px;
+  }
 }
+
 .btn:hover {
-  background-color: #1ab0d6;
+  color: White;
+  background-color: white;
+  background-color: #00b151;
+  transition: background-color 0.5s;
+  // border-radius: 25%
 }
+
 .btn:active {
-  position: relative;
-  top: 1px;
+  transform: translateY(2px);
+  transition: transform 0.1s;
 }
 
-// .invalid-feedback{
-//   color:black;
-//   background-color: blue;
+.helpButton {
+  width: 80px;
+}
+
+// .btn {
+//   -moz-box-shadow: 0px 0px 10px 0px rgb(0, 177, 169);
+//   -webkit-box-shadow: 0px 0px 10px 0px rgb(0, 177, 169);
+//   box-shadow: 0px 0px 10px 0px rgb(0, 177, 169);
+//   background-color: rgb(0, 177, 169);
+//   -moz-border-radius: 25px;
+//   -webkit-border-radius: 25px;
+//   border-radius: 25px;
+//   display: inline-block;
+//   cursor: pointer;
+//   color: #ffffff;
+//   font-family: Verdana;
+//   font-size: 15px;
+//   padding: 5px 20px;
+//   text-decoration: none;
+//   width: 15%;
+//   // min-width: 15%;
+//   max-width: 18%;
+//   font-weight: bold;
+//   position: relative;
+//   // width: 200px;
 // }
-.alertMsg {
-  // margin-bottom: 1500px;
+// .btn:hover {
+//   background-color: #ffffff;
+//   color:rgb(0, 177, 169);
+//   border: 1.5px solid rgb(0, 177, 169);
+//   // transition: background-color 5s;
+//   // transition: color .5s;
+//   // transition: border .5s;
+// }
+// .btn:active {
+//   position: relative;
+//   top: 1px;
+// }
+
+/* Alert div */
+.alertDiv {
+  /* background-color: rgba(58, 84, 65, 0.507); */
+  min-height: 25px;
+  border-radius: 25px;
+  width: 50%;
+  color: black;
 }
 
-form {
-  // margin-bottom: 1500px;
+.alertMsg {
+  min-height: 25px;
+  width: 25%;
+  font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  opacity:0;
+}
+
+@media (max-width: 768px) {
+  .mainArea {
+    position: static;
+  }
+  .formSwitch {
+    justify-content: center !important;
+  }
+  .helpBtn {
+    justify-content: center !important;
+  }
 }
 </style>
